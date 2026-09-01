@@ -2,16 +2,16 @@
 # 🚀 Kickoff do Projeto "AskData" & Arquitetura do Sistema RAG
 
 **Sprint 1:** Fundamentos de GenAI, Prompting, Structured Outputs & RAG Local  
-**Horário:** 14:00 às 17:00 (3 horas) | **Formato:** Presencial (Navi Hub / Tecnopuc)  
+**Horário:** 14:00 às 17:00 (3 horas) | **Formato:** Presencial Autônomo (Navi Hub / Tecnopuc)  
 **Semana 2:** Início do Desenvolvimento do Projeto em Trios
 
 ---
 
 ## 🎯 1. Objetivos do Encontro
-1. Fazer o kickoff oficial do projeto prático da Sprint 1: **"AskData - Assistente Inteligente de Base de Conhecimento Corporativa"**.
-2. Definir o domínio de dados e corpus de documentos de cada um dos 5 trios.
-3. Desenhar a arquitetura técnica completa do sistema RAG (Diagrama de Componentes e Fluxo de Dados).
-4. Configurar o repositório Git colaborativo no GitHub com regras de branch, `.gitignore` seguro e divisão de tarefas no trio.
+1. Iniciar oficialmente o desenvolvimento do projeto prático da Sprint 1: **"AskData - Assistente Inteligente de Base de Conhecimento"**.
+2. Compreender a arquitetura técnica de referência de um sistema RAG (Retrieval-Augmented Generation).
+3. Selecionar o corpus de documentos e domínio de negócio que o trio irá indexar (documentações técnicas, manuais, regulamentos).
+4. Configurar o repositório colaborativo no GitHub com regras de branch, `.gitignore` e divisão de tarefas no trio.
 
 ---
 
@@ -19,51 +19,46 @@
 
 ```
 ┌─────────────────┬────────────────────────────────────────────────────────┐
-│ 14:00 - 14:25   │ Apresentação dos Requisitos & Critérios do Projeto     │
-│ 14:25 - 15:15   │ Workshop de Arquitetura RAG: Do Dado Bruto à Resposta  │
-│ 15:15 - 15:30   │ Setup do Repositório GitHub Colaborativo por Trio      │
+│ 14:00 - 14:25   │ Leitura Padronizada de Referência (Cloudflare/AWS RAG) │
+│ 14:25 - 15:15   │ Alinhamento de Arquitetura RAG & Escopo do AskData     │
+│ 15:15 - 15:30   │ Setup do Repositório GitHub Colaborativo no Trio       │
 │ 15:30 - 15:45   │ Coffee Break & Networking                              │
-│ 15:45 - 16:45   │ Brainstorming de Domínio & Desenho da Arquitetura      │
-│ 16:45 - 17:00   │ Daily Standup de Encerramento: Apresentação dos Planos │
+│ 15:45 - 16:45   │ Escolha do Domínio, Coleta dos PDFs & Desenho do Fluxo │
+│ 16:45 - 17:00   │ Daily Standup Autônoma entre os Trios                  │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 📋 3. Bloco 1: Escopo e Requisitos do Projeto "AskData" (14:00 - 14:25)
+## 📖 3. Bloco 1: Leitura Padronizada de Referência (14:00 - 14:25)
 
-Cada trio de estudantes atuará como uma equipe de engenharia de software da DataLakers encarregada de construir um produto mínimo viável (MVP) de RAG.
+Antes de iniciar o projeto, cada integrante deve ler os artigos conceituais sobre RAG:
 
-### Requisitos Funcionais Obrigatórios:
-1. **Ingestão de Múltiplos Arquivos:** O sistema deve suportar a leitura de documentos reais em PDF e/ou Markdown.
-2. **Chunking Inteligente:** Divisão dos textos em blocos coerentes (ex: 500 a 800 caracteres com 10-20% de sobreposição/overlap) preservando metadados de origem (nome do arquivo e página).
-3. **Armazenamento Vetorial Local:** Uso do **ChromaDB** persistido em disco para indexação semântica via embeddings do Google (`text-embedding-004`).
-4. **Retrieval Preciso & Grounding:** Recuperação dos *Top-K* chunks mais relevantes e injeção controlada no prompt do Gemini 2.0 Flash.
-5. **Anti-Alucinação Estrita:** Se a resposta não estiver nos documentos, o sistema deve recusar educadamente sem inventar fatos.
-6. **Interface Gráfica com Streamlit:** Uma aplicação web limpa com histórico de chat e um painel lateral (*sidebar*) para visualizar os trechos/fontes recuperadas.
+1. 📄 [Cloudflare: O que é RAG (Geração Aumentada de Recuperação)?](https://www.cloudflare.com/pt-br/learning/ai/what-is-rag/) — *A ponte entre modelos de linguagem e bases de dados privadas.*
+2. 📄 [AWS: O que é RAG?](https://aws.amazon.com/pt/what-is/retrieval-augmented-generation/) — *Benefícios empresariais: redução de alucinações, atualização contínua de conhecimento sem re-treinar a LLM e controle de acesso.*
 
 ---
 
-## 🏗️ 4. Bloco 2: Workshop de Arquitetura RAG (14:25 - 15:15)
+## 🏗️ 4. Bloco 2: A Arquitetura de Referência do AskData (14:25 - 15:15)
 
-O mentor desenhará e discutirá no quadro a arquitetura padrão da solução:
+O projeto do trio implementará o seguinte fluxo arquitetural:
 
 ```mermaid
 flowchart TD
-    subgraph Ingestao["1. Pipeline de Ingestão (Offline/Upload)"]
+    subgraph Ingestao["1. Pipeline de Ingestão (Dia 07)"]
         A["Documentos Brutos (PDF / MD)"] --> B["Extrator de Texto & Metadados"]
-        B --> C["Chunking (500-800 chars + Overlap)"]
-        C --> D["API Google Embeddings (text-embedding-004)"]
+        B --> C["Chunking Estratégico (700 chars + 100 overlap)"]
+        C --> D["Google Embeddings (text-embedding-004)"]
         D --> E["ChromaDB Local Persistente (./chroma_db)"]
     end
 
-    subgraph Consulta["2. Pipeline de Consulta & Resposta (Online)"]
-        F["Usuário (Streamlit UI)"] --> G["Query do Usuário"]
-        G --> H["Geração do Embedding da Pergunta"]
+    subgraph Consulta["2. Pipeline RAG & Interface (Dias 08 e 09)"]
+        F["Usuário (Streamlit UI)"] --> G["Pergunta em Linguagem Natural"]
+        G --> H["Embedding da Pergunta"]
         H --> I["Busca Vetorial Top-K no ChromaDB"]
-        I --> J["Montagem do Prompt com Contexto & Delimitadores"]
-        J --> K["Gemini 2.0 Flash (LLM Generator)"]
-        K --> L["Resposta Formatada com Citações de Origem"]
+        I --> J["Prompt com Grounding & Delimitadores"]
+        J --> K["Gemini 2.0 Flash"]
+        K --> L["Resposta com Citação de Páginas & Fontes"]
         L --> F
     end
 ```
@@ -72,7 +67,7 @@ flowchart TD
 
 ## 🛠️ 5. Bloco 3: Setup do Repositório Git do Trio (15:15 - 15:30)
 
-Um integrante de cada trio criará o repositório no GitHub e adicionará os outros 2 colegas e o mentor como colaboradores:
+Um integrante do trio cria o repositório no GitHub e convida os outros dois colegas como colaboradores:
 
 ### Estrutura de Pastas Padronizada:
 ```
@@ -81,8 +76,8 @@ askdata_trioX/
 ├── .gitignore
 ├── README.md
 ├── requirements.txt
-├── data/                  # Documentos brutos (PDFs, MDs)
-├── chroma_db/             # Pasta ignorada no git com os vetores
+├── data/                  # PDFs e Markdowns brutos
+├── chroma_db/             # Pasta local do ChromaDB (ignorada no git)
 ├── src/
 │   ├── __init__.py
 │   ├── ingestion.py       # Leitura, chunking e indexação no ChromaDB
@@ -102,29 +97,31 @@ __pycache__/
 
 ---
 
-## 💡 6. Bloco 4: Brainstorming de Domínio & Planejamento (15:45 - 16:45)
+## 💡 6. Bloco 4: Domínio dos Dados & Divisão de Tarefas (15:45 - 16:45)
 
-Os trios escolherão o domínio de aplicação do seu *AskData*. Exemplos recomendados:
-* **Opção 1:** *Assistente de Normas Acadêmicas & Matrícula da PUCRS* (PDFs de regulamentos da universidade).
-* **Opção 2:** *Assistente de Documentação de Engenharia de Dados* (Manuais do Apache Airflow, DBT e Docker).
-* **Opção 3:** *Assistente de Políticas Internas & Benefícios Corporativos da DataLakers* (Corpus simulado de RH e TI).
-* **Opção 4:** *Assistente Jurídico/Normativo da LGPD* (PDF da Lei Geral de Proteção de Dados e diretrizes da ANPD).
+Os trios escolherão seu domínio temático. Exemplos recomendados:
+* **Opção 1:** *Assistente de Normas Acadêmicas & Matrícula da PUCRS* (Regulamentos da faculdade em PDF).
+* **Opção 2:** *Assistente de Documentação de Engenharia de Dados* (Manuais do Airflow, DBT e Docker).
+* **Opção 3:** *Assistente de Políticas Internas da DataLakers* (Políticas simuladas de RH, Segurança e TI).
+* **Opção 4:** *Assistente Jurídico/Normativo da LGPD* (PDF da Lei Geral de Proteção de Dados).
 
-### Papéis e Divisão no Trio:
-- **Dev 1 (Data & Ingestion Lead):** Responsável por `ingestion.py` (leitura de arquivos, estratégia de chunking e persistência no ChromaDB).
-- **Dev 2 (RAG & Prompt Lead):** Responsável por `rag_engine.py` (consulta vetorial, formulação do prompt blindado e integração com Gemini).
-- **Dev 3 (UI & Integration Lead):** Responsável por `app.py` (interface Streamlit, gerenciamento de estado do chat e exibição de fontes).
+### Divisão Sugerida de Papéis no Trio:
+- **Dev 1 (Data & Ingestion Lead):** Foco em `src/ingestion.py` (extração de PDFs, chunking e ChromaDB).
+- **Dev 2 (RAG Engine & Prompt Lead):** Foco em `src/rag_engine.py` (recuperação top-k, prompt de grounding e Gemini).
+- **Dev 3 (UI & Integration Lead):** Foco em `src/app.py` (Streamlit, sidebar de fontes e testes).
 
 ---
 
-## 🎤 7. Bloco 5: Daily Standup de Encerramento (16:45 - 17:00)
+## 🎤 7. Bloco 5: Daily Standup Autônoma (16:45 - 17:00)
 
-Cada trio terá 2 minutos para compartilhar com a sala:
-1. Qual domínio e documentos escolheram?
-2. Como dividiram as tarefas iniciais no GitHub?
-3. O que pretendem ter funcionando ao final do Dia 07 (amanhã)?
+Reúnam-se brevemente com os outros trios para compartilhar:
+1. Qual domínio e conjunto de documentos o trio escolheu?
+2. O repositório no GitHub está configurado com todos os membros?
 
-### ✅ Critério de Conclusão do Dia 06:
+> 📌 **Lembrete Especial:** Amanhã (Dia 07), das 14:00 às 15:00, teremos a palestra online com **Ramon Lummertz**. Tragam fones de ouvido e estejam conectados pontualmente às 14:00!
+
+### ✅ Checklist de Conclusão do Dia 06:
+- [x] Leituras conceituais de RAG concluídas.
 - [x] Repositório Git criado no GitHub com `.gitignore` e colaboradores convidados.
-- [x] Domínio e documentos de teste selecionados pelo trio.
-- [x] Arquitetura RAG compreendida e papéis definidos no trio.
+- [x] Domínio e documentos selecionados pelo trio.
+- [x] Divisão de responsabilidades definida.

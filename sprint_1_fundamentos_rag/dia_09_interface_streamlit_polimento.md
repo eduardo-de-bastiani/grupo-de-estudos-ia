@@ -2,16 +2,16 @@
 # 🖥️ Interface com Streamlit, Explicabilidade & Preparação do Pitch
 
 **Sprint 1:** Fundamentos de GenAI, Prompting, Structured Outputs & RAG Local  
-**Horário:** 14:00 às 17:00 (3 horas) | **Formato:** Presencial (Navi Hub / Tecnopuc)  
+**Horário:** 14:00 às 17:00 (3 horas) | **Formato:** Presencial Autônomo (Navi Hub / Tecnopuc)  
 **Semana 2:** Finalização do Projeto "AskData" em Trios & Ensaio Geral
 
 ---
 
 ## 🎯 1. Objetivos do Encontro
-1. Construir uma interface web moderna e reativa para o projeto *AskData* utilizando **Streamlit**.
+1. Construir uma interface web moderna, interativa e reativa para o projeto *AskData* utilizando **Streamlit**.
 2. Implementar histórico conversacional fluido (`st.session_state`, `st.chat_message` e `st.chat_input`).
-3. Criar uma barra lateral (*sidebar*) de **Explicabilidade**: permitir que o usuário veja os trechos exatos (chunks) recuperados do ChromaDB com a pontuação de similaridade e a página de origem.
-4. Realizar o ensaio geral (*Dry Run*) do Pitch e demonstração ao vivo para a apresentação de amanhã (Dia 10) diante da liderança da DataLakers.
+3. Criar uma barra lateral (*sidebar*) de **Explicabilidade**: permitir que o usuário inspecione os trechos exatos (chunks) recuperados do ChromaDB com a pontuação de similaridade e a página de origem.
+4. Realizar o ensaio geral (*Dry Run*) do Pitch e da demonstração ao vivo para a apresentação de amanhã (Dia 10) diante da liderança da DataLakers.
 
 ---
 
@@ -19,32 +19,36 @@
 
 ```
 ┌─────────────────┬────────────────────────────────────────────────────────┐
-│ 14:00 - 14:20   │ Daily Standup & Crash Course de Streamlit Chat         │
-│ 14:20 - 15:30   │ Codificação da Interface em `src/app.py`               │
+│ 14:00 - 14:20   │ Leitura Padronizada de Referência (Streamlit Chat)     │
+│ 14:20 - 15:30   │ Codificação da Interface Web em `src/app.py`           │
 │ 15:30 - 15:45   │ Coffee Break & Networking                              │
 │ 15:45 - 16:30   │ Testes Finais, Tratamento de Exceções & README do Trio │
-│ 16:30 - 17:00   │ Ensaio Geral do Pitch (3 min por trio + feedback)      │
+│ 16:30 - 17:00   │ Ensaio Geral do Pitch (Simulação Cronometrada no Trio) │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 📦 3. Bloco 1: Setup do Streamlit & Componentes (14:00 - 14:20)
+## 📖 3. Bloco 1: Leitura Padronizada de Referência (14:00 - 14:20)
 
-Instalar o Streamlit no ambiente virtual:
+Realize a leitura do guia oficial de desenvolvimento de interfaces de chat:
+
+1. 📄 [Streamlit Docs: Build a basic LLM chat app](https://docs.streamlit.io/develop/tutorials/llms/build-llm-apps) — *Entendendo o ciclo de re-execução do Streamlit e como manter mensagens vivas na tela com `st.session_state`.*
+
+---
+
+## 📦 4. Bloco 2: Setup & Instalação (14:20 - 14:25)
+
+Com o `.venv` ativado:
 ```bash
 pip install streamlit
 ```
 
-### 📚 Documentação & Guia Rápido:
-* [Streamlit: Build a basic LLM chat app](https://docs.streamlit.io/develop/tutorials/llms/build-llm-apps) — *Guia oficial de componentes conversacionais*.
-* **Conceito Chave (`st.session_state`):** Como o Streamlit reexecuta o script do topo ao final a cada interação do usuário, o `st.session_state.messages` armazena a lista de mensagens para manter o histórico visível na tela.
-
 ---
 
-## 💻 4. Bloco 2: Implementação do App Web (`src/app.py`) (14:20 - 15:30)
+## 💻 5. Bloco 3: Implementação da Interface Web (`src/app.py`) (14:25 - 15:30)
 
-Cada trio integrará seu `RAGEngine` na interface do Streamlit.
+O trio integrará a classe `RAGEngine` na interface do Streamlit.
 
 ### Código de Referência: `src/app.py`
 
@@ -97,7 +101,7 @@ if "messages" not in st.session_state:
         {"role": "assistant", "content": "Olá! Sou o AskData. Como posso ajudar com base nos documentos técnicos da empresa?", "fontes": []}
     ]
 
-# Renderizar mensagens anteriores
+# Renderizar histórico de mensagens
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
@@ -109,7 +113,7 @@ for msg in st.session_state.messages:
 
 # Input do usuário
 if prompt := st.chat_input("Digite sua pergunta técnica aqui..."):
-    # 1. Adicionar mensagem do usuário
+    # 1. Adicionar mensagem do usuário na tela
     st.session_state.messages.append({"role": "user", "content": prompt, "fontes": []})
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -130,7 +134,7 @@ if prompt := st.chat_input("Digite sua pergunta técnica aqui..."):
                             st.markdown(f"**Fonte {idx}:** `{f['arquivo']}` (Pág. {f['pagina']}) — *Similaridade: {f['similaridade']:.2%}*")
                             st.info(f['texto'])
                 
-                # Salvar no histórico
+                # Salvar no histórico da sessão
                 st.session_state.messages.append({
                     "role": "assistant",
                     "content": resposta_texto,
@@ -140,21 +144,20 @@ if prompt := st.chat_input("Digite sua pergunta técnica aqui..."):
                 st.error(f"Erro ao processar a pergunta: {err}")
 ```
 
-### Como Executar a Aplicação:
+### Como Executar:
 ```bash
 streamlit run src/app.py
 ```
 
 ---
 
-## 📋 5. Bloco 3: Checklist do Repositório & README do Trio (15:45 - 16:30)
+## 📋 6. Bloco 4: Checklist do Repositório & README (15:45 - 16:30)
 
-Antes da apresentação de amanhã, o repositório de cada trio deve conter:
-1. `README.md` com:
-   - Nome do projeto e integrantes do trio.
-   - O problema de negócio abordado e o corpus de dados utilizado.
-   - Instruções claras de instalação e execução (`python -m venv .venv`, `pip install -r requirements.txt`, `python src/ingestion.py`, `streamlit run src/app.py`).
-   - Diagrama de arquitetura ou print da interface.
+O repositório do trio no GitHub deve conter:
+1. `README.md` completo:
+   - Título do projeto e nomes dos integrantes.
+   - O problema resolvido e o corpus de dados indexado.
+   - Instruções passo a passo de como rodar (`python -m venv .venv`, `pip install -r requirements.txt`, `python src/ingestion.py`, `streamlit run src/app.py`).
 2. `requirements.txt` atualizado:
    ```bash
    pip freeze > requirements.txt
@@ -162,16 +165,16 @@ Antes da apresentação de amanhã, o repositório de cada trio deve conter:
 
 ---
 
-## 🎤 6. Bloco 4: Ensaio Geral do Pitch (16:30 - 17:00)
+## 🎤 7. Bloco 5: Ensaio Geral Autônomo do Pitch (16:30 - 17:00)
 
-Cada trio fará uma simulação rápida de **3 minutos** diante do mentor:
-* **Estrutura Recomendada do Pitch (10 minutos para amanhã):**
-  1. **Problema & Proposta de Valor (2 min):** Qual dor do usuário o AskData do seu trio resolve?
-  2. **Arquitetura Técnica (3 min):** Como funciona o pipeline de ingestão, chunking, ChromaDB e o prompt blindado com Gemini?
-  3. **Live Demo (4 min):** Demonstração ao vivo no Streamlit (1 pergunta com resposta correta e fontes, e 1 pergunta fora de escopo mostrando o comportamento anti-alucinação).
-  4. **Aprendizados & Próximos Passos (1 min):** O maior desafio técnico superado pelo time.
+Cada trio cronometra e ensaia seu Pitch de **10 minutos**:
+* **Minutos 0 a 2 (Problema & Domínio):** Qual dor o assistente resolve e quais documentos foram usados?
+* **Minutos 2 a 5 (Arquitetura Técnica):** Explicação da ingestão, chunking, ChromaDB e prompt blindado com Gemini.
+* **Minutos 5 a 9 (Live Demo):** Demonstração ao vivo no Streamlit (1 pergunta com resposta correta e citação de páginas + 1 pergunta fora de domínio mostrando a recusa anti-alucinação).
+* **Minuto 9 a 10 (Aprendizados & Fechamento):** Desafios técnicos superados pelo trio.
 
-### ✅ Critério de Conclusão do Dia 09:
-- [x] Interface Streamlit funcionando localmente com chat reativo e painel de fontes.
-- [x] Repositório no GitHub documentado e com `requirements.txt` atualizado.
-- [x] Roteiro do Pitch ensaiado e divisão de fala acertada entre os integrantes.
+### ✅ Checklist de Conclusão do Dia 09:
+- [x] Leitura de componentes de chat do Streamlit concluída.
+- [x] Aplicação web Streamlit executando localmente com chat e painel de explicabilidade.
+- [x] Repositório documentado com `README.md` e `requirements.txt`.
+- [x] Pitch ensaiado e cronometrado no trio.
