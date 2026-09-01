@@ -54,8 +54,8 @@ flowchart TD
 Todos os materiais, ferramentas e bibliotecas foram rigorosamente selecionados para garantir **100% de gratuidade e acessibilidade universal**, considerando que os alunos utilizarão seus próprios notebooks (Windows, macOS ou Linux, a partir de 8GB de RAM):
 
 1. **APIs e Modelos Cloud Gratuitos:**
-   - **Google AI Studio (Gemini 1.5 Flash / Gemini 2.0 Flash):** API key gratuita, sem necessidade de cartão de crédito e com limites generosos.
-   - **Groq Cloud (Llama 3.3 70B / Whisper Large v3):** Inferência ultra-rápida gratuita sem cartão.
+   - **Google AI Studio:** API key gratuita, sem necessidade de cartão de crédito e com limites generosos.
+   - **Groq Cloud:** Inferência ultra-rápida gratuita sem cartão.
    - **Hugging Face Hub:** Acesso a modelos e datasets open-source.
 2. **Execução Local (Offline/Edge):**
    - **Ollama:** Execução local de modelos leves (`llama3.2:1b/3b`, `qwen2.5-coder:1.5b/3b`, `phi3.5:3.8b`) para quem tiver hardware compatível.
@@ -80,20 +80,7 @@ Todos os materiais, ferramentas e bibliotecas foram rigorosamente selecionados p
 
 ---
 
-## 🏆 5. Critérios de Avaliação e Captação de Talentos (DataLakers)
-
-A liderança da DataLakers observará as seguintes competências ao longo dos encontros e Demo Days:
-
-| Eixo | O que será avaliado |
-| :--- | :--- |
-| **1. Autonomia & Proatividade** | Capacidade de seguir os roteiros, consultar documentações oficiais, debugar erros de código e buscar soluções independentes. |
-| **2. Fundamentos de Engenharia** | Qualidade do código Python, estruturação de schemas com Pydantic, boas práticas de Git e arquitetura limpa. |
-| **3. Colaboração & Trabalho em Equipe** | Dinâmica em duplas/trios, comunicação clara, divisão equilibrada de tarefas e respeito às regras de branch. |
-| **4. Comunicação & Pitch** | Capacidade de apresentar a solução técnica de forma clara, objetiva e contextualizada com o problema de negócio no Demo Day. |
-
----
-
-## 📂 6. Navegação nas Sprints
+## 📂 5. Navegação nas Sprints
 - [Sprint 1: Fundamentos de GenAI, Prompting, Structured Outputs & RAG Local](file:///home/eduardo/facul/8_semestre/grupo_estudos_ia/sprint_1_fundamentos_rag/README.md)
 - *Sprint 2: Em breve (Agentes Autônomos, Function Calling & MCP)*
 - *Sprint 3: Em breve (Multimodalidade & GenAI Aplicada)*
