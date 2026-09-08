@@ -46,7 +46,37 @@ Com o `.venv` ativado:
 pip install pydantic
 ```
 
-### 2. Script Base: `exemplo_pydantic.py`
+### 2. O Problema: Texto Livre Não é Confiável — `demo_problema_texto_livre.py`
+Antes de ver a solução, reproduzam o problema. Peçam ao Gemini uma saída "JSON artesanal" via texto livre (sem `response_schema`) e tentem fazer o parse manualmente:
+
+```python
+import os
+import json
+from dotenv import load_dotenv
+from google import genai
+
+load_dotenv()
+client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
+response = client.models.generate_content(
+    model="gemini-2.0-flash",
+    contents="Extraia nome e senioridade em JSON do texto: 'Meu nome é Ana, sou desenvolvedora sênior.'",
+)
+
+print("📄 Resposta bruta do modelo:")
+print(response.text)
+
+print("\n🔴 Tentando fazer parse manual com json.loads()...")
+try:
+    dados = json.loads(response.text)
+    print("✅ Parse funcionou:", dados)
+except json.JSONDecodeError as e:
+    print(f"❌ JSONDecodeError: {e}")
+```
+
+Rodem esse script algumas vezes (em duplas, comparem os resultados). É comum o modelo envolver o JSON em blocos de markdown (` ```json ... ``` `), adicionar uma frase explicativa antes/depois, trocar o nome de um campo ou omitir um campo — qualquer uma dessas variações quebra um parser rígido em produção. É exatamente esse problema que o `response_schema` do script a seguir resolve de forma determinística.
+
+### 3. Script Base: `exemplo_pydantic.py`
 Analise e execute o exemplo abaixo para ver como o retorno é um objeto Python tipado:
 
 ```python
@@ -115,7 +145,7 @@ for hab in perfil.habilidades_principais:
 
 ---
 
-## 👥 5. Bloco 3: Desafio Prático em Trios (15:45 - 16:45)
+## 👥 6. Bloco 3: Desafio Prático em Trios (15:45 - 16:45)
 
 ### Desafio: "Parser Inteligente de Incidentes e Logs para DataOps"
 **Cenário DataLakers:** A equipe de suporte recebe mensagens informais de desenvolvedores relatando erros e falhas em pipelines de dados. O sistema precisa extrair dados estruturados para abrir chamados automaticamente.
@@ -125,7 +155,7 @@ for hab in perfil.habilidades_principais:
 2. Modelem o schema Pydantic `IncidenteTI` contendo:
    - `titulo`: Título curto do problema.
    - `severidade`: Enum (`BAIXA`, `MEDIA`, `ALTA`, `CRITICA`).
-   - `servico_afetado`: Nome do serviço (ex: `PostgreSQL`, `Kafka`, `API de Pagamentos`, `Airflow ETL`, `Outro`).
+   - `servico_afetado`: Enum (`POSTGRESQL`, `KAFKA`, `API_PAGAMENTOS`, `AIRFLOW_ETL`, `OUTRO`) — modelem como Enum, igual fizeram com `severidade`, em vez de string livre.
    - `descricao_problema`: Resumo técnico do erro.
    - `passos_reproducao`: Lista de strings (`List[str]`).
    - `acoes_recomendadas`: Lista de strings com sugestões de correção imediata (`List[str]`).
@@ -133,12 +163,19 @@ for hab in perfil.habilidades_principais:
 
 ---
 
-## 🔍 6. Bloco 4: Auto-Avaliação & Conclusões (16:45 - 17:00)
+## 🔍 7. Bloco 4: Auto-Avaliação & Conclusões (16:45 - 17:00)
 
 * **Impacto em Arquitetura de Software:** O uso de Pydantic + Structured Outputs permite integrar LLMs diretamente com endpoints de APIs REST (FastAPI) e bancos de dados SQL (PostgreSQL), eliminando falhas de parsing.
 * **Próximo Passo (Dia 05):** Como consultar informações em grandes volumes de documentos que não cabem no prompt de uma só vez? Amanhã exploraremos **Embeddings Vetoriais e ChromaDB**.
 
 ### ✅ Checklist de Conclusão do Dia 04:
 - [x] Leitura de Structured Outputs e Pydantic concluída.
+- [x] `demo_problema_texto_livre.py` executado, reproduzindo um `JSONDecodeError` real com parsing manual.
 - [x] Pydantic instalado e script base executado com sucesso.
-- [x] Desafio em trios do parser de incidentes concluído e validado.
+- [x] Desafio em trios do parser de incidentes concluído e validado, com `servico_afetado` modelado como Enum.
+
+---
+
+## 🎁 Extra Opcional (Se Sobrar Tempo)
+* 📄 [Real Python: Pydantic — Simplifying Data Validation in Python](https://realpython.com/python-pydantic/) — tutorial mais aprofundado sobre validadores customizados e gerenciamento de configurações.
+* 📓 [Gemini Cookbook: Structured Outputs em PDFs (Notebook)](https://github.com/google-gemini/cookbook/blob/main/examples/Pdf_structured_outputs_on_invoices_and_forms.ipynb) — exemplo oficial do Google usando `response_schema` para extrair dados estruturados de faturas e formulários em PDF.
