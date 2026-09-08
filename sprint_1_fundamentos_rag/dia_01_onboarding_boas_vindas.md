@@ -52,7 +52,7 @@
 ---
 
 ## 🗺️ 5. Bloco 3: Visão Geral da Jornada (15:15 - 15:35)
-Leia o [README Mestre do Projeto](file:///home/eduardo/facul/8_semestre/grupo_estudos_ia/README.md) para compreender:
+Leia o [README Mestre do Projeto](../README.md) para compreender:
 - A dinâmica das 3 Sprints (Fundamentos/RAG -> Agentes/MCP -> Multimodalidade).
 - A metodologia: Semana 1 (Fundamentação, leitura de referência e desafios diários) e Semana 2 (Desenvolvimento do Projeto em Trio).
 - O funcionamento autônomo dos encontros diários.
