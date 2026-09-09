@@ -94,6 +94,7 @@ print("📋 Amostra dos metadados:", collection.peek()["metadatas"])
 print("=" * 50)
 print("✅ ChromaDB configurado e persistindo localmente com sucesso!")
 
+# 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
 ```
 
 > 💡 Se algo der erro de importação ou execução, verifique se instalou as dependências com `pip install chromadb pypdf` no seu `.venv`. Ler os logs de erro e debugar faz parte do dia a dia do projeto! 😉

@@ -81,6 +81,6 @@ Todos os materiais, ferramentas e bibliotecas foram rigorosamente selecionados p
 ---
 
 ## 📂 5. Navegação nas Sprints
-- [Sprint 1: Fundamentos de GenAI, Prompting, Structured Outputs & RAG Local](file:///home/eduardo/facul/8_semestre/grupo_estudos_ia/sprint_1_fundamentos_rag/README.md)
+- [Sprint 1: Fundamentos de GenAI, Prompting, Structured Outputs & RAG Local](sprint_1_fundamentos_rag/README.md)
 - *Sprint 2: Em breve (Agentes Autônomos, Function Calling & MCP)*
 - *Sprint 3: Em breve (Multimodalidade & GenAI Aplicada)*

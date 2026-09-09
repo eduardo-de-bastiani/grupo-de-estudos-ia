@@ -40,18 +40,14 @@ Realize a leitura introdutória no **Cloudflare Learning Hub** e **ChromaDB Docs
 
 ---
 
-## 📦 4. Bloco 2: Setup & Instalação (14:25 - 14:40)
+## 📦 4. Bloco 2: Setup do ChromaDB + Indexação de Documentos (14:25 - 15:20)
 
 Com o `.venv` ativado:
 ```bash
 pip install chromadb
 ```
 
----
-
-## 💻 5. Bloco 3: Laboratório Prático em Duplas (14:40 - 16:30)
-
-Em duplas, implementem o motor de busca semântica local no arquivo `buscador_semantico.py`:
+Em duplas, criem e executem `indexar_documentos.py`, que gera os embeddings do corpus e os persiste em disco:
 
 ```python
 import os
@@ -122,11 +118,54 @@ for doc in documentos:
         metadatas=[{"categoria": doc["categoria"]}]
     )
 
-print("✅ Base de conhecimento indexada com sucesso!\n")
+print(f"✅ Base de conhecimento indexada com sucesso! ({collection.count()} documentos na coleção)")
 
-# 5. Consulta Semântica Interativa
+# 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
+```
+
+---
+
+## 💻 5. Bloco 3: Laboratório Prático em Duplas — Busca Semântica vs. Léxica (15:35 - 16:30)
+
+Agora, em `buscador_semantico.py`, reabram a coleção já indexada no Bloco 2 (persistida em `./chroma_data`) e construam uma consulta interativa que compara, lado a lado, uma busca léxica ingênua (palavra-chave) com a busca semântica do ChromaDB — assim vocês enxergam na prática a diferença entre os dois tipos de busca:
+
+```python
+import os
+import chromadb
+from dotenv import load_dotenv
+from google import genai
+
+load_dotenv()
+client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
+# Modelo gratuito de embeddings do Google AI Studio
+EMBEDDING_MODEL = "gemini-embedding-001"
+
+def gerar_embedding(texto: str) -> list[float]:
+    response = client.models.embed_content(
+        model=EMBEDDING_MODEL,
+        contents=texto,
+    )
+    return response.embeddings[0].values
+
+# Reabre a coleção já indexada no Bloco 2 (mesma pasta persistente em disco)
+chroma_client = chromadb.PersistentClient(path="./chroma_data")
+collection = chroma_client.get_or_create_collection(
+    name="base_conhecimento_datalakers",
+    metadata={"hnsw:space": "cosine"}
+)
+
+# Mesmo corpus do Bloco 2, usado aqui só para a busca léxica de comparação
+documentos = [
+    {"texto": "A DataLakers adota pipelines ETL modernos em Python utilizando Apache Airflow para orquestração e DBT para transformação."},
+    {"texto": "Nossos modelos de Machine Learning são empacotados com Docker e versionados com MLflow no cluster Kubernetes."},
+    {"texto": "Para projetos com LLMs, utilizamos ChromaDB para busca vetorial local e o Modelo Flash Gemini para geração e Structured Outputs."},
+    {"texto": "Os colaboradores possuem horário flexível de trabalho e encontros presenciais às terças e quintas no Tecnopuc."},
+    {"texto": "A política de segurança exige autenticação em dois fatores (2FA) e proibição de chaves de API commitadas no Git."},
+]
+
 print("=" * 60)
-print("🔍 BUSCADOR SEMÂNTICO LOCAL (Digite 'sair' para encerrar)")
+print("🔍 BUSCADOR SEMÂNTICO vs. BUSCA LÉXICA (Digite 'sair' para encerrar)")
 print("=" * 60)
 
 while True:
@@ -136,26 +175,40 @@ while True:
     if not query:
         continue
 
-    vetor_query = gerar_embedding(query)
+    # --- Busca Léxica (contém alguma das palavras da query, literalmente?) ---
+    print("\n🔤 BUSCA LÉXICA (palavra-chave):")
+    termos_query = query.lower().split()
+    encontrados_lexico = [
+        doc["texto"] for doc in documentos
+        if any(termo in doc["texto"].lower() for termo in termos_query)
+    ]
+    if encontrados_lexico:
+        for texto in encontrados_lexico:
+            print(f"    - \"{texto}\"")
+    else:
+        print("    (nenhum documento contém as palavras exatas da busca)")
 
-    # Buscar os 2 documentos mais semanticamente próximos
+    # --- Busca Semântica (ChromaDB) ---
+    vetor_query = gerar_embedding(query)
     resultados = collection.query(
         query_embeddings=[vetor_query],
         n_results=2
     )
 
-    print("\n🎯 Trechos Mais Relevantes Encontrados:")
+    print("\n🧠 BUSCA SEMÂNTICA (ChromaDB):")
     for i, (doc_texto, meta, dist) in enumerate(zip(
-        resultados["documents"][0], 
-        resultados["metadatas"][0], 
+        resultados["documents"][0],
+        resultados["metadatas"][0],
         resultados["distances"][0]
     ), 1):
         similaridade = 1.0 - dist
-        print(f"\n[{i}] Categoria: {meta['categoria']} (Similaridade: {similaridade:.2%})")
-        print(f"    Texto: \"{doc_texto}\"")
+        print(f"    [{i}] Categoria: {meta['categoria']} (Similaridade: {similaridade:.2%})")
+        print(f"        \"{doc_texto}\"")
 
 # 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
 ```
+
+**Experimento sugerido em dupla:** busquem por `"como a empresa organiza dados de forma automatizada"`. A busca léxica provavelmente não encontra nada (nenhuma palavra bate exatamente com o texto), mas a busca semântica deve trazer o `doc_01` sobre Airflow/ETL como resultado mais relevante — essa é a diferença entre buscar por palavra e buscar por significado.
 
 > 💡 **Dica de Engenharia:** Se a geração de embeddings acusar erro ou o ChromaDB reclamar de dimensões incompatíveis, certifique-se de usar o mesmo modelo (`gemini-embedding-001`) para a indexação e para a query. Ler o traceback e debugar faz parte do dia a dia do projeto! 😉
 
@@ -165,11 +218,18 @@ while True:
 
 1. **Organização Autônoma da Turma:** Os 15 estudantes organizam-se oficialmente em **5 Trios**.
 2. **Preparação para a Semana 2:**
-   - Leiam o [README da Sprint 1](file:///home/eduardo/facul/8_semestre/grupo_estudos_ia/sprint_1_fundamentos_rag/README.md) para compreender o escopo completo do projeto *AskData*.
+   - Leiam o [README da Sprint 1](README.md) para compreender o escopo completo do projeto *AskData*.
    - Combinem no trio ideias de temas/documentos (manuais técnicos, documentações open-source, regulamentos) para trazerem na segunda-feira (Dia 06).
 
 ### ✅ Checklist de Conclusão da Semana 1:
 - [x] Leituras da Cloudflare sobre Embeddings e Bancos Vetoriais concluídas.
-- [x] ChromaDB instalado e testado com persistência local em disco.
+- [x] ChromaDB instalado e testado com persistência local em disco (`indexar_documentos.py`).
 - [x] Buscador semântico funcionando com embeddings do Google (`gemini-embedding-001`).
+- [x] Comparação prática entre busca léxica e busca semântica realizada em `buscador_semantico.py`.
 - [x] Trios formados e alinhados para a Semana de Projeto.
+
+---
+
+## 🎁 Extra Opcional (Se Sobrar Tempo)
+* 🕹️ [TensorFlow Embedding Projector](https://projector.tensorflow.org/) — ferramenta interativa e sem instalação para visualizar embeddings em 2D/3D e "enxergar" a geometria da similaridade semântica.
+* 🎥 [IBM Technology: What is a Vector Database?](https://www.youtube.com/watch?v=gl1r1XV0SLw) — vídeo curto explicando por que bancos vetoriais existem e como se comparam a bancos relacionais tradicionais.
