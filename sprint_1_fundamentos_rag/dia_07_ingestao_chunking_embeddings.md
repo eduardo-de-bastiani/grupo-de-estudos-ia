@@ -1,7 +1,7 @@
 # 📅 Dia 07 (22/09 - Terça-feira)
 # 🎙️ Conversa com Ramon Lummertz & Ingestão com Chunking no ChromaDB
 
-**Sprint 1:** Fundamentos de GenAI, Prompting, Structured Outputs & RAG Local  
+**Sprint 1:** Fundamentos de GenAI, Google AI Studio, Prompting & RAG Local  
 **Horário:** 14:00 às 17:00 (3 horas) | **Formato:** Presencial (Navi Hub / Tecnopuc)  
 **Evento Especial (14h às 15h):** Palestra / Conversa Online com **Ramon Lummertz** sobre Inteligência Artificial  
 **Semana 2:** Desenvolvimento do Projeto "AskData" em Trios
@@ -89,12 +89,12 @@ collection.upsert(
 
 # 4. Inspecionar o banco vetorial
 print("=" * 50)
-print(f"📊 Total de documentos na coleção: {collection.count()}")
-print("📋 Amostra dos metadados:", collection.peek()["metadatas"])
+print(f"Total de documentos na colecao: {collection.count()}")
+print("Amostra dos metadados:", collection.peek()["metadatas"])
 print("=" * 50)
-print("✅ ChromaDB configurado e persistindo localmente com sucesso!")
+print("ChromaDB configurado e persistindo localmente com sucesso!")
 
-# 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
+# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
 ```
 
 > 💡 Se algo der erro de importação ou execução, verifique se instalou as dependências com `pip install chromadb pypdf` no seu `.venv`. Ler os logs de erro e debugar faz parte do dia a dia do projeto! 😉
@@ -241,7 +241,7 @@ if __name__ == "__main__":
         # 4. Indexar no ChromaDB
         indexar_no_chromadb(lista_chunks)
 
-# 💡 Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
+# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
 ```
 
 ---
@@ -252,15 +252,13 @@ if __name__ == "__main__":
    ```bash
    python src/ingestion.py
    ```
-2. Verifique se a pasta `chroma_db/` foi criada e populada localmente com os dados indexados.
-3. Suba o código atualizado para o repositório do trio:
-   ```bash
-   git add src/ingestion.py test_chroma_setup.py requirements.txt
-   git commit -m "feat: implement ChromaDB configuration and PDF/MD ingestion pipeline"
-   git push origin main
-   ```
+2. Verifique se a pasta local `chroma_db/` foi criada e populada com os dados indexados.
+3. Dediquem os minutos finais para que o trio sincronize as alterações no repositório compartilhado do GitHub:
+   - Certifiquem-se de que `src/ingestion.py`, `test_chroma_setup.py` e `requirements.txt` estão versionados.
+   - Confirmem que o `.gitignore` está protegendo o arquivo `.env` e a pasta `chroma_db/` (o banco vetorial local não deve ser enviado ao Git remoto).
+   - Todos os 3 integrantes devem atualizar suas branches locais para estarem alinhados para o Dia 08.
 
-> 💡 **Dica de Engenharia:** Se a chamada ao embedding der limite de cota ou erro de rede, verifique sua conexão ou adicione um pequeno delay (`import time; time.sleep(0.5)`). Debugar e contornar limites faz parte do dia a dia do projeto! 😉
+> 💡 Se a chamada ao embedding der limite de cota ou erro de rede, verifique sua conexão ou adicione um pequeno delay (`import time; time.sleep(0.5)`). Debugar e contornar limites faz parte do dia a dia do projeto! 😉
 
 ### ✅ Checklist de Conclusão do Dia 07:
 - [x] Participação na palestra online com Ramon Lummertz.

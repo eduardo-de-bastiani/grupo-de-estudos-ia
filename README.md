@@ -22,7 +22,7 @@ O programa é dividido em **3 Sprints de 2 semanas cada**. Cada Sprint adota uma
 ```mermaid
 flowchart TD
     subgraph S1["Sprint 1 (14/09 a 25/09)"]
-        S1W1["Semana 1: Fundamentos, Prompting, Structured Outputs & ChromaDB"]
+        S1W1["Semana 1: Fundamentos, Google AI Studio, Prompting & ChromaDB"]
         S1W2["Semana 2: Projeto 'AskData' (RAG Local + Streamlit UI)"]
         S1Special["Palestra Online: Ramon Lummertz (22/09)"]
         S1Demo["Demo Day 1 (Presença Liderança DataLakers)"]
@@ -54,7 +54,7 @@ flowchart TD
 Todos os materiais, ferramentas e bibliotecas foram rigorosamente selecionados para garantir **100% de gratuidade e acessibilidade universal**, considerando que os alunos utilizarão seus próprios notebooks (Windows, macOS ou Linux, a partir de 8GB de RAM):
 
 1. **APIs e Modelos Cloud Gratuitos:**
-   - **Google AI Studio:** API key gratuita, sem necessidade de cartão de crédito e com limites generosos (Modelo Flash Gemini e modelo de embedding `gemini-embedding-001`).
+   - **Google AI Studio:** API key gratuita, sem necessidade de cartão de crédito e com limites generosos (Modelos Gemini e modelo de embedding).
    - **Groq Cloud:** Inferência ultra-rápida gratuita sem cartão.
    - **Hugging Face Hub:** Acesso a modelos e datasets open-source.
 2. **Execução Local (Offline/Edge):**
@@ -81,6 +81,6 @@ Todos os materiais, ferramentas e bibliotecas foram rigorosamente selecionados p
 ---
 
 ## 📂 5. Navegação nas Sprints
-- [Sprint 1: Fundamentos de GenAI, Prompting, Structured Outputs & RAG Local](sprint_1_fundamentos_rag/README.md)
+- [Sprint 1: Fundamentos de GenAI, Google AI Studio, Prompting & RAG Local](sprint_1_fundamentos_rag/README.md)
 - *Sprint 2: Em breve (Agentes Autônomos, Function Calling & MCP)*
 - *Sprint 3: Em breve (Multimodalidade & GenAI Aplicada)*
