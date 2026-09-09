@@ -122,12 +122,16 @@ print("🚀 Ambiente do Grupo de Estudos IA - Configurado com Sucesso!")
 print(f"🐍 Versão do Python: {sys.version.split()[0]}")
 print(f"💻 Sistema Operacional: {platform.system()} {platform.release()}")
 print("=" * 55)
+
+# 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
 ```
 
 Execute no terminal com o venv ativado:
 ```bash
 python smoke_test.py
 ```
+
+> 💡 **Dica de Engenharia:** Se o comando python acusar erro de permissão ou não encontrar a versão 3.11+, verifique se você ativou o `.venv` corretamente. Ler mensagens de erro e debugar faz parte do dia a dia do projeto! 😉
 
 ### ✅ Checklist de Conclusão do Dia 01:
 - [x] Participação na abertura e apresentação da DataLakers.

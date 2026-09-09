@@ -11,7 +11,7 @@
 1. Compreender a intuição fundamental por trás de Modelos de Linguagem de Grande Porte (LLMs): como funcionam como preditores probabilísticos do próximo token.
 2. Diferenciar Machine Learning tradicional (classificação/regressão supervisionada) de IA Generativa.
 3. Obter e configurar uma chave de API **100% gratuita** no **Google AI Studio** (sem necessidade de cartão de crédito).
-4. Escrever o primeiro script Python utilizando o SDK oficial `google-genai` e manipular hiperparâmetros fundamentais: `temperature`, `top_p`, `top_k` e contagem de tokens.
+4. Escrever o primeiro script Python utilizando o SDK oficial `google-genai` com o **Modelo Flash Gemini** e manipular hiperparâmetros fundamentais: `temperature`, `top_p`, `top_k` e contagem de tokens.
 
 ---
 
@@ -100,9 +100,12 @@ if not api_key:
 # Inicializar o cliente oficial do Google GenAI
 client = genai.Client(api_key=api_key)
 
-# Chamada ao modelo Gemini 2.0 Flash
+# Definir o Modelo Flash Gemini
+MODELO_FLASH = "gemini-3.8-flash"
+
+# Chamada ao Modelo Flash Gemini
 response = client.models.generate_content(
-    model="gemini-2.0-flash",
+    model=MODELO_FLASH,
     contents="Explique em exatamente 2 frases por que entender tokens é importante para um desenvolvedor de software.",
 )
 
@@ -112,7 +115,11 @@ print("\n📊 Metadados de Uso (Tokens):")
 print(f"Tokens de Entrada (Prompt): {response.usage_metadata.prompt_token_count}")
 print(f"Tokens de Saída (Resposta): {response.usage_metadata.candidates_token_count}")
 print(f"Total de Tokens: {response.usage_metadata.total_token_count}")
+
+# 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
 ```
+
+> 💡 **Dica de Engenharia:** Se algo der erro de autenticação ou modelo, confira a sua `GEMINI_API_KEY` no `.env` e certifique-se de que o ambiente virtual está ativo. Ler os logs de erro e debugar faz parte do dia a dia do projeto! 😉
 
 ---
 
@@ -124,6 +131,8 @@ from google import genai
 
 load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
+MODELO_FLASH = "gemini-3.8-flash"
 
 textos = {
     "Inglês": "Artificial Intelligence is transforming how we build software systems and interact with data.",
@@ -140,12 +149,14 @@ print(f"{'Categoria':<15} | {'Caracteres':<12} | {'Palavras':<10} | {'Tokens':<8
 print("-" * 70)
 
 for categoria, texto in textos.items():
-    res = client.models.count_tokens(model="gemini-2.0-flash", contents=texto)
+    res = client.models.count_tokens(model=MODELO_FLASH, contents=texto)
     qtd_chars = len(texto)
     qtd_palavras = len(texto.split())
     qtd_tokens = res.total_tokens
     razao = qtd_tokens / max(qtd_palavras, 1)
     print(f"{categoria:<15} | {qtd_chars:<12} | {qtd_palavras:<10} | {qtd_tokens:<8} | {razao:.2f}")
+
+# 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
 ```
 
 ---
@@ -160,6 +171,8 @@ from google.genai import types
 load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
+MODELO_FLASH = "gemini-3.8-flash"
+
 prompt = "Crie uma metáfora curta e poética para explicar o que é uma função recursiva na programação."
 temperaturas = [0.0, 0.7, 1.5]
 
@@ -173,7 +186,7 @@ for temp in temperaturas:
     # Executar 2 vezes para verificar determinismo vs aleatoriedade
     for tentativa in range(1, 3):
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
+            model=MODELO_FLASH,
             contents=prompt,
             config=types.GenerateContentConfig(
                 temperature=temp,
@@ -182,6 +195,8 @@ for temp in temperaturas:
         )
         print(f"\n[Tentativa {tentativa}]:")
         print(response.text.strip())
+
+# 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
 ```
 
 ---
@@ -196,5 +211,5 @@ Analise com sua dupla os resultados obtidos nos terminais:
 ### ✅ Checklist de Conclusão do Dia 02:
 - [x] Leituras da Cloudflare concluídas.
 - [x] API Key do Google AI Studio configurada no `.env`.
-- [x] Scripts `01_hello_gemini.py`, `02_token_counter.py` e `03_temperature_lab.py` executados com sucesso.
+- [x] Scripts `01_hello_gemini.py`, `02_token_counter.py` e `03_temperature_lab.py` executados com o Modelo Flash Gemini.
 - [x] Entendimento prático de Tokens e Temperatura consolidado.

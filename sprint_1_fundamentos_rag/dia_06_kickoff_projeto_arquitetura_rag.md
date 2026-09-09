@@ -24,7 +24,7 @@
 │ 15:15 - 15:30   │ Setup do Repositório GitHub Colaborativo no Trio       │
 │ 15:30 - 15:45   │ Coffee Break & Networking                              │
 │ 15:45 - 16:45   │ Escolha do Domínio, Coleta dos PDFs & Desenho do Fluxo │
-│ 16:45 - 17:00   │ Daily Standup Autônoma entre os Trios                  │
+│ 16:45 - 17:00   │ Checklist de Encerramento & Sincronização Inicial      │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
@@ -34,7 +34,7 @@
 
 Antes de iniciar o projeto, cada integrante deve ler os artigos conceituais sobre RAG:
 
-1. 📄 [Cloudflare: O que é RAG (Geração Aumentada de Recuperação)?](https://www.cloudflare.com/pt-br/learning/ai/what-is-rag/) — *A ponte entre modelos de linguagem e bases de dados privadas.*
+1. 📄 [Cloudflare: O que é RAG (Geração Aumentada de Recuperação)?](https://www.cloudflare.com/pt-br/learning/ai/retrieval-augmented-generation-rag/) — *A ponte entre modelos de linguagem e bases de dados privadas.*
 2. 📄 [AWS: O que é RAG?](https://aws.amazon.com/pt/what-is/retrieval-augmented-generation/) — *Benefícios empresariais: redução de alucinações, atualização contínua de conhecimento sem re-treinar a LLM e controle de acesso.*
 
 ---
@@ -48,7 +48,7 @@ flowchart TD
     subgraph Ingestao["1. Pipeline de Ingestão (Dia 07)"]
         A["Documentos Brutos (PDF / MD)"] --> B["Extrator de Texto & Metadados"]
         B --> C["Chunking Estratégico (700 chars + 100 overlap)"]
-        C --> D["Google Embeddings (text-embedding-004)"]
+        C --> D["Google Embeddings (gemini-embedding-001)"]
         D --> E["ChromaDB Local Persistente (./chroma_db)"]
     end
 
@@ -57,7 +57,7 @@ flowchart TD
         G --> H["Embedding da Pergunta"]
         H --> I["Busca Vetorial Top-K no ChromaDB"]
         I --> J["Prompt com Grounding & Delimitadores"]
-        J --> K["Gemini 2.0 Flash"]
+        J --> K["Modelo Flash Gemini"]
         K --> L["Resposta com Citação de Páginas & Fontes"]
         L --> F
     end
@@ -99,24 +99,27 @@ __pycache__/
 
 ## 💡 6. Bloco 4: Domínio dos Dados & Divisão de Tarefas (15:45 - 16:45)
 
-Os trios escolherão seu domínio temático. Exemplos recomendados:
-* **Opção 1:** *Assistente de Normas Acadêmicas & Matrícula da PUCRS* (Regulamentos da faculdade em PDF).
-* **Opção 2:** *Assistente de Documentação de Engenharia de Dados* (Manuais do Airflow, DBT e Docker).
-* **Opção 3:** *Assistente de Políticas Internas da DataLakers* (Políticas simuladas de RH, Segurança e TI).
-* **Opção 4:** *Assistente Jurídico/Normativo da LGPD* (PDF da Lei Geral de Proteção de Dados).
+Os trios escolherão seu domínio temático. **Exemplos**:
+* *Assistente de Normas Acadêmicas & Matrícula da PUCRS* (Regulamentos da faculdade em PDF).
+* *Assistente de Documentação de Engenharia de Dados* (Manuais do Airflow, DBT e Docker).
 
 ### Divisão Sugerida de Papéis no Trio:
 - **Dev 1 (Data & Ingestion Lead):** Foco em `src/ingestion.py` (extração de PDFs, chunking e ChromaDB).
-- **Dev 2 (RAG Engine & Prompt Lead):** Foco em `src/rag_engine.py` (recuperação top-k, prompt de grounding e Gemini).
+- **Dev 2 (RAG Engine & Prompt Lead):** Foco em `src/rag_engine.py` (recuperação top-k, prompt de grounding e Modelo Flash Gemini).
 - **Dev 3 (UI & Integration Lead):** Foco em `src/app.py` (Streamlit, sidebar de fontes e testes).
 
 ---
 
-## 🎤 7. Bloco 5: Daily Standup Autônoma (16:45 - 17:00)
+## 🏁 7. Bloco 5: Checklist de Encerramento & Sincronização Inicial (16:45 - 17:00)
 
-Reúnam-se brevemente com os outros trios para compartilhar:
-1. Qual domínio e conjunto de documentos o trio escolheu?
-2. O repositório no GitHub está configurado com todos os membros?
+Como hoje é o primeiro dia do projeto e o foco foi alinhamento e setup inicial, **não há necessidade de daily standup formal**. Usem estes minutos finais para o alinhamento técnico do trio:
+
+1. **Checklist do Trio:**
+   - Todos os integrantes clonaram o repositório localmente e ativaram seu `.venv`?
+   - A pasta `data/` já possui os primeiros arquivos PDF ou Markdown para teste?
+   - O arquivo `.env` com a `GEMINI_API_KEY` está criado nas máquinas locais e devidamente protegido no `.gitignore`?
+
+> 💡 **Dica de Engenharia:** Se algo der erro de permissão no Git, conflito de branches ou falha no ambiente virtual, não se preocupem: ler os logs de erro e debugar faz parte do dia a dia do projeto! 😉
 
 > 📌 **Lembrete Especial:** Amanhã (Dia 07), das 14:00 às 15:00, teremos a palestra online com **Ramon Lummertz**. Tragam fones de ouvido e estejam conectados pontualmente às 14:00!
 

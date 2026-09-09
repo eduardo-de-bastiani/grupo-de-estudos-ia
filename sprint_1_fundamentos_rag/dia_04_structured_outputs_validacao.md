@@ -1,5 +1,5 @@
 # 📅 Dia 04 (17/09 - Quinta-feira)
-# 📐 Structured Outputs com Pydantic & Gemini 2.0 Flash
+# 📐 Structured Outputs com Pydantic & Modelo Flash Gemini
 
 **Sprint 1:** Fundamentos de GenAI, Prompting, Structured Outputs & RAG Local  
 **Horário:** 14:00 às 17:00 (3 horas) | **Formato:** Presencial Autônomo (Navi Hub / Tecnopuc)  
@@ -10,7 +10,7 @@
 ## 🎯 1. Objetivos do Encontro
 1. Compreender por que saídas em texto livre ou JSON "artesanal" geram falhas em sistemas de software (`JSONDecodeError`, alucinação de campos, tipos incorretos).
 2. Aprender a modelar esquemas de dados estritos utilizando **Pydantic v2** (`BaseModel`, `Field`, `Enum`, validações de tipo).
-3. Utilizar o recurso nativo de **Structured Outputs** do Google GenAI SDK (`response_schema` com Pydantic) no Gemini 2.0 Flash.
+3. Utilizar o recurso nativo de **Structured Outputs** do Google GenAI SDK (`response_schema` com Pydantic) no **Modelo Flash Gemini**.
 4. Construir em trios um pipeline de extração e validação automática de dados não estruturados (incidentes de TI e logs).
 
 ---
@@ -87,9 +87,11 @@ estudado LLMs e bancos vetoriais, desenvolvendo pequenas aplicações em Streaml
 Gostaria muito de uma oportunidade de estágio em IA Generativa na empresa.
 """
 
-# 3. Chamada com Structured Outputs nativo
+# 3. Chamada com Structured Outputs nativo no Modelo Flash Gemini
+MODELO_FLASH = "gemini-3.8-flash"
+
 response = client.models.generate_content(
-    model="gemini-2.0-flash",
+    model=MODELO_FLASH,
     contents=f"Extraia os dados estruturados do seguinte texto:\n{texto_curriculo}",
     config={
         "response_mime_type": "application/json",
@@ -97,7 +99,7 @@ response = client.models.generate_content(
     },
 )
 
-# 4. Acesso direto ao objeto Python validado (sem json.loads!)
+# 4. Acesso direto ao objeto Python validado (sem json.loads manual!)
 perfil: PerfilCandidato = response.parsed
 
 print("=" * 60)
@@ -111,7 +113,11 @@ print("\n🛠️ Habilidades Identificadas:")
 for hab in perfil.habilidades_principais:
     anos = f"({hab.anos_experiencia} anos)" if hab.anos_experiencia else "(não informado)"
     print(f" - {hab.nome} {anos}")
+
+# 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
 ```
+
+> 💡 **Dica de Engenharia:** Se a validação do Pydantic acusar `ValidationError`, examine se algum campo obrigatório do modelo não foi retornado ou defina valores padrão / `Optional`. Ler o traceback e debugar faz parte do dia a dia do projeto! 😉
 
 ---
 
@@ -140,5 +146,5 @@ for hab in perfil.habilidades_principais:
 
 ### ✅ Checklist de Conclusão do Dia 04:
 - [x] Leitura de Structured Outputs e Pydantic concluída.
-- [x] Pydantic instalado e script base executado com sucesso.
+- [x] Pydantic instalado e script base executado com sucesso no Modelo Flash Gemini.
 - [x] Desafio em trios do parser de incidentes concluído e validado.

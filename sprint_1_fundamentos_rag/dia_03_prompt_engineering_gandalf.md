@@ -93,8 +93,10 @@ for tentativa in range(1, 6):
     # Montagem do prompt com delimitadores estruturais
     prompt_completo = f"<user_query>\n{prompt_usuario}\n</user_query>"
     
+    # Chamada ao Modelo Flash Gemini
+    MODELO_FLASH = "gemini-3.8-flash"
     response = client.models.generate_content(
-        model="gemini-2.0-flash",
+        model=MODELO_FLASH,
         contents=prompt_completo,
         config=types.GenerateContentConfig(
             system_instruction=SYSTEM_INSTRUCTION,
@@ -110,7 +112,11 @@ for tentativa in range(1, 6):
         break
 else:
     print("\n🔒 O GUARDIÃO RESISTIU! O cofre permaneceu seguro.")
+
+# 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
 ```
+
+> 💡 **Dica de Engenharia:** Se a API retornar erro de requisição ou payload, inspecione a estrutura do prompt e a chave no `.env`. Ler os tracebacks e debugar faz parte do dia a dia do projeto! 😉
 
 ---
 

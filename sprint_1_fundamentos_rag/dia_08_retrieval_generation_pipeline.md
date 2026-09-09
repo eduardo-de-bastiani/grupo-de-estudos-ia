@@ -9,7 +9,7 @@
 
 ## 🎯 1. Objetivos do Encontro
 1. Construir o motor central do sistema RAG: o módulo `src/rag_engine.py`.
-2. Integrar a recuperação semântica (*Retrieval*) no **ChromaDB** com a síntese de respostas no **Gemini 2.0 Flash**.
+2. Integrar a recuperação semântica (*Retrieval*) no **ChromaDB** com a síntese de respostas no **Modelo Flash Gemini**.
 3. Implementar técnicas rigorosas de **Grounding e Anti-Alucinação** no prompt, instruindo o modelo a recusar perguntas cujas respostas não estejam nos documentos.
 4. Estruturar a resposta gerada com **Citação Explícita de Fontes** (nome do documento e número da página).
 5. Executar uma bateria de testes de estresse para validar a fidelidade do assistente.
@@ -42,7 +42,7 @@ Realize a leitura dos materiais de referência sobre fundamentação (grounding)
 
 ## 💻 4. Bloco 2: Implementação do Módulo `src/rag_engine.py` (14:40 - 16:45)
 
-Os trios constroem a classe `RAGEngine` que encapsula a busca vetorial e a geração de resposta.
+Os trios constroem a classe `RAGEngine` que encapsula a busca vetorial no ChromaDB e a geração de resposta via Modelo Flash Gemini.
 
 ### Código de Referência: `src/rag_engine.py`
 
@@ -57,6 +57,13 @@ from google.genai import types
 load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
 
+if not api_key:
+    raise ValueError("❌ GEMINI_API_KEY não encontrada no arquivo .env!")
+
+# Modelos oficiais gratuitos do Google AI Studio
+EMBEDDING_MODEL = "gemini-embedding-001"
+MODELO_FLASH = "gemini-3.8-flash"  # Modelo Flash Gemini
+
 class RAGEngine:
     def __init__(self, path_db: str = "./chroma_db", collection_name: str = "askdata_knowledge"):
         """Inicializa a conexão com o ChromaDB e o cliente Gemini."""
@@ -70,7 +77,7 @@ class RAGEngine:
     def _gerar_embedding(self, texto: str) -> List[float]:
         """Gera o embedding da pergunta do usuário."""
         res = self.client.models.embed_content(
-            model="text-embedding-004",
+            model=EMBEDDING_MODEL,
             contents=texto
         )
         return res.embeddings[0].values
@@ -140,9 +147,9 @@ REGRAS OBRIGATÓRIAS:
 </pergunta_do_usuario>
 """
 
-        # 5. Chamada ao Gemini 2.0 Flash com temperatura baixa (0.1)
+        # 5. Chamada ao Modelo Flash Gemini com temperatura baixa (0.1)
         response = self.client.models.generate_content(
-            model="gemini-2.0-flash",
+            model=MODELO_FLASH,
             contents=prompt_final,
             config=types.GenerateContentConfig(
                 system_instruction=system_instruction,
@@ -177,7 +184,11 @@ if __name__ == "__main__":
         print("\n📚 FONTES UTILIZADAS (Metadados do ChromaDB):")
         for f in resultado["fontes"]:
             print(f"  • {f['arquivo']} (Página {f['pagina']}) - Similaridade: {f['similaridade']:.2%}")
+
+# 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
 ```
+
+> 💡 **Dica de Engenharia:** Se a resposta do assistente não estiver trazendo as fontes esperadas ou alucinar, revise se o `top_k` está recuperando os chunks corretos e ajuste o `system_instruction`. Ler o traceback e debugar faz parte do dia a dia do projeto! 😉
 
 ---
 
@@ -194,12 +205,12 @@ Cada trio deve testar 3 cenários críticos no terminal:
 
 ```bash
 git add src/rag_engine.py
-git commit -m "feat: implement RAG engine with ChromaDB retrieval and grounded generation"
+git commit -m "feat: implement RAG engine with ChromaDB retrieval and grounded generation via Gemini Flash"
 git push origin main
 ```
 
 ### ✅ Checklist de Conclusão do Dia 08:
 - [x] Leitura de Grounding e RAG concluída.
-- [x] Módulo `src/rag_engine.py` implementado e testado no terminal.
+- [x] Módulo `src/rag_engine.py` implementado com Modelo Flash Gemini e testado no terminal.
 - [x] Testes de estresse executados (anti-alucinação funcionando).
 - [x] Código sincronizado no GitHub.

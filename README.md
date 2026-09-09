@@ -54,12 +54,12 @@ flowchart TD
 Todos os materiais, ferramentas e bibliotecas foram rigorosamente selecionados para garantir **100% de gratuidade e acessibilidade universal**, considerando que os alunos utilizarão seus próprios notebooks (Windows, macOS ou Linux, a partir de 8GB de RAM):
 
 1. **APIs e Modelos Cloud Gratuitos:**
-   - **Google AI Studio:** API key gratuita, sem necessidade de cartão de crédito e com limites generosos.
+   - **Google AI Studio:** API key gratuita, sem necessidade de cartão de crédito e com limites generosos (Modelo Flash Gemini e modelo de embedding `gemini-embedding-001`).
    - **Groq Cloud:** Inferência ultra-rápida gratuita sem cartão.
    - **Hugging Face Hub:** Acesso a modelos e datasets open-source.
 2. **Execução Local (Offline/Edge):**
    - **Ollama:** Execução local de modelos leves (`llama3.2:1b/3b`, `qwen2.5-coder:1.5b/3b`, `phi3.5:3.8b`) para quem tiver hardware compatível.
-   - **ChromaDB / FAISS:** Banco vetorial local in-memory e persistente em disco.
+   - **ChromaDB / FAISS:** Banco vetorial local in-memory e persistente em disco (100% gratuito e open-source, executado embutido em Python sem custos nem nuvem).
 3. **Ambiente de Desenvolvimento:**
    - **VS Code:** Editor principal com terminal integrado e extensões Python.
    - **GitHub Copilot:** Acesso gratuito para estudantes universitários via [GitHub Student Developer Pack](https://education.github.com/pack).

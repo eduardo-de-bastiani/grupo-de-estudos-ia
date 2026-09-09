@@ -85,7 +85,7 @@ with st.sidebar:
     top_k = st.slider("Quantidade de Chunks (Top-K):", min_value=1, max_value=5, value=3)
     
     st.markdown("### ℹ️ Sobre a Base Indexada")
-    st.caption("Esta aplicação utiliza embeddings do Google (`text-embedding-004`), armazenamento vetorial persistente no **ChromaDB** e geração com **Gemini 2.0 Flash**.")
+    st.caption("Esta aplicação utiliza embeddings do Google (`gemini-embedding-001`), armazenamento vetorial persistente no **ChromaDB** e geração com o **Modelo Flash Gemini**.")
     
     if st.button("🧹 Limpar Histórico de Chat"):
         st.session_state.messages = []
@@ -142,12 +142,16 @@ if prompt := st.chat_input("Digite sua pergunta técnica aqui..."):
                 })
             except Exception as err:
                 st.error(f"Erro ao processar a pergunta: {err}")
+
+# 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
 ```
 
 ### Como Executar:
 ```bash
 streamlit run src/app.py
 ```
+
+> 💡 **Dica de Engenharia:** Se a aplicação do Streamlit não atualizar ao salvar o arquivo ou acusar erro de `st.session_state`, recarregue a página (`Ctrl+R` / `F5`) ou pare o servidor com `Ctrl+C` e rode de novo. Ler o traceback e debugar faz parte do dia a dia do projeto! 😉
 
 ---
 
@@ -169,7 +173,7 @@ O repositório do trio no GitHub deve conter:
 
 Cada trio cronometra e ensaia seu Pitch de **10 minutos**:
 * **Minutos 0 a 2 (Problema & Domínio):** Qual dor o assistente resolve e quais documentos foram usados?
-* **Minutos 2 a 5 (Arquitetura Técnica):** Explicação da ingestão, chunking, ChromaDB e prompt blindado com Gemini.
+* **Minutos 2 a 5 (Arquitetura Técnica):** Explicação da ingestão, chunking, ChromaDB e prompt blindado com o Modelo Flash Gemini.
 * **Minutos 5 a 9 (Live Demo):** Demonstração ao vivo no Streamlit (1 pergunta com resposta correta e citação de páginas + 1 pergunta fora de domínio mostrando a recusa anti-alucinação).
 * **Minuto 9 a 10 (Aprendizados & Fechamento):** Desafios técnicos superados pelo trio.
 
