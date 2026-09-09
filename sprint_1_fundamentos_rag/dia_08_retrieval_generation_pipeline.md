@@ -1,7 +1,7 @@
 # 📅 Dia 08 (23/09 - Quarta-feira)
 # 🎯 Retrieval & Geração Aumentada (RAG Core & Anti-Alucinação)
 
-**Sprint 1:** Fundamentos de GenAI, Prompting, Structured Outputs & RAG Local  
+**Sprint 1:** Fundamentos de GenAI, Google AI Studio, Prompting & RAG Local  
 **Horário:** 14:00 às 17:00 (3 horas) | **Formato:** Presencial Autônomo (Navi Hub / Tecnopuc)  
 **Semana 2:** Desenvolvimento do Projeto "AskData" em Trios
 
@@ -9,7 +9,7 @@
 
 ## 🎯 1. Objetivos do Encontro
 1. Construir o motor central do sistema RAG: o módulo `src/rag_engine.py`.
-2. Integrar a recuperação semântica (*Retrieval*) no **ChromaDB** com a síntese de respostas no **Modelo Flash Gemini**.
+2. Integrar a recuperação semântica (*Retrieval*) no **ChromaDB** com a síntese de respostas no **Modelo Gemini**.
 3. Implementar técnicas rigorosas de **Grounding e Anti-Alucinação** no prompt, instruindo o modelo a recusar perguntas cujas respostas não estejam nos documentos.
 4. Estruturar a resposta gerada com **Citação Explícita de Fontes** (nome do documento e número da página).
 5. Executar uma bateria de testes de estresse para validar a fidelidade do assistente.
@@ -35,14 +35,14 @@
 
 Realize a leitura dos materiais de referência sobre fundamentação (grounding) e mitigação de alucinações:
 
-1. 📄 [PromptingGuide: Retrieval Augmented Generation (RAG)](https://www.promptingguide.ai/techniques/rag) — *Padrões de design para conectar LLMs a contextos externos.*
-2. 📄 [Google AI Docs: Grounding & Context Ingestion](https://ai.google.dev/gemini-api/docs/prompting-intro) — *Como utilizar delimitadores e system instructions para ancorar as respostas do Gemini exclusivamente nas evidências recuperadas.*
+1. 📄 [PromptingGuide: Retrieval Augmented Generation (RAG)](https://www.promptingguide.ai/techniques/rag) — *Padrões de design para conectar LLMs a contextos externos e fontes de conhecimento.*
+2. 📄 [Cloudflare: O que são alucinações de IA e como mitigá-las?](https://www.cloudflare.com/pt-br/learning/ai/what-are-ai-hallucinations/) — *O que causa alucinações em LLMs e como técnicas de ancoragem (grounding) em dados privados eliminam invenções.*
 
 ---
 
 ## 💻 4. Bloco 2: Implementação do Módulo `src/rag_engine.py` (14:40 - 16:45)
 
-Os trios constroem a classe `RAGEngine` que encapsula a busca vetorial no ChromaDB e a geração de resposta via Modelo Flash Gemini.
+Os trios constroem a classe `RAGEngine` que encapsula a busca vetorial no ChromaDB e a geração de resposta via Modelo Gemini.
 
 ### Código de Referência: `src/rag_engine.py`
 
@@ -58,11 +58,11 @@ load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
 
 if not api_key:
-    raise ValueError("❌ GEMINI_API_KEY não encontrada no arquivo .env!")
+    raise ValueError("GEMINI_API_KEY não encontrada no arquivo .env!")
 
 # Modelos oficiais gratuitos do Google AI Studio
 EMBEDDING_MODEL = "gemini-embedding-001"
-MODELO_FLASH = "gemini-3.8-flash"  # Modelo Flash Gemini
+MODELO_FLASH = "gemini-3.8-flash"  # Modelo Gemini
 
 class RAGEngine:
     def __init__(self, path_db: str = "./chroma_db", collection_name: str = "askdata_knowledge"):
@@ -147,7 +147,7 @@ REGRAS OBRIGATÓRIAS:
 </pergunta_do_usuario>
 """
 
-        # 5. Chamada ao Modelo Flash Gemini com temperatura baixa (0.1)
+        # 5. Chamada ao Modelo Gemini com temperatura baixa (0.1)
         response = self.client.models.generate_content(
             model=MODELO_FLASH,
             contents=prompt_final,
@@ -166,7 +166,7 @@ if __name__ == "__main__":
     engine = RAGEngine()
     
     print("=" * 60)
-    print("🤖 TESTE DO MOTOR RAG (Terminal)")
+    print("TESTE DO MOTOR RAG (Terminal)")
     print("=" * 60)
     
     while True:
@@ -178,17 +178,17 @@ if __name__ == "__main__":
             
         resultado = engine.responder_pergunta(pergunta, top_k=3)
         
-        print("\n📝 RESPOSTA DO ASSISTENTE:")
+        print("\nRESPOSTA DO ASSISTENTE:")
         print(resultado["resposta"])
         
-        print("\n📚 FONTES UTILIZADAS (Metadados do ChromaDB):")
+        print("\nFONTES UTILIZADAS (Metadados do ChromaDB):")
         for f in resultado["fontes"]:
-            print(f"  • {f['arquivo']} (Página {f['pagina']}) - Similaridade: {f['similaridade']:.2%}")
+            print(f"  - {f['arquivo']} (Página {f['pagina']}) - Similaridade: {f['similaridade']:.2%}")
 
-# 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
+# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
 ```
 
-> 💡 **Dica de Engenharia:** Se a resposta do assistente não estiver trazendo as fontes esperadas ou alucinar, revise se o `top_k` está recuperando os chunks corretos e ajuste o `system_instruction`. Ler o traceback e debugar faz parte do dia a dia do projeto! 😉
+> 💡 Se a resposta do assistente não estiver trazendo as fontes esperadas ou alucinar, revise se o `top_k` está recuperando os chunks corretos e ajuste o `system_instruction`. Ler o traceback e debugar faz parte do dia a dia do projeto! 😉
 
 ---
 
@@ -203,14 +203,13 @@ Cada trio deve testar 3 cenários críticos no terminal:
 
 ## 🎤 6. Bloco 4: Sincronização no GitHub (16:45 - 17:00)
 
-```bash
-git add src/rag_engine.py
-git commit -m "feat: implement RAG engine with ChromaDB retrieval and grounded generation via Gemini Flash"
-git push origin main
-```
+Dediquem os 15 minutos finais para que o trio sincronize as alterações no repositório compartilhado do GitHub:
+- Certifiquem-se de que o módulo `src/rag_engine.py` está commitado e enviado à branch remota.
+- Confirmem que a chave de API e a pasta `chroma_db/` continuam estritamente protegidas pelo `.gitignore`.
+- Todos os 3 membros devem atualizar suas branches locais para garantir que a base de código está alinhada para a construção da interface gráfica no Dia 09.
 
 ### ✅ Checklist de Conclusão do Dia 08:
-- [x] Leitura de Grounding e RAG concluída.
-- [x] Módulo `src/rag_engine.py` implementado com Modelo Flash Gemini e testado no terminal.
+- [x] Leitura de Grounding, RAG e mitigação de alucinações concluída.
+- [x] Módulo `src/rag_engine.py` implementado com Modelo Gemini e testado no terminal.
 - [x] Testes de estresse executados (anti-alucinação funcionando).
 - [x] Código sincronizado no GitHub.

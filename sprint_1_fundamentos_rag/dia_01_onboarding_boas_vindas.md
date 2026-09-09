@@ -1,7 +1,7 @@
 # 📅 Dia 01 (14/09 - Segunda-feira)
 # 🚀 Kickoff Oficial, Boas-Vindas & Setup do Ambiente
 
-**Sprint 1:** Fundamentos de GenAI, Prompting, Structured Outputs & RAG Local  
+**Sprint 1:** Fundamentos de GenAI, Google AI Studio, Prompting & RAG Local  
 **Horário:** 14:00 às 17:00 (3 horas) | **Formato:** Presencial (Navi Hub / Tecnopuc)  
 **Presença Especial:** Liderança da DataLakers & Coordenação do Navi Hub (Boas-Vindas e Abertura)
 
@@ -118,12 +118,12 @@ import sys
 import platform
 
 print("=" * 55)
-print("🚀 Ambiente do Grupo de Estudos IA - Configurado com Sucesso!")
-print(f"🐍 Versão do Python: {sys.version.split()[0]}")
-print(f"💻 Sistema Operacional: {platform.system()} {platform.release()}")
+print("Ambiente do Grupo de Estudos IA - Configurado com Sucesso!")
+print(f"Versao do Python: {sys.version.split()[0]}")
+print(f"Sistema Operacional: {platform.system()} {platform.release()}")
 print("=" * 55)
 
-# 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
+# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
 ```
 
 Execute no terminal com o venv ativado:
@@ -131,7 +131,7 @@ Execute no terminal com o venv ativado:
 python smoke_test.py
 ```
 
-> 💡 **Dica de Engenharia:** Se o comando python acusar erro de permissão ou não encontrar a versão 3.11+, verifique se você ativou o `.venv` corretamente. Ler mensagens de erro e debugar faz parte do dia a dia do projeto! 😉
+> 💡 Se o comando python acusar erro de permissão ou não encontrar a versão 3.11+, verifique se você ativou o `.venv` corretamente. Ler mensagens de erro e debugar faz parte do dia a dia do projeto! 😉
 
 ### ✅ Checklist de Conclusão do Dia 01:
 - [x] Participação na abertura e apresentação da DataLakers.

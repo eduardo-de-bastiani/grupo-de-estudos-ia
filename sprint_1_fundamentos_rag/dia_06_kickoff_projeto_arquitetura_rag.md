@@ -1,17 +1,18 @@
 # 📅 Dia 06 (21/09 - Segunda-feira)
-# 🚀 Kickoff do Projeto "AskData" & Arquitetura do Sistema RAG
+# 🚀 Kickoff do Projeto "AskData", Coleta de Dados & Setup Colaborativo
 
-**Sprint 1:** Fundamentos de GenAI, Prompting, Structured Outputs & RAG Local  
+**Sprint 1:** Fundamentos de GenAI, Google AI Studio, Prompting & RAG Local  
 **Horário:** 14:00 às 17:00 (3 horas) | **Formato:** Presencial Autônomo (Navi Hub / Tecnopuc)  
-**Semana 2:** Início do Desenvolvimento do Projeto em Trios
+**Semana 2:** Início do Desenvolvimento do Projeto em Trios  
 
 ---
 
 ## 🎯 1. Objetivos do Encontro
-1. Iniciar oficialmente o desenvolvimento do projeto prático da Sprint 1: **"AskData - Assistente Inteligente de Base de Conhecimento"**.
-2. Compreender a arquitetura técnica de referência de um sistema RAG (Retrieval-Augmented Generation).
-3. Selecionar o corpus de documentos e domínio de negócio que o trio irá indexar (documentações técnicas, manuais, regulamentos).
-4. Configurar o repositório colaborativo no GitHub com regras de branch, `.gitignore` e divisão de tarefas no trio.
+1. Iniciar oficialmente o projeto prático da Sprint 1: **"AskData - Assistente Inteligente de Base de Conhecimento"**.
+2. Compreender a visão macro do fluxo de um sistema RAG (Retrieval-Augmented Generation).
+3. Definir o domínio temático de cada trio e **pesquisar/coletar ativamente os documentos reais** (PDFs e Markdowns) que alimentarão o assistente.
+4. Configurar o repositório colaborativo no GitHub com regras de branches, `.gitignore` e estrutura de pastas padronizada.
+5. Estabelecer a dinâmica de trabalho em equipe: **Modelo Piloto/Copiloto Rotativo** (onde todos participam de todas as etapas e alternam a responsabilidade pelo código a cada dia).
 
 ---
 
@@ -19,34 +20,37 @@
 
 ```
 ┌─────────────────┬────────────────────────────────────────────────────────┐
-│ 14:00 - 14:25   │ Leitura Padronizada de Referência (Cloudflare/AWS RAG) │
-│ 14:25 - 15:15   │ Alinhamento de Arquitetura RAG & Escopo do AskData     │
-│ 15:15 - 15:30   │ Setup do Repositório GitHub Colaborativo no Trio       │
+│ 14:00 - 14:20   │ Leitura Padronizada de Referência: O que é RAG?        │
+│ 14:20 - 14:35   │ Kickoff do AskData: Visão Geral do Fluxo e Entregáveis │
+│ 14:35 - 15:30   │ Escolha do Domínio & Pesquisa e Coleta dos Documentos  │
 │ 15:30 - 15:45   │ Coffee Break & Networking                              │
-│ 15:45 - 16:45   │ Escolha do Domínio, Coleta dos PDFs & Desenho do Fluxo │
-│ 16:45 - 17:00   │ Checklist de Encerramento & Sincronização Inicial      │
+│ 15:45 - 16:30   │ Setup do Repositório GitHub & Carga dos Dados em data/ │
+│ 16:30 - 16:45   │ Dinâmica do Trio: Modelo Piloto/Copiloto Rotativo      │
+│ 16:45 - 17:00   │ Sincronização Final no GitHub & Checklist do Dia 06    │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 📖 3. Bloco 1: Leitura Padronizada de Referência (14:00 - 14:25)
+## 📖 3. Bloco 1: Leitura Padronizada de Referência (14:00 - 14:20)
 
-Antes de iniciar o projeto, cada integrante deve ler os artigos conceituais sobre RAG:
+Antes de iniciar os trabalhos práticos, cada estudante deve ler os artigos conceituais sobre RAG:
 
 1. 📄 [Cloudflare: O que é RAG (Geração Aumentada de Recuperação)?](https://www.cloudflare.com/pt-br/learning/ai/retrieval-augmented-generation-rag/) — *A ponte entre modelos de linguagem e bases de dados privadas.*
 2. 📄 [AWS: O que é RAG?](https://aws.amazon.com/pt/what-is/retrieval-augmented-generation/) — *Benefícios empresariais: redução de alucinações, atualização contínua de conhecimento sem re-treinar a LLM e controle de acesso.*
 
 ---
 
-## 🏗️ 4. Bloco 2: A Arquitetura de Referência do AskData (14:25 - 15:15)
+## 🧭 4. Bloco 2: Kickoff do AskData & Visão Geral do Fluxo (14:20 - 14:35)
 
-O projeto do trio implementará o seguinte fluxo arquitetural:
+O projeto **AskData** desafia cada trio a criar um assistente de IA capaz de responder a dúvidas técnicas ou regulatórias com base exclusivamente em uma coleção de documentos privados, citando a fonte e a página exata da resposta.
+
+### O Fluxo que o Trio Construirá até o Demo Day:
 
 ```mermaid
 flowchart TD
     subgraph Ingestao["1. Pipeline de Ingestão (Dia 07)"]
-        A["Documentos Brutos (PDF / MD)"] --> B["Extrator de Texto & Metadados"]
+        A["Documentos Coletados (data/*.pdf e *.md)"] --> B["Extrator de Texto & Metadados"]
         B --> C["Chunking Estratégico (700 chars + 100 overlap)"]
         C --> D["Google Embeddings (gemini-embedding-001)"]
         D --> E["ChromaDB Local Persistente (./chroma_db)"]
@@ -57,17 +61,41 @@ flowchart TD
         G --> H["Embedding da Pergunta"]
         H --> I["Busca Vetorial Top-K no ChromaDB"]
         I --> J["Prompt com Grounding & Delimitadores"]
-        J --> K["Modelo Flash Gemini"]
-        K --> L["Resposta com Citação de Páginas & Fontes"]
+        J --> K["Modelo Flash Gemini (gemini-3.8-flash)"]
+        K --> L["Resposta Fundamentada com Citação de Páginas"]
         L --> F
     end
 ```
 
 ---
 
-## 🛠️ 5. Bloco 3: Setup do Repositório Git do Trio (15:15 - 15:30)
+## 📚 5. Bloco 3: Escolha do Domínio & Coleta Ativa dos Documentos (14:35 - 15:30)
 
-Um integrante do trio cria o repositório no GitHub e convida os outros dois colegas como colaboradores:
+Neste bloco de 55 minutos, o trio deve definir o problema de negócio que deseja resolver e **pesquisar, selecionar e baixar entre 3 e 5 arquivos reais** (PDF ou Markdown) para compor a base de conhecimento do assistente.
+
+### Critérios Importantes para Seleção dos Documentos:
+* **Texto Selecionável:** Os arquivos PDF devem conter texto digital nativo (não utilize PDFs compostos por fotos/scans de documentos, pois exigem OCR).
+* **Extensão Recomendada:** Escolha documentos que somem entre 15 e 60 páginas no total. Documentos muito curtos (1 página) não demonstram o valor da busca semântica; documentos gigantescos (livros de 500 páginas) demoram desnecessariamente para gerar embeddings na cota gratuita da API.
+* **Conteúdo Rico em Fatos:** Manuais de procedimentos, regulamentos, termos de uso, documentações técnicas ou relatórios corporativos.
+
+### Sugestões de Domínios Temáticos para Inspiração:
+1. **Domínio Acadêmico & Regulatório da PUCRS:** Regulamentos de graduação, manuais de estágio e normas complementares da faculdade.
+2. **Domínio de Engenharia de Dados & DevOps:** Documentações e tutoriais oficiais de ferramentas (Airflow, DBT, Docker, Git).
+3. **Domínio Jurídico & Compliance Corporativo:** Guia da LGPD para desenvolvedores, termos de privacidade e políticas de segurança da informação.
+4. **Domínio de Gestão de Pessoas & RH:** Políticas de trabalho remoto, benefícios corporativos, onboarding de novos colaboradores e código de conduta.
+
+> **Meta do Bloco:** Às 15:30, o trio deve ter em mãos de 3 a 5 arquivos baixados e validados, prontos para serem adicionados ao projeto.
+
+---
+
+## 🛠️ 6. Bloco 4: Setup do Repositório Git & Carga dos Documentos (15:45 - 16:30)
+
+Com os arquivos de dados selecionados, o trio configura o ambiente colaborativo no GitHub:
+
+1. **Criação do Repositório no GitHub:**
+   - Um integrante cria o repositório remoto (ex: `askdata-trioX`) e convida os outros dois como colaboradores com permissão de escrita.
+2. **Clonagem Local:**
+   - Todos os 3 integrantes clonam o repositório em suas máquinas locais.
 
 ### Estrutura de Pastas Padronizada:
 ```
@@ -76,13 +104,13 @@ askdata_trioX/
 ├── .gitignore
 ├── README.md
 ├── requirements.txt
-├── data/                  # PDFs e Markdowns brutos
+├── data/                  # PDFs e Markdowns coletados hoje
 ├── chroma_db/             # Pasta local do ChromaDB (ignorada no git)
 ├── src/
 │   ├── __init__.py
-│   ├── ingestion.py       # Leitura, chunking e indexação no ChromaDB
-│   ├── rag_engine.py      # Busca vetorial e chamada à LLM com grounding
-│   └── app.py             # Interface web com Streamlit
+│   ├── ingestion.py       # Pipeline de chunking e embeddings (Dia 07)
+│   ├── rag_engine.py      # Busca vetorial e prompt grounding (Dia 08)
+│   └── app.py             # Interface web com Streamlit (Dia 09)
 ```
 
 ### Arquivo `.gitignore` Obrigatório:
@@ -95,36 +123,47 @@ __pycache__/
 .DS_Store
 ```
 
----
-
-## 💡 6. Bloco 4: Domínio dos Dados & Divisão de Tarefas (15:45 - 16:45)
-
-Os trios escolherão seu domínio temático. **Exemplos**:
-* *Assistente de Normas Acadêmicas & Matrícula da PUCRS* (Regulamentos da faculdade em PDF).
-* *Assistente de Documentação de Engenharia de Dados* (Manuais do Airflow, DBT e Docker).
-
-### Divisão Sugerida de Papéis no Trio:
-- **Dev 1 (Data & Ingestion Lead):** Foco em `src/ingestion.py` (extração de PDFs, chunking e ChromaDB).
-- **Dev 2 (RAG Engine & Prompt Lead):** Foco em `src/rag_engine.py` (recuperação top-k, prompt de grounding e Modelo Flash Gemini).
-- **Dev 3 (UI & Integration Lead):** Foco em `src/app.py` (Streamlit, sidebar de fontes e testes).
+3. **Carga Inicial dos Dados:**
+   - Coloquem os arquivos coletados dentro da pasta `data/`.
+   - Criem o `README.md` inicial informando os nomes dos integrantes e o domínio temático escolhido.
+   - Subam essas alterações para a branch `main` e confirmem que todos os integrantes conseguem executar o pull e ver os arquivos na pasta `data/`.
 
 ---
 
-## 🏁 7. Bloco 5: Checklist de Encerramento & Sincronização Inicial (16:45 - 17:00)
+## 👥 7. Bloco 5: Divisão de Tarefas — Modelo Piloto/Copiloto Rotativo (16:30 - 16:45)
 
-Como hoje é o primeiro dia do projeto e o foco foi alinhamento e setup inicial, **não há necessidade de daily standup formal**. Usem estes minutos finais para o alinhamento técnico do trio:
+Para garantir que **todos os integrantes participem de todos os processos** e aprendam o pipeline de IA de ponta a ponta, o trio adotará a dinâmica de **Mob Programming Rotativo**:
 
-1. **Checklist do Trio:**
-   - Todos os integrantes clonaram o repositório localmente e ativaram seu `.venv`?
-   - A pasta `data/` já possui os primeiros arquivos PDF ou Markdown para teste?
-   - O arquivo `.env` com a `GEMINI_API_KEY` está criado nas máquinas locais e devidamente protegido no `.gitignore`?
+Em cada dia de desenvolvimento, um membro assume o papel de **Piloto (Driver)** — com as mãos no teclado codando —, enquanto os outros dois atuam ativamente como **Copilotos (Navigators)** — analisando a lógica, pesquisando parâmetros, inspecionando tracebacks e validando os resultados.
 
-> 💡 **Dica de Engenharia:** Se algo der erro de permissão no Git, conflito de branches ou falha no ambiente virtual, não se preocupem: ler os logs de erro e debugar faz parte do dia a dia do projeto! 😉
+### Escala Definida do Trio:
+* **Dia 07 (Ingestão, Chunking & ChromaDB):**
+  * **Piloto:** Integrante A (digita e constrói `src/ingestion.py`).
+  * **Copilotos:** Integrantes B e C (validam a extração de páginas do PDF, conferem a integridade dos metadados e analisam o tamanho dos chunks).
+* **Dia 08 (RAG Engine & Grounding Anti-Alucinação):**
+  * **Piloto:** Integrante B (digita e constrói `src/rag_engine.py`).
+  * **Copilotos:** Integrantes A e C (elaboram perguntas de teste de stress, cenários fora de escopo e tentam quebrar o guardrail anti-alucinação).
+* **Dia 09 (Interface Streamlit & Polimento):**
+  * **Piloto:** Integrante C (digita e constrói `src/app.py`).
+  * **Copilotos:** Integrantes A e B (testam a usabilidade do chat, verificam a sidebar de explicabilidade e estruturam o roteiro do pitch).
+* **Dia 10 (Demo Day):**
+  * **Trio Completo:** Todos os 3 integrantes apresentam juntos diante da banca avaliadora da DataLakers, dividindo a fala técnica, a demonstração ao vivo e as respostas no Q&A.
 
-> 📌 **Lembrete Especial:** Amanhã (Dia 07), das 14:00 às 15:00, teremos a palestra online com **Ramon Lummertz**. Tragam fones de ouvido e estejam conectados pontualmente às 14:00!
+---
+
+## 🏁 8. Bloco 6: Sincronização no GitHub & Checklist do Dia 06 (16:45 - 17:00)
+
+Dediquem os 15 minutos finais para verificar que o repositório colaborativo está devidamente sincronizado entre as três máquinas:
+- Todos os 3 integrantes clonaram o projeto e estão com o `.venv` configurado?
+- A pasta `data/` contém os documentos selecionados e está sincronizada no GitHub?
+- O arquivo `.env` com a `GEMINI_API_KEY` está criado nas máquinas locais e devidamente protegido pelo `.gitignore`?
+
+> 💡 Se houver qualquer divergência de arquivos ou permissão no repositório, aproveitem para debugar em conjunto. Resolver problemas de ambiente e alinhamento faz parte do dia a dia da engenharia de software!
+
+> 📌 **Lembrete Importante:** Amanhã (Dia 07), das 14:00 às 15:00, teremos a palestra online com **Ramon Lummertz**. Tragam fones de ouvido e estejam conectados pontualmente às 14:00!
 
 ### ✅ Checklist de Conclusão do Dia 06:
 - [x] Leituras conceituais de RAG concluídas.
-- [x] Repositório Git criado no GitHub com `.gitignore` e colaboradores convidados.
-- [x] Domínio e documentos selecionados pelo trio.
-- [x] Divisão de responsabilidades definida.
+- [x] Domínio temático definido e documentos reais (3 a 5 arquivos) coletados e armazenados em `data/`.
+- [x] Repositório GitHub criado com `.gitignore` e colaboradores configurados.
+- [x] Escala do Modelo Piloto/Copiloto Rotativo definida para os Dias 07, 08 e 09.

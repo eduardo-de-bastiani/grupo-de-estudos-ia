@@ -1,7 +1,7 @@
 # 📅 Dia 05 (18/09 - Sexta-feira)
 # 🔍 Embeddings, Similaridade Semântica & ChromaDB Local
 
-**Sprint 1:** Fundamentos de GenAI, Prompting, Structured Outputs & RAG Local  
+**Sprint 1:** Fundamentos de GenAI, Google AI Studio, Prompting & RAG Local  
 **Horário:** 14:00 às 17:00 (3 horas) | **Formato:** Presencial Autônomo (Navi Hub / Tecnopuc)  
 **Modalidade:** Leitura de Referência + Laboratório em Duplas + Formação Oficial dos Trios
 
@@ -93,7 +93,7 @@ documentos = [
     },
     {
         "id": "doc_03",
-        "texto": "Para projetos com LLMs, utilizamos ChromaDB para busca vetorial local e o Modelo Flash Gemini para geração e Structured Outputs.",
+        "texto": "Para projetos com LLMs, utilizamos ChromaDB para busca vetorial local e o Modelo Gemini para geração e Grounding.",
         "categoria": "IA Generativa"
     },
     {
@@ -108,7 +108,7 @@ documentos = [
     }
 ]
 
-print("🔄 Gerando embeddings e inserindo documentos no ChromaDB...")
+print("Gerando embeddings e inserindo documentos no ChromaDB...")
 for doc in documentos:
     vetor = gerar_embedding(doc["texto"])
     collection.upsert(
@@ -118,9 +118,9 @@ for doc in documentos:
         metadatas=[{"categoria": doc["categoria"]}]
     )
 
-print(f"✅ Base de conhecimento indexada com sucesso! ({collection.count()} documentos na coleção)")
+print(f"Base de conhecimento indexada com sucesso! ({collection.count()} documentos na colecao)")
 
-# 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
+# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
 ```
 
 ---
@@ -159,13 +159,13 @@ collection = chroma_client.get_or_create_collection(
 documentos = [
     {"texto": "A DataLakers adota pipelines ETL modernos em Python utilizando Apache Airflow para orquestração e DBT para transformação."},
     {"texto": "Nossos modelos de Machine Learning são empacotados com Docker e versionados com MLflow no cluster Kubernetes."},
-    {"texto": "Para projetos com LLMs, utilizamos ChromaDB para busca vetorial local e o Modelo Flash Gemini para geração e Structured Outputs."},
+    {"texto": "Para projetos com LLMs, utilizamos ChromaDB para busca vetorial local e o Modelo Gemini para geração e Grounding."},
     {"texto": "Os colaboradores possuem horário flexível de trabalho e encontros presenciais às terças e quintas no Tecnopuc."},
     {"texto": "A política de segurança exige autenticação em dois fatores (2FA) e proibição de chaves de API commitadas no Git."},
 ]
 
 print("=" * 60)
-print("🔍 BUSCADOR SEMÂNTICO vs. BUSCA LÉXICA (Digite 'sair' para encerrar)")
+print("BUSCADOR SEMANTICO vs. BUSCA LEXICA (Digite 'sair' para encerrar)")
 print("=" * 60)
 
 while True:
@@ -176,7 +176,7 @@ while True:
         continue
 
     # --- Busca Léxica (contém alguma das palavras da query, literalmente?) ---
-    print("\n🔤 BUSCA LÉXICA (palavra-chave):")
+    print("\n--- BUSCA LEXICA (palavra-chave) ---")
     termos_query = query.lower().split()
     encontrados_lexico = [
         doc["texto"] for doc in documentos
@@ -195,7 +195,7 @@ while True:
         n_results=2
     )
 
-    print("\n🧠 BUSCA SEMÂNTICA (ChromaDB):")
+    print("\n--- BUSCA SEMANTICA (ChromaDB) ---")
     for i, (doc_texto, meta, dist) in enumerate(zip(
         resultados["documents"][0],
         resultados["metadatas"][0],
@@ -205,12 +205,12 @@ while True:
         print(f"    [{i}] Categoria: {meta['categoria']} (Similaridade: {similaridade:.2%})")
         print(f"        \"{doc_texto}\"")
 
-# 💡 Dica de Engenharia: Se algo não funcionar de primeira, leia o traceback e debugar faz parte do projeto! 😉
+# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
 ```
 
 **Experimento sugerido em dupla:** busquem por `"como a empresa organiza dados de forma automatizada"`. A busca léxica provavelmente não encontra nada (nenhuma palavra bate exatamente com o texto), mas a busca semântica deve trazer o `doc_01` sobre Airflow/ETL como resultado mais relevante — essa é a diferença entre buscar por palavra e buscar por significado.
 
-> 💡 **Dica de Engenharia:** Se a geração de embeddings acusar erro ou o ChromaDB reclamar de dimensões incompatíveis, certifique-se de usar o mesmo modelo (`gemini-embedding-001`) para a indexação e para a query. Ler o traceback e debugar faz parte do dia a dia do projeto! 😉
+> 💡 Se a geração de embeddings acusar erro ou o ChromaDB reclamar de dimensões incompatíveis, certifique-se de usar o mesmo modelo (`gemini-embedding-001`) para a indexação e para a query. Ler o traceback e debugar faz parte do dia a dia do projeto! 😉
 
 ---
 

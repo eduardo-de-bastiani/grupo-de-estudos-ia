@@ -1,7 +1,7 @@
 # 📅 Dia 10 (25/09 - Sexta-feira)
 # 🏆 Demo Day da Sprint 1 & Pitch para a DataLakers
 
-**Sprint 1:** Fundamentos de GenAI, Prompting, Structured Outputs & RAG Local  
+**Sprint 1:** Fundamentos de GenAI, Google AI Studio, Prompting & RAG Local  
 **Horário:** 14:00 às 17:00 (3 horas) | **Formato:** Presencial (Navi Hub / Tecnopuc)  
 **Presença Especial:** Liderança Técnica e Gestores da DataLakers & Coordenação do Navi Hub
 
@@ -9,7 +9,7 @@
 
 ## 🎯 1. Objetivos do Encontro
 1. Realizar o **Demo Day Oficial da Sprint 1**, com os 5 trios apresentando seus produtos *AskData* funcionando ao vivo para a banca avaliadora da DataLakers.
-2. Demonstrar o domínio prático autônomo dos conceitos de RAG, Embeddings, ChromaDB, Structured Outputs e Streamlit.
+2. Demonstrar o domínio prático autônomo dos conceitos de RAG, Embeddings, ChromaDB, Prompt Grounding e Streamlit.
 3. Avaliar competências de comunicação técnica, trabalho em equipe, qualidade de código e capacidade de resolução de problemas para fins de **scouting de talentos**.
 4. Realizar a retrospectiva da Sprint 1 e apresentar a introdução da **Sprint 2 (Agentes Autônomos, Function/Tool Calling & Model Context Protocol - MCP)**.
 
