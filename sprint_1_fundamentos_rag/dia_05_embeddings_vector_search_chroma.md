@@ -24,7 +24,8 @@
 │ 14:25 - 15:20   │ Setup do ChromaDB + Script de Embeddings & Distâncias  │
 │ 15:20 - 15:35   │ Coffee Break & Networking                              │
 │ 15:35 - 16:30   │ Laboratório Prático em Duplas: Buscador Semântico      │
-│ 16:30 - 17:00   │ Formação dos Trios & Alinhamento da Semana de Projeto  │
+│ 16:30 - 16:45   │ Formação dos 5 Trios da Sprint 1 & Alinhamento         │
+│ 16:45 - 17:00   │ Formulário de Auto-Avaliação & Feedback (Google Forms) │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
@@ -214,12 +215,19 @@ while True:
 
 ---
 
-## 👥 6. Bloco 4: Formação dos Trios da Sprint 1 (16:30 - 17:00)
+## 👥 6. Bloco 4: Formação dos Trios da Sprint 1 (16:30 - 16:45)
 
 1. **Organização Autônoma da Turma:** Os 15 estudantes organizam-se oficialmente em **5 Trios**.
 2. **Preparação para a Semana 2:**
    - Leiam o [README da Sprint 1](README.md) para compreender o escopo completo do projeto *AskData*.
-   - Combinem no trio ideias de temas/documentos (manuais técnicos, documentações open-source, regulamentos) para trazerem na segunda-feira (Dia 06).
+   - Combinem no trio ideias de temas e documentos reais (manuais técnicos, documentações open-source, regulamentos) para trazerem na segunda-feira (Dia 06).
+
+---
+
+## 📝 7. Bloco 5: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
+
+> 📋 **Link do Formulário de Auto-Avaliação:**  
+> [Preencher Formulário do Google Forms - Dia 05](#) *(Link disponibilizado pelo instrutor em sala)*
 
 ### ✅ Checklist de Conclusão da Semana 1:
 - [x] Leituras da Cloudflare sobre Embeddings e Bancos Vetoriais concluídas.
@@ -227,6 +235,7 @@ while True:
 - [x] Buscador semântico funcionando com embeddings do Google (`gemini-embedding-001`).
 - [x] Comparação prática entre busca léxica e busca semântica realizada em `buscador_semantico.py`.
 - [x] Trios formados e alinhados para a Semana de Projeto.
+- [x] Formulário de auto-avaliação e feedback preenchido no Google Forms.
 
 ---
 

@@ -23,8 +23,9 @@
 │ 14:00 - 14:20   │ Leitura Padronizada de Referência (Streamlit para IA)  │
 │ 14:20 - 15:30   │ Codificação da Interface Web em `src/app.py`           │
 │ 15:30 - 15:45   │ Coffee Break & Networking                              │
-│ 15:45 - 16:30   │ Testes Finais, README do Trio & Sincronização no Git   │
-│ 16:30 - 17:00   │ Ensaio Geral do Pitch (Simulação Cronometrada no Trio) │
+│ 15:45 - 16:20   │ Testes Finais, README do Trio & Sincronização no Git   │
+│ 16:20 - 16:45   │ Ensaio Geral do Pitch (Simulação Cronometrada no Trio) │
+│ 16:45 - 17:00   │ Formulário Diário de Auto-Avaliação & Feedback (Forms) │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
@@ -153,7 +154,7 @@ streamlit run src/app.py
 
 ---
 
-## 📋 5. Bloco 3: Testes Finais, README & Sincronização no GitHub (15:45 - 16:30)
+## 📋 5. Bloco 3: Testes Finais, README & Sincronização no GitHub (15:45 - 16:20)
 
 Neste bloco, o trio consolida a entrega técnica para o Demo Day:
 
@@ -170,7 +171,7 @@ Neste bloco, o trio consolida a entrega técnica para o Demo Day:
 
 ---
 
-## 🎤 6. Bloco 4: Ensaio Geral Autônomo do Pitch (16:30 - 17:00)
+## 🎤 6. Bloco 4: Ensaio Geral Autônomo do Pitch (16:20 - 16:45)
 
 Cada trio cronometra e ensaia seu Pitch de **10 minutos** com divisão de fala entre todos os membros:
 * **Minutos 0 a 2 (Problema & Domínio):** Qual dor o assistente resolve e quais documentos foram utilizados?
@@ -178,9 +179,17 @@ Cada trio cronometra e ensaia seu Pitch de **10 minutos** com divisão de fala e
 * **Minutos 5 a 9 (Live Demo):** Demonstração ao vivo no Streamlit (1 pergunta com resposta correta e citação de páginas + 1 pergunta fora de domínio demonstrando a recusa anti-alucinação).
 * **Minuto 9 a 10 (Aprendizados & Fechamento):** Desafios técnicos superados pelo time.
 
+---
+
+## 📝 7. Bloco 5: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
+
+> 📋 **Link do Formulário de Auto-Avaliação:**  
+> [Preencher Formulário do Google Forms - Dia 09](#) *(Link disponibilizado pelo instrutor em sala)*
+
 ### ✅ Checklist de Conclusão do Dia 09:
 - [x] Leituras conceituais de interfaces com Streamlit concluídas.
 - [x] Aplicação web Streamlit executando localmente com chat e painel de explicabilidade.
 - [x] Repositório documentado com `README.md` e `requirements.txt` atualizados.
 - [x] Sincronização final realizada no GitHub do trio.
 - [x] Pitch ensaiado e cronometrado com fala distribuída entre os 3 membros.
+- [x] Formulário de auto-avaliação e feedback preenchido no Google Forms.

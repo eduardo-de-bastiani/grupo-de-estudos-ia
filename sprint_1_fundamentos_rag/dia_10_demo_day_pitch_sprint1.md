@@ -23,8 +23,9 @@
 │ 14:15 - 15:30   │ Apresentações dos 5 Trios (15 min por trio)            │
 │ 15:30 - 15:45   │ Coffee Break & Networking com os Gestores              │
 │ 15:45 - 16:15   │ Feedback da Banca Avaliadora & Destaques da Sprint 1   │
-│ 16:15 - 16:45   │ Retrospectiva da Sprint 1 (Start / Stop / Continue)    │
-│ 16:45 - 17:00   │ Teaser Temático da Sprint 2 & Encerramento             │
+│ 16:15 - 16:35   │ Retrospectiva da Sprint 1 (Start / Stop / Continue)    │
+│ 16:35 - 16:45   │ Teaser Temático da Sprint 2 & Encerramento da Sprint   │
+│ 16:45 - 17:00   │ Formulário Final de Avaliação da Sprint 1 (Forms)      │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
@@ -66,7 +67,7 @@ A banca avaliadora observará os seguintes critérios:
 
 ---
 
-## 🔄 5. Bloco 2: Retrospectiva da Sprint 1 (16:15 - 16:45)
+## 🔄 5. Bloco 2: Retrospectiva da Sprint 1 (16:15 - 16:35)
 
 Discussão entre todos os alunos no quadro:
 * 🟢 **Start (O que devemos começar a fazer na Sprint 2?):** Ex: Explorar automação com agentes e chamadas de ferramentas.
@@ -75,14 +76,22 @@ Discussão entre todos os alunos no quadro:
 
 ---
 
-## 🔮 6. Bloco 3: Teaser da Sprint 2 (16:45 - 17:00)
+## 🔮 6. Bloco 3: Teaser da Sprint 2 (16:35 - 16:45)
 
 * **Tema Central:** *Agentes Autônomos, Function/Tool Calling & Model Context Protocol (MCP)*.
 * **O Próximo Salto:** Na Sprint 1 a LLM aprendeu a *ler e responder documentos*. Na Sprint 2 a LLM aprenderá a **agir no mundo real**: executar código, consultar bancos de dados SQL, interagir com APIs e utilizar servidores MCP como assistente de desenvolvimento!
 * **Nova Rotação de Squads:** Novos trios serão formados na Sprint 2 para ampliar o networking e colaboração.
 
+---
+
+## 📝 7. Bloco 4: Formulário Final de Avaliação da Sprint 1 & Feedback (16:45 - 17:00)
+
+> 📋 **Link do Formulário de Avaliação Final da Sprint 1:**  
+> [Preencher Formulário do Google Forms - Fechamento Sprint 1](#) *(Link disponibilizado pelo instrutor em sala)*
+
 ### ✅ Checklist de Conclusão da Sprint 1:
 - [x] Apresentações dos 5 projetos *AskData* concluídas com sucesso.
 - [x] Feedback da liderança da DataLakers recebido.
 - [x] Repositórios finais consolidados no GitHub.
-- [x] Retrospectiva concluída e alinhamento total para a Sprint 2.
+- [x] Retrospectiva e Teaser da Sprint 2 concluídos.
+- [x] Formulário final de avaliação da Sprint 1 preenchido no Google Forms.

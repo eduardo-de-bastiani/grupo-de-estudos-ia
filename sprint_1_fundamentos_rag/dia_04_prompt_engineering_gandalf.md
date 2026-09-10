@@ -26,7 +26,7 @@
 │ 15:15 - 15:30   │ Discussão em Duplas: Táticas de Ataque e Contorno      │
 │ 15:30 - 15:45   │ Coffee Break & Networking                              │
 │ 15:45 - 16:45   │ Bloco 3: Mini-CTF de Ataque e Defesa (Python)          │
-│ 16:45 - 17:00   │ Bloco 4: Auto-Avaliação & Checklist do Dia             │
+│ 16:45 - 17:00   │ Formulário de Auto-Avaliação & Feedback (Google Forms) │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
@@ -183,13 +183,16 @@ else:
 
 ---
 
-## 🔍 7. Bloco 4: Auto-Avaliação & Checklist do Dia (16:45 - 17:00)
+## 📝 7. Bloco 4: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
-* **Conclusão Técnica:** A injeção de prompt é a vulnerabilidade #1 do OWASP Top 10 para LLMs. O uso de **delimitadores estruturais** (`<context>`, `<user_input>`), **temperatura baixa** (0.1) e **System Instructions estritas** são defesas essenciais que usaremos no projeto RAG na Semana 2.
-* **Próximo Encontro (Dia 05):** Como buscar respostas em milhares de páginas sem estourar o limite de contexto da LLM? Entraremos no universo de **Embeddings Vetoriais e ChromaDB**!
+> 📋 **Link do Formulário de Auto-Avaliação:**  
+> [Preencher Formulário do Google Forms - Dia 04](#) *(Link disponibilizado pelo instrutor em sala)*
+
+> 📌 **Próximo Encontro (Dia 05):** Como buscar respostas em milhares de páginas sem estourar o limite de contexto da LLM? Entraremos no universo de **Embeddings Vetoriais e ChromaDB** e formaremos os trios oficiais da Semana 2!
 
 ### ✅ Checklist de Conclusão do Dia 04:
 - [x] Leituras de Prompting e Injeção de Prompt concluídas.
 - [x] Script `few_shot_cot_lab.py` executado com Modelo Gemini.
 - [x] Desafio Gandalf explorado no navegador (ao menos até o nível 4).
 - [x] Mini-CTF em Python (`ctf_guardian.py`) implementado e testado em duplas com técnicas defensivas.
+- [x] Formulário de auto-avaliação e feedback preenchido no Google Forms.

@@ -24,8 +24,9 @@
 │ 14:25 - 14:40   │ Daily Standup Autônoma do Trio: Meta do RAG Engine     │
 │ 14:40 - 15:30   │ Codificação em Trio: Implementação do `rag_engine.py`  │
 │ 15:30 - 15:45   │ Coffee Break & Descompressão                           │
-│ 15:45 - 16:45   │ Laboratório de Stress Test: Validando Alucinações      │
-│ 16:45 - 17:00   │ Sincronização do Código no GitHub do Trio              │
+│ 15:45 - 16:35   │ Laboratório de Stress Test: Validando Alucinações      │
+│ 16:35 - 16:45   │ Sincronização do Código no GitHub do Trio              │
+│ 16:45 - 17:00   │ Formulário Diário de Auto-Avaliação & Feedback (Forms) │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
@@ -40,7 +41,7 @@ Realize a leitura dos materiais de referência sobre fundamentação (grounding)
 
 ---
 
-## 💻 4. Bloco 2: Implementação do Módulo `src/rag_engine.py` (14:40 - 16:45)
+## 💻 4. Bloco 2: Implementação do Módulo `src/rag_engine.py` (14:40 - 15:30)
 
 Os trios constroem a classe `RAGEngine` que encapsula a busca vetorial no ChromaDB e a geração de resposta via Modelo Gemini.
 
@@ -192,7 +193,7 @@ if __name__ == "__main__":
 
 ---
 
-## 🧪 5. Bloco 3: Laboratório de Stress Test Autônomo (15:45 - 16:45)
+## 🧪 5. Bloco 3: Laboratório de Stress Test Autônomo (15:45 - 16:35)
 
 Cada trio deve testar 3 cenários críticos no terminal:
 1. **Pergunta Direta com Fato Presente:** Verificar se o modelo responde corretamente e cita a página e o arquivo certos.
@@ -201,15 +202,23 @@ Cada trio deve testar 3 cenários críticos no terminal:
 
 ---
 
-## 🎤 6. Bloco 4: Sincronização no GitHub (16:45 - 17:00)
+## 🐙 6. Bloco 4: Sincronização no GitHub (16:35 - 16:45)
 
-Dediquem os 15 minutos finais para que o trio sincronize as alterações no repositório compartilhado do GitHub:
+Dediquem esses 10 minutos para que o trio sincronize as alterações no repositório compartilhado do GitHub:
 - Certifiquem-se de que o módulo `src/rag_engine.py` está commitado e enviado à branch remota.
 - Confirmem que a chave de API e a pasta `chroma_db/` continuam estritamente protegidas pelo `.gitignore`.
 - Todos os 3 membros devem atualizar suas branches locais para garantir que a base de código está alinhada para a construção da interface gráfica no Dia 09.
+
+---
+
+## 📝 7. Bloco 5: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
+
+> 📋 **Link do Formulário de Auto-Avaliação:**  
+> [Preencher Formulário do Google Forms - Dia 08](#) *(Link disponibilizado pelo instrutor em sala)*
 
 ### ✅ Checklist de Conclusão do Dia 08:
 - [x] Leitura de Grounding, RAG e mitigação de alucinações concluída.
 - [x] Módulo `src/rag_engine.py` implementado com Modelo Gemini e testado no terminal.
 - [x] Testes de estresse executados (anti-alucinação funcionando).
 - [x] Código sincronizado no GitHub.
+- [x] Formulário de auto-avaliação e feedback preenchido no Google Forms.

@@ -25,7 +25,8 @@
 │ 14:40 - 15:30   │ Laboratório de Código: Hello Gemini & Contador de Tokens│
 │ 15:30 - 15:45   │ Coffee Break & Networking                              │
 │ 15:45 - 16:30   │ Laboratório Empírico de Hiperparâmetros (Temp & Top-P) │
-│ 16:30 - 17:00   │ Análise Comparativa em Duplas & Checklist do Dia       │
+│ 16:30 - 16:45   │ Análise Comparativa em Duplas & Git Sync               │
+│ 16:45 - 17:00   │ Formulário de Auto-Avaliação & Feedback (Google Forms) │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
@@ -241,15 +242,24 @@ for top_k in [1, 10, 40]:
 
 ---
 
-## 🔍 6. Análise Comparativa & Conclusões (16:30 - 17:00)
+## 🔍 6. Análise Comparativa & Git Sync (16:30 - 16:45)
 
 Analise com sua dupla os resultados obtidos nos terminais:
 1. **Determinismo:** Em `temperature = 0.0`, as tentativas 1 e 2 foram idênticas?
 2. **Custo de Tokenização em Português:** Por que a razão Token/Palavra no português foi maior que no inglês? *(O vocabulário BPE da maioria das LLMs é predominantemente treinado em inglês, dividindo palavras em português em múltiplos pedaços menores).*
 3. **Conexão com o Google AI Studio:** Como a experiência de codar esses scripts se compara com o que vocês experimentaram no Playground ontem?
+4. **Sincronização no Repositório Pessoal:** Suba os scripts de hoje para o seu repositório pessoal no GitHub (garantindo que o arquivo `.env` não seja commitado).
+
+---
+
+## 📝 7. Bloco 5: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
+
+> 📋 **Link do Formulário de Auto-Avaliação:**  
+> [Preencher Formulário do Google Forms - Dia 03](#) *(Link disponibilizado pelo instrutor em sala)*
 
 ### ✅ Checklist de Conclusão do Dia 03:
 - [x] Leituras da Cloudflare sobre LLMs e Tokenização concluídas.
 - [x] Variáveis de ambiente configuradas no `.env` e testadas.
 - [x] Scripts `01_hello_gemini.py`, `02_token_counter.py`, `03_temperature_lab.py` e `04_top_p_top_k_lab.py` executados com sucesso.
-- [x] Compreensão prática da diferença de tokens entre idiomas e do impacto de temperatura e amostragem estatística.
+- [x] Scripts sincronizados no repositório pessoal do GitHub.
+- [x] Formulário de auto-avaliação e feedback preenchido no Google Forms.

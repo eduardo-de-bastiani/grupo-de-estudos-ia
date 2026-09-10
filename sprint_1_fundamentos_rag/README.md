@@ -15,7 +15,7 @@ A Sprint 1 estabelece as fundações sólidas da Engenharia de IA Generativa. De
 
 | Dia | Data | Tipo | Título do Encontro | Links & Conteúdo |
 | :---: | :---: | :--- | :--- | :--- |
-| **01** | 14/09 (Seg) | Onboarding | [Kickoff Oficial & Boas-Vindas DataLakers](dia_01_onboarding_boas_vindas.md) | Abertura, Coffee de Boas-Vindas, Dinâmica Quebra-Gelo, Setup Inicial |
+| **01** | 14/09 (Seg) | Onboarding | [Kickoff Oficial & Boas-Vindas DataLakers](dia_01_onboarding_boas_vindas.md) | Abertura, Coffee de Boas-Vindas, Dinâmica de Apresentação em Duplas, Setup Inicial |
 | **02** | 15/09 (Ter) | Plataforma | [Explorando o Google AI Studio: Playground, Tools & Comparação de Modelos](dia_02_explorando_google_ai_studio.md) | Imersão no Google AI Studio, chaves de API, parâmetros (Temp, Top-P, Top-K, Thinking), Tools nativas, Safety Settings e Compare Mode |
 | **03** | 16/09 (Qua) | Código/Fundamentos | [Fundamentos de LLMs em Código, Tokenização & SDK Python](dia_03_fundamentos_llms_tokens_python.md) | Primeiras chamadas via SDK Python, tokens vs caracteres/palavras em PT/EN/código, validação de hiperparâmetros |
 | **04** | 17/09 (Qui) | Prompt/Segurança | [Engenharia de Prompt Avançada & Segurança (Desafio Gandalf)](dia_04_prompt_engineering_gandalf.md) | Few-shot, CoT, delimitadores estruturais, desafio Lakera Gandalf (1 ao 8) e Mini-CTF em Python |
