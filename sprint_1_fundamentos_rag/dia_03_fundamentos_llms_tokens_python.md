@@ -37,8 +37,7 @@
 Antes de programar, cada estudante deve ler os seguintes materiais de fundamentação conceitual:
 
 1. 📄 [Cloudflare: O que é um modelo de linguagem grande (LLM)?](https://www.cloudflare.com/pt-br/learning/ai/what-is-large-language-model/) — *Como modelos estatísticos de predição do próximo token operam sob arquitetura Transformer.*
-2. 📄 [Cloudflare: O que é tokenização e incorporação em IA?](https://www.cloudflare.com/pt-br/learning/ai/what-is-tokenization/) — *Como o texto cru é fatiado em IDs numéricos para processamento vetorial.*
-3. 📄 [Cloudflare: O que é fine-tuning de IA?](https://www.cloudflare.com/pt-br/learning/ai/what-is-fine-tuning/) — *Entenda a diferença entre o pré-treinamento maciço de um modelo base e o ajuste fino para tarefas específicas.*
+2. 📄 [McKinsey: O que é tokenização e incorporação em IA?](https://www.mckinsey.com/featured-insights/mckinsey-explainers/what-is-tokenization) — *Como o texto cru é fatiado em IDs numéricos para processamento vetorial.*
 
 ---
 
@@ -75,6 +74,9 @@ GEMINI_API_KEY=sua_chave_copiada_do_google_ai_studio_aqui
 Trabalhando em duplas, criem uma pasta `dia_03/` para organizar os scripts do dia.
 
 ### Script 1: `01_hello_gemini.py` (Primeira Requisição via SDK)
+
+**Intuito do script:** Realizar a primeira requisição autenticada à API do Gemini em Python utilizando o SDK oficial, validando o carregamento da chave pelo `.env` e inspecionando os metadados de tokens de entrada e saída retornados na resposta.
+
 ```python
 import os
 from dotenv import load_dotenv
@@ -106,12 +108,14 @@ print(f"Tokens de Entrada (Prompt): {response.usage_metadata.prompt_token_count}
 print(f"Tokens de Saida (Resposta): {response.usage_metadata.candidates_token_count}")
 print(f"Total de Tokens: {response.usage_metadata.total_token_count}")
 
-# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
 ```
-
+> Se algo nao funcionar de primeira, leia o traceback e debugue. Isso faz parte do projeto! 😉
 ---
 
 ### Script 2: `02_token_counter.py` (Investigação de Idiomas e Código)
+
+**Intuito do script:** Investigar empiricamente como o tokenizador da LLM fatia textos em inglês, português e blocos de código Python, comparando a quantidade total de tokens gerada e a razão de tokens por palavra em cada linguagem.
+
 ```python
 import os
 from dotenv import load_dotenv
@@ -144,12 +148,14 @@ for categoria, texto in textos.items():
     razao = qtd_tokens / max(qtd_palavras, 1)
     print(f"{categoria:<15} | {qtd_chars:<12} | {qtd_palavras:<10} | {qtd_tokens:<8} | {razao:.2f}")
 
-# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
 ```
 
 ---
 
 ### Script 3: `03_temperature_lab.py` (Experimento Empírico de Temperatura)
+
+**Intuito do script:** Avaliar na prática como a variação do hiperparâmetro de temperatura (0.0, 0.7 e 1.5) altera as respostas geradas para um mesmo prompt, comparando a repetição determinística com níveis crescentes de criatividade e aleatoriedade.
+
 ```python
 import os
 from dotenv import load_dotenv
@@ -184,12 +190,14 @@ for temp in temperaturas:
         print(f"\n[Tentativa {tentativa}]:")
         print(response.text.strip())
 
-# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
 ```
 
 ---
 
 ### Script 4: `04_top_p_top_k_lab.py` (Experimento com Top-P e Top-K)
+
+**Intuito do script:** Compreender a amostragem probabilística testando como os parâmetros Top-P (corte por probabilidade cumulativa) e Top-K (corte por número fixo de candidatos) restringem o vocabulário elegível e controlam a previsibilidade das respostas.
+
 ```python
 import os
 from dotenv import load_dotenv
@@ -237,7 +245,6 @@ for top_k in [1, 10, 40]:
     )
     print(f"\n[top_k={top_k}]: {response.text.strip()}")
 
-# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
 ```
 
 ---
@@ -246,7 +253,7 @@ for top_k in [1, 10, 40]:
 
 Analise com sua dupla os resultados obtidos nos terminais:
 1. **Determinismo:** Em `temperature = 0.0`, as tentativas 1 e 2 foram idênticas?
-2. **Custo de Tokenização em Português:** Por que a razão Token/Palavra no português foi maior que no inglês? *(O vocabulário BPE da maioria das LLMs é predominantemente treinado em inglês, dividindo palavras em português em múltiplos pedaços menores).*
+2. **Custo de Tokenização em Português:** Por que a razão Token/Palavra no português foi maior que no inglês?
 3. **Conexão com o Google AI Studio:** Como a experiência de codar esses scripts se compara com o que vocês experimentaram no Playground ontem?
 4. **Sincronização no Repositório Pessoal:** Suba os scripts de hoje para o seu repositório pessoal no GitHub (garantindo que o arquivo `.env` não seja commitado).
 

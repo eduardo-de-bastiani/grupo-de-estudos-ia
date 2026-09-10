@@ -236,7 +236,6 @@ response = client.models.generate_content(
 )
 print(response.text)
 
-# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
 ```
 
 ---

@@ -164,7 +164,6 @@ print(f"Versao do Python: {sys.version.split()[0]}")
 print(f"Sistema Operacional: {platform.system()} {platform.release()}")
 print("=" * 55)
 
-# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
 ```
 
 Execute no terminal com o `.venv` ativado:
