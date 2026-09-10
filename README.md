@@ -1,7 +1,7 @@
 # 🧠 Grupo de Estudos em Inteligência Artificial Generativa
 ### Navi Hub (Tecnopuc) & DataLakers
 **Período:** 14/09 a 23/10 | **Horário:** Segunda a Sexta, das 14h às 17h (3h/dia)  
-**Carga Horária Total:** 90 horas presenciais (30 encontros) | **Público:** 15 alunos de Engenharia de Software e Sistemas de Informação da PUCRS (3º ao 5º semestre)
+**Carga Horária Total:** 90 horas presenciais (30 encontros) | **Público:** 15 alunos dos cursos de Computação
 
 ---
 
@@ -16,30 +16,28 @@ O Grupo de Estudos em Inteligência Artificial Generativa é uma iniciativa conj
 ## 🗓️ 2. Estrutura do Programa em 3 Sprints
 
 O programa é dividido em **3 Sprints de 2 semanas cada**. Cada Sprint adota uma metodologia em duas fases:
-* **Semana 1 (Fundamentação & Dinâmicas Práticas):** Leitura introdutória padronizada (10-15 min em plataformas de referência como *Cloudflare Learning Hub* e *PromptingGuide.ai*), tutoriais práticos guiados e desafios diários em duplas/trios.
+* **Semana 1 (Fundamentação & Dinâmicas Práticas):** Leitura introdutória padronizada (25 min em plataformas de referência), tutoriais práticos guiados e desafios diários em duplas/trios.
 * **Semana 2 (Desenvolvimento do Projeto da Sprint):** Desenvolvimento de um produto/serviço funcional de IA Generativa em trios, culminando em um **Demo Day com a presença da liderança da DataLakers**.
 
 ```mermaid
 flowchart TD
     subgraph S1["Sprint 1 (14/09 a 25/09)"]
         S1W1["Semana 1: Fundamentos, Google AI Studio, Prompting & ChromaDB"]
-        S1W2["Semana 2: Projeto 'AskData' (RAG Local + Streamlit UI)"]
-        S1Special["Palestra Online: Ramon Lummertz (22/09)"]
+        S1W2["Semana 2: Projeto 'AskData'"]
         S1Demo["Demo Day 1 (Presença Liderança DataLakers)"]
         S1W1 --> S1W2 --> S1Demo
-        S1W2 -.-> S1Special
     end
 
     subgraph S2["Sprint 2 (28/09 a 09/10)"]
         S2W1["Semana 1: Function Calling, Tool Use & Model Context Protocol (MCP)"]
-        S2W2["Semana 2: Projeto 'DataOps Agent' (Agente Autônomo com Ferramentas & MCP)"]
+        S2W2["Semana 2: Projeto 'DataOps Agent'"]
         S2Demo["Demo Day 2 (Presença Liderança DataLakers)"]
         S2W1 --> S2W2 --> S2Demo
     end
 
     subgraph S3["Sprint 3 (13/10 a 23/10 - *12/10 Feriado)"]
         S3W1["Semana 1: Multimodalidade (Visão + Áudio Whisper) & Avaliação de LLMs"]
-        S3W2["Semana 2: Projeto 'OmniAssistant' (Produto Multimodal Full-Stack)"]
+        S3W2["Semana 2: Projeto 'OmniAssistant'"]
         S3Demo["Final Demo Day & Encerramento Oficial"]
         S3W1 --> S3W2 --> S3Demo
     end
@@ -49,17 +47,14 @@ flowchart TD
 
 ---
 
-## 💻 3. Premissas Técnicas e Custo Zero (Sem Cartão de Crédito)
+## 💻 3. Premissas Técnicas e Custo Zero
 
 Todos os materiais, ferramentas e bibliotecas foram rigorosamente selecionados para garantir **100% de gratuidade e acessibilidade universal**, considerando que os alunos utilizarão seus próprios notebooks (Windows, macOS ou Linux, a partir de 8GB de RAM):
 
 1. **APIs e Modelos Cloud Gratuitos:**
-   - **Google AI Studio:** API key gratuita, sem necessidade de cartão de crédito e com limites generosos (Modelos Gemini e modelo de embedding).
-   - **Groq Cloud:** Inferência ultra-rápida gratuita sem cartão.
-   - **Hugging Face Hub:** Acesso a modelos e datasets open-source.
+   - **Google AI Studio:** API key gratuita, sem necessidade de cartão de crédito e com limites generosos (Modelos Gemini).
 2. **Execução Local (Offline/Edge):**
-   - **Ollama:** Execução local de modelos leves (`llama3.2:1b/3b`, `qwen2.5-coder:1.5b/3b`, `phi3.5:3.8b`) para quem tiver hardware compatível.
-   - **ChromaDB / FAISS:** Banco vetorial local in-memory e persistente em disco (100% gratuito e open-source, executado embutido em Python sem custos nem nuvem).
+   - **ChromaDB:** Banco vetorial local in-memory e persistente em disco (100% gratuito e open-source, executado embutido em Python sem custos nem nuvem).
 3. **Ambiente de Desenvolvimento:**
    - **VS Code:** Editor principal com terminal integrado e extensões Python.
    - **GitHub Copilot:** Acesso gratuito para estudantes universitários via [GitHub Student Developer Pack](https://education.github.com/pack).
@@ -72,9 +67,9 @@ Todos os materiais, ferramentas e bibliotecas foram rigorosamente selecionados p
 
 | Bloco | Duração | Semana de Aprendizado (Semana 1) | Semana de Projeto (Semana 2) |
 | :--- | :--- | :--- | :--- |
-| **1. Alinhamento & Leitura Base** | 25 min (14:00 - 14:25) | **Leitura Padronizada de Referência** (*Cloudflare / PromptingGuide*) | Daily Standup autônoma por trio (ontem, hoje, bloqueios) |
+| **1. Alinhamento & Leitura Base** | 25 min (14:00 - 14:25) | Leitura sobre tópicos abordados no dia | Daily Standup autônoma por trio (ontem, hoje, bloqueios) |
 | **2. Imersão Prática Guiada** | 65 min (14:25 - 15:30) | Tutoriais interativos, análise de código e experimentos | Codificação em squad & desenvolvimento do backlog |
-| **3. Intervalo & Conexão** | 15 min (15:30 - 15:45) | Coffee break, networking e descanso visual | Coffee break e alinhamento rápido entre squads |
+| **3. Intervalo & Conexão** | 15 min (15:30 - 15:45) | break, networking e descanso visual | break e alinhamento rápido entre squads |
 | **4. Desafio Colaborativo** | 60 min (15:45 - 16:45) | Desafio prático "mão na massa" em duplas/trios | Codificação focada, integração e testes de estresse |
 | **5. Fechamento & Git Sync** | 15 min (16:45 - 17:00) | Auto-avaliação, checagem de código e dúvidas | Commit/Push no GitHub e atualização do README |
 
