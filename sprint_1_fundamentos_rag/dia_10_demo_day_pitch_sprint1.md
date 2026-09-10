@@ -8,10 +8,11 @@
 ---
 
 ## 🎯 1. Objetivos do Encontro
-1. Realizar o **Demo Day Oficial da Sprint 1**, com os 5 trios apresentando seus produtos *AskData* funcionando ao vivo para a banca avaliadora da DataLakers.
+1. Realizar o **Demo Day Oficial da Sprint 1**, com os 5 trios apresentando seus produtos *AskData* funcionando ao vivo para os colegas, coordenação do Navi Hub e convidados da DataLakers.
 2. Demonstrar o domínio prático autônomo dos conceitos de RAG, Embeddings, ChromaDB, Prompt Grounding e Streamlit.
-3. Avaliar competências de comunicação técnica, trabalho em equipe, qualidade de código e capacidade de resolução de problemas para fins de **scouting de talentos**.
-4. Realizar a retrospectiva da Sprint 1 e apresentar a introdução da **Sprint 2 (Agentes Autônomos, Function/Tool Calling & Model Context Protocol - MCP)**.
+3. Consolidar competências de comunicação técnica, trabalho em equipe e capacidade de resolução autônoma de problemas.
+4. Realizar a retrospectiva ágil da Sprint 1 via **Learning Matrix** (35 minutos no quadro, mapeando aprendizados técnicos e comportamentais).
+5. Ler e explorar o documento `README.md` introdutório da **Sprint 2 (Agentes Autônomos, Function/Tool Calling & Model Context Protocol - MCP)**.
 
 ---
 
@@ -19,12 +20,11 @@
 
 ```
 ┌─────────────────┬────────────────────────────────────────────────────────┐
-│ 14:00 - 14:15   │ Abertura do Demo Day & Boas-Vindas à Liderança         │
+│ 14:00 - 14:15   │ Abertura do Demo Day & Boas-Vindas aos Convidados      │
 │ 14:15 - 15:30   │ Apresentações dos 5 Trios (15 min por trio)            │
-│ 15:30 - 15:45   │ Coffee Break & Networking com os Gestores              │
-│ 15:45 - 16:15   │ Feedback da Banca Avaliadora & Destaques da Sprint 1   │
-│ 16:15 - 16:35   │ Retrospectiva da Sprint 1 (Start / Stop / Continue)    │
-│ 16:35 - 16:45   │ Teaser Temático da Sprint 2 & Encerramento da Sprint   │
+│ 15:30 - 16:00   │ Coffee Break & Networking                              │
+│ 16:00 - 16:35   │ Retrospectiva Ágil: Learning Matrix no Quadro (35 min) │
+│ 16:35 - 16:45   │ Teaser da Sprint 2: Leitura do README da Sprint 2      │
 │ 16:45 - 17:00   │ Formulário Final de Avaliação da Sprint 1 (Forms)      │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
@@ -40,47 +40,75 @@ Cada trio terá **15 minutos rigorosamente cronometrados**:
   * Demonstração ao vivo no Streamlit (busca semântica + citação de páginas + teste anti-alucinação).
   * Desafios enfrentados e decisões de engenharia tomadas.
 * **5 minutos de Perguntas & Respostas (Q&A):**
-  * Perguntas da liderança da DataLakers sobre arquitetura, código e usabilidade.
-
-### Ordem das Apresentações dos Trios:
-| Ordem | Horário | Trio / Projeto | Domínio dos Dados |
-| :---: | :---: | :--- | :--- |
-| **1º** | 14:15 - 14:30 | **Trio 1** | *AskData - PUCRS Academic Helper* |
-| **2º** | 14:30 - 14:45 | **Trio 2** | *AskData - DataOps & ETL Knowledge Base* |
-| **3º** | 14:45 - 15:00 | **Trio 3** | *AskData - Corporativo RH & Políticas Internas* |
-| **4º** | 15:00 - 15:15 | **Trio 4** | *AskData - LGPD & Compliance Jurídico* |
-| **5º** | 15:15 - 15:30 | **Trio 5** | *AskData - Manuais Técnicos & Cloud DevOps* |
+  * Perguntas dos colegas, da coordenação e dos convidados da DataLakers sobre a solução construída.
 
 ---
 
-## 📊 4. Ficha de Observação da Liderança (Scouting DataLakers)
+## ☕ 4. Coffee Break & Networking (15:30 - 16:00)
 
-A banca avaliadora observará os seguintes critérios:
+Momento de descontração, comemoração e conversas informais entre os estudantes, instrutores e convidados da DataLakers e Navi Hub após a conclusão de todas as apresentações.
+
+---
+
+## 🔄 5. Bloco 2: Retrospectiva Ágil — Learning Matrix no Quadro (16:00 - 16:35)
+
+Após as apresentações e o coffee break, a turma realiza uma **Learning Matrix** (Matriz de Aprendizado) de **35 minutos**, dinâmica ágil clássica adaptada para debriefing integral de sprints. O objetivo é consolidar com clareza não apenas o código e a arquitetura técnica gerados, mas o amadurecimento profissional e colaborativo de cada estudante.
+
+### 📋 Papéis & Materiais Necessários:
+* **Voluntário ou Monitor Anotador:** Um estudante voluntário da turma (ou o monitor) vai à frente da sala para atuar como escriba/facilitador no quadro branco, agrupando e organizando visualmente as ideias trazidas pela sala.
+* **Materiais de Apoio:**
+  * Post-its (duas cores diferentes ou bloquinhos padrão) e canetas esferográficas para todos os participantes.
+  * *Alternativa sem post-its:* Caso não haja post-its disponíveis na sala, os estudantes compartilham seus tópicos em voz alta e o voluntário/monitor anota diretamente no quadro com canetas para quadro branco.
+
+---
+
+### 🖼️ Estrutura da Learning Matrix no Quadro:
+
+O voluntário desenha 4 quadrantes no quadro branco:
 
 ```
-[ ] Domínio Arquitetural: O trio compreende como embeddings e busca vetorial funcionam na prática?
-[ ] Robustez da Demonstração: A aplicação rodou sem quebrar? Tratou perguntas fora de contexto?
-[ ] Qualidade do Código & Git: O repositório está limpo, modular, documentado e com commits equilibrados?
-[ ] Postura & Comunicação: Todos os integrantes falaram? Houve clareza na explicação técnica?
-[ ] Autonomia & Resolução de Problemas: O time demonstrou capacidade de aprender e construir de forma independente?
+┌──────────────────────────────────────┬──────────────────────────────────────┐
+│  💻 APRENDIZADOS TÉCNICOS            │  🤝 APRENDIZADOS NÃO-TÉCNICOS        │
+│     (Hard Skills de IA & Código)     │     (Soft/Power Skills & Equipe)     │
+├──────────────────────────────────────┼──────────────────────────────────────┤
+│  🚧 PEDRAS NO SAPATO                 │  🚀 MUDANÇAS PARA A SPRINT 2         │
+│     (Obstáculos & Dificuldades)      │     (O que faremos diferente)        │
+└──────────────────────────────────────┴──────────────────────────────────────┘
 ```
 
+1. 💻 **Aprendizados Técnicos (Hard Skills):**
+   * *O que virou chave no código, na teoria e nas ferramentas de GenAI (LLMs, Embeddings, Vetores, Chunking, ChromaDB, Prompting, Streamlit)?*
+
+2. 🤝 **Aprendizados Não-Técnicos (Soft & Power Skills):**
+   * *O que aprendi sobre colaboração em equipe, comunicação técnica, divisão de papéis no trio, apresentação em público e postura profissional?*
+
+3. 🚧 **Pedras no Sapato (Obstáculos & Dificuldades Superadas):**
+   * *O que quase travou nosso time durante os 10 dias e como resolvemos coletivamente?*
+
+4. 🚀 **Mudanças Práticas para a Sprint 2:**
+   * *O que faremos diferente na próxima sprint para melhorar nosso fluxo de trabalho e entrega?*
+
 ---
 
-## 🔄 5. Bloco 2: Retrospectiva da Sprint 1 (16:15 - 16:35)
+### ⏱️ Passo a Passo da Dinâmica (35 minutos cronometrados):
 
-Discussão entre todos os alunos no quadro:
-* 🟢 **Start (O que devemos começar a fazer na Sprint 2?):** Ex: Explorar automação com agentes e chamadas de ferramentas.
-* 🔴 **Stop (O que devemos parar de fazer?):** Ex: Deixar testes de integração para o último dia.
-* 🟡 **Continue (O que deu muito certo e deve continuar?):** Ex: Roteiros detalhados, leituras de referência padronizadas, laboratórios em duplas/trios.
+1. **Minuto 0 a 5 (Reflexão Individual & Escrita):**
+   * Cada estudante reflete sozinho e escreve pelo menos **2 post-its**:
+     * 1 post-it com seu maior aprendizado técnico (Hard Skill).
+     * 1 post-it com seu maior aprendizado não-técnico / colaborativo (Soft Skill).
+2. **Minuto 5 a 15 (Alinhamento no Trio):**
+   * Os membros de cada trio compartilham suas reflexões, comparam percepções e elegem suas maiores dificuldades (pedras no sapato) e principais lições para os próximos projetos.
+3. **Minuto 15 a 35 (Mapeamento Coletivo com o Voluntário no Quadro):**
+   * Os estudantes colam seus post-its nos quadrantes correspondentes (ou ditam para o voluntário/monitor anotar no quadro com a caneta).
+   * O voluntário/monitor e a turma agrupam os tópicos em temas recorrentes e debatem abertamente os insights mais marcantes da Sprint 1.
 
 ---
 
-## 🔮 6. Bloco 3: Teaser da Sprint 2 (16:35 - 16:45)
+## 🔮 6. Bloco 3: Teaser da Sprint 2 — Leitura do README (16:35 - 16:45)
 
-* **Tema Central:** *Agentes Autônomos, Function/Tool Calling & Model Context Protocol (MCP)*.
-* **O Próximo Salto:** Na Sprint 1 a LLM aprendeu a *ler e responder documentos*. Na Sprint 2 a LLM aprenderá a **agir no mundo real**: executar código, consultar bancos de dados SQL, interagir com APIs e utilizar servidores MCP como assistente de desenvolvimento!
-* **Nova Rotação de Squads:** Novos trios serão formados na Sprint 2 para ampliar o networking e colaboração.
+* **Leitura Inicial:** Leitura e exploração do documento `README.md` da Sprint 2 (localizado na pasta `sprint_2_agentes_mcp/README.md`).
+* **O Próximo Salto:** Compreensão geral da transição: enquanto na Sprint 1 a LLM aprendeu a *ler e responder documentos* com RAG, na Sprint 2 a LLM aprenderá a **agir no mundo real** por meio de Agentes Autônomos, Function/Tool Calling e Model Context Protocol (MCP).
+* **Nova Rotação de Squads:** Novos trios serão formados na Sprint 2 para ampliar o networking e colaboração entre os participantes.
 
 ---
 
@@ -90,8 +118,8 @@ Discussão entre todos os alunos no quadro:
 > [Preencher Formulário do Google Forms - Fechamento Sprint 1](#) *(Link disponibilizado pelo instrutor em sala)*
 
 ### ✅ Checklist de Conclusão da Sprint 1:
-- [x] Apresentações dos 5 projetos *AskData* concluídas com sucesso.
-- [x] Feedback da liderança da DataLakers recebido.
+- [x] Apresentações dos 5 projetos *AskData* concluídas com sucesso no Demo Day.
 - [x] Repositórios finais consolidados no GitHub.
-- [x] Retrospectiva e Teaser da Sprint 2 concluídos.
+- [x] Retrospectiva da Sprint 1 realizada via Learning Matrix no quadro (35 min).
+- [x] Leitura do README da Sprint 2 concluída.
 - [x] Formulário final de avaliação da Sprint 1 preenchido no Google Forms.

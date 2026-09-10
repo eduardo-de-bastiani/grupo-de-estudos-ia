@@ -71,7 +71,7 @@ flowchart TD
 
 ## 📚 5. Bloco 3: Escolha do Domínio & Coleta Ativa dos Documentos (14:35 - 15:30)
 
-Neste bloco de 55 minutos, o trio deve definir o problema de negócio que deseja resolver e **pesquisar, selecionar e baixar entre 3 e 5 arquivos reais** (PDF ou Markdown) para compor a base de conhecimento do assistente.
+Neste bloco de 55 minutos, o trio deve definir o problema de negócio que deseja resolver e **pesquisar, selecionar e baixar entre 3 e 5 arquivos reais** (PDFs) para compor a base de conhecimento do assistente.
 
 ### Critérios Importantes para Seleção dos Documentos:
 * **Texto Selecionável:** Os arquivos PDF devem conter texto digital nativo (não utilize PDFs compostos por fotos/scans de documentos, pois exigem OCR).

@@ -11,7 +11,7 @@
 1. Compreender o conceito intuitivo de **Embeddings Vetoriais**: como textos são transformados em vetores numéricos onde significados próximos ficam geometricamente próximos.
 2. Diferenciar busca léxica (palavra-chave / SQL `LIKE`) de busca semântica (por significado).
 3. Instalar e utilizar localmente o **ChromaDB** (banco vetorial open-source gratuito), persistindo coleções vetoriais no disco.
-4. Construir um motor de busca semântica local em Python com o modelo gratuito **`gemini-embedding-001`**.
+4. Construir um motor de busca semântica local em Python com o modelo gratuito **`gemini-embedding-001`**, indexando um documento técnico real em PDF: o **Manual do Smartwatch Redmi Watch 5 Active** (13 páginas).
 5. Formar oficialmente os **5 Trios da Sprint 1** para o desenvolvimento do projeto *AskData* na Semana 2.
 
 ---
@@ -21,9 +21,9 @@
 ```
 ┌─────────────────┬────────────────────────────────────────────────────────┐
 │ 14:00 - 14:25   │ Leitura Padronizada de Referência (Cloudflare Hub)     │
-│ 14:25 - 15:20   │ Setup do ChromaDB + Script de Embeddings & Distâncias  │
+│ 14:25 - 15:20   │ Setup do ChromaDB + Indexação do Manual em PDF         │
 │ 15:20 - 15:35   │ Coffee Break & Networking                              │
-│ 15:35 - 16:30   │ Laboratório Prático em Duplas: Buscador Semântico      │
+│ 15:35 - 16:30   │ Laboratório Prático: Buscador Semântico vs. Léxico     │
 │ 16:30 - 16:45   │ Formação dos 5 Trios da Sprint 1 & Alinhamento         │
 │ 16:45 - 17:00   │ Formulário de Auto-Avaliação & Feedback (Google Forms) │
 └─────────────────┴────────────────────────────────────────────────────────┘
@@ -41,29 +41,51 @@ Realize a leitura introdutória no **Cloudflare Learning Hub** e **ChromaDB Docs
 
 ---
 
-## 📦 4. Bloco 2: Setup do ChromaDB + Indexação de Documentos (14:25 - 15:20)
+## 📦 4. Bloco 2: Setup do ChromaDB + Indexação do Manual em PDF (14:25 - 15:20)
 
-Com o `.venv` ativado:
+Com o `.venv` ativado, instale as bibliotecas necessárias:
 ```bash
-pip install chromadb
+pip install chromadb pypdf
 ```
 
-Em duplas, criem e executem `indexar_documentos.py`, que gera os embeddings do corpus e os persiste em disco:
+### 📄 O Documento Indexável: Manual do Smartwatch em PDF
+Em vez de utilizarmos frases soltas ou fictícias, utilizaremos um documento técnico oficial do mundo real: o **Manual do Usuário do Smartwatch Redmi Watch 5 Active** (localizado em [`data/manual_xiaomi_watch5.pdf`](data/manual_xiaomi_watch5.pdf)).
+
+O manual possui 13 páginas ricas em dados técnicos e instruções de uso:
+* **Página 4:** Visão geral do relógio, microfone, botão liga/desliga e carregamento com cabo magnético.
+* **Página 5 e 6:** Inserindo, retirando e ajustando a pulseira (posicionamento ideal a um dedo de distância do osso do pulso para precisão do sensor de frequência cardíaca).
+* **Página 7:** Download e configuração do aplicativo oficial **Mi Fitness** via QR Code e conexão Bluetooth 5.3.
+* **Página 8:** Funções de toque, retorno à tela inicial e como **forçar reinicialização segurando o botão por 12 segundos**.
+* **Página 9:** Caminho para **restauração de fábrica (Factory Reset)** pelo menu do relógio e aviso crucial de **não utilizar sabão ou produtos de limpeza abrasivos**.
+* **Página 10:** Precauções de segurança, carregador certificado e manuseio de bateria.
+* **Página 11:** Especificações Técnicas completas (Modelo `M2351W1`, bateria de **470 mAh**, resistência à água **5 ATM**, faixa de temperatura de -10°C a 45°C).
+* **Páginas 12 e 13:** Diretrizes de descarte ecológico e canais de atendimento ao cliente.
+
+---
+
+### Script de Indexação: `indexar_documentos.py`
+Em duplas, criem e executem o script `indexar_documentos.py`. Ele lê o arquivo PDF com `pypdf`, extrai o texto de cada página, gera os embeddings vetoriais com o modelo gratuito **`gemini-embedding-001`** do Google AI Studio e persiste a coleção no disco local (`./chroma_data`):
 
 ```python
 import os
 import chromadb
 from dotenv import load_dotenv
 from google import genai
+from pypdf import PdfReader
 
 load_dotenv()
-api_key = os.getenv("GEMINI_API_KEY")
-client = genai.Client(api_key=api_key)
+client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-# Modelo gratuito de embeddings do Google AI Studio
 EMBEDDING_MODEL = "gemini-embedding-001"
 
-# 1. Função para gerar embeddings via Gemini API
+# Suporte flexivel de caminho para execucao da raiz ou de dentro da sprint
+caminhos_possiveis = [
+    "data/manual_xiaomi_watch5.pdf",
+    "sprint_1_fundamentos_rag/data/manual_xiaomi_watch5.pdf"
+]
+CAMINHO_PDF = next((p for p in caminhos_possiveis if os.path.exists(p)), "data/manual_xiaomi_watch5.pdf")
+
+# 1. Funcao para gerar embeddings vetoriais via Gemini API
 def gerar_embedding(texto: str) -> list[float]:
     response = client.models.embed_content(
         model=EMBEDDING_MODEL,
@@ -71,76 +93,80 @@ def gerar_embedding(texto: str) -> list[float]:
     )
     return response.embeddings[0].values
 
-# 2. Inicializar cliente local persistente do ChromaDB (salva na pasta ./chroma_data)
+# 2. Leitura e extracao de paginas do PDF com pypdf
+if not os.path.exists(CAMINHO_PDF):
+    raise FileNotFoundError(
+        f"Arquivo '{CAMINHO_PDF}' nao encontrado! "
+        "Certifique-se de que o arquivo manual_xiaomi_watch5.pdf esta na pasta data/."
+    )
+
+reader = PdfReader(CAMINHO_PDF)
+total_paginas = len(reader.pages)
+print(f"Lendo manual em PDF: '{CAMINHO_PDF}' ({total_paginas} paginas)...")
+
+documentos_indexados = []
+for num_pagina, pagina in enumerate(reader.pages, start=1):
+    texto = (pagina.extract_text() or "").strip()
+    if len(texto) > 30:  # Ignora paginas sem conteudo textual relevante
+        documentos_indexados.append({
+            "id": f"pagina_{num_pagina:02d}",
+            "pagina": num_pagina,
+            "texto": texto
+        })
+
+print(f"Extraidas {len(documentos_indexados)} paginas com conteudo textual.")
+
+# 3. Inicializar cliente local persistente do ChromaDB (salva em ./chroma_data)
 chroma_client = chromadb.PersistentClient(path="./chroma_data")
 
-# 3. Criar ou obter a coleção vetorial
+# 4. Criar ou obter a colecao vetorial com similaridade de cosseno
 collection = chroma_client.get_or_create_collection(
-    name="base_conhecimento_datalakers",
-    metadata={"hnsw:space": "cosine"} # Utiliza distância de cosseno
+    name="manual_xiaomi_watch5",
+    metadata={"hnsw:space": "cosine"}
 )
 
-# 4. Corpus de documentos de exemplo
-documentos = [
-    {
-        "id": "doc_01",
-        "texto": "A DataLakers adota pipelines ETL modernos em Python utilizando Apache Airflow para orquestração e DBT para transformação.",
-        "categoria": "Engenharia de Dados"
-    },
-    {
-        "id": "doc_02",
-        "texto": "Nossos modelos de Machine Learning são empacotados com Docker e versionados com MLflow no cluster Kubernetes.",
-        "categoria": "MLOps"
-    },
-    {
-        "id": "doc_03",
-        "texto": "Para projetos com LLMs, utilizamos ChromaDB para busca vetorial local e o Modelo Gemini para geração e Grounding.",
-        "categoria": "IA Generativa"
-    },
-    {
-        "id": "doc_04",
-        "texto": "Os colaboradores possuem horário flexível de trabalho e encontros presenciais às terças e quintas no Tecnopuc.",
-        "categoria": "Cultura & RH"
-    },
-    {
-        "id": "doc_05",
-        "texto": "A política de segurança exige autenticação em dois fatores (2FA) e proibição de chaves de API commitadas no Git.",
-        "categoria": "Segurança"
-    }
-]
-
-print("Gerando embeddings e inserindo documentos no ChromaDB...")
-for doc in documentos:
+# 5. Gerar embeddings e indexar cada pagina no ChromaDB
+print("Gerando embeddings e inserindo paginas no ChromaDB...")
+for doc in documentos_indexados:
     vetor = gerar_embedding(doc["texto"])
     collection.upsert(
         ids=[doc["id"]],
         embeddings=[vetor],
         documents=[doc["texto"]],
-        metadatas=[{"categoria": doc["categoria"]}]
+        metadatas=[{"pagina": doc["pagina"], "arquivo": "manual_xiaomi_watch5.pdf"}]
     )
+    resumo_linha = doc["texto"].split("\n")[0][:45]
+    print(f"  -> Indexada Pagina {doc['pagina']:02d}: {resumo_linha}... (ID: {doc['id']})")
 
-print(f"Base de conhecimento indexada com sucesso! ({collection.count()} documentos na colecao)")
-
-# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
+print("\n" + "=" * 65)
+print(f"Sucesso! Colecao '{collection.name}' pronta com {collection.count()} paginas indexadas.")
+print("=" * 65)
 ```
+> 💡 Se algo der erro de importação ou execução, verifique se instalou as dependências com `pip install chromadb pypdf` no seu `.venv`. Ler os logs de erro e debugar faz parte do dia a dia do projeto! 😉
 
 ---
 
 ## 💻 5. Bloco 3: Laboratório Prático em Duplas — Busca Semântica vs. Léxica (15:35 - 16:30)
 
-Agora, em `buscador_semantico.py`, reabram a coleção já indexada no Bloco 2 (persistida em `./chroma_data`) e construam uma consulta interativa que compara, lado a lado, uma busca léxica ingênua (palavra-chave) com a busca semântica do ChromaDB — assim vocês enxergam na prática a diferença entre os dois tipos de busca:
+Agora, em `buscador_semantico.py`, reabram a coleção já indexada no Bloco 2 (persistida em `./chroma_data`) e construam uma consulta interativa no terminal. O script compara, lado a lado, uma **busca léxica ingênua** (baseada em palavras-chave exatas) com a **busca semântica do ChromaDB** (baseada no significado matemático do embedding):
 
 ```python
 import os
 import chromadb
 from dotenv import load_dotenv
 from google import genai
+from pypdf import PdfReader
 
 load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-# Modelo gratuito de embeddings do Google AI Studio
 EMBEDDING_MODEL = "gemini-embedding-001"
+
+caminhos_possiveis = [
+    "data/manual_xiaomi_watch5.pdf",
+    "sprint_1_fundamentos_rag/data/manual_xiaomi_watch5.pdf"
+]
+CAMINHO_PDF = next((p for p in caminhos_possiveis if os.path.exists(p)), "data/manual_xiaomi_watch5.pdf")
 
 def gerar_embedding(texto: str) -> list[float]:
     response = client.models.embed_content(
@@ -149,69 +175,89 @@ def gerar_embedding(texto: str) -> list[float]:
     )
     return response.embeddings[0].values
 
-# Reabre a coleção já indexada no Bloco 2 (mesma pasta persistente em disco)
+# 1. Carregar paginas do PDF para a comparacao com busca lexica
+paginas_lexicas = []
+if os.path.exists(CAMINHO_PDF):
+    reader = PdfReader(CAMINHO_PDF)
+    for i, pagina in enumerate(reader.pages, start=1):
+        txt = (pagina.extract_text() or "").strip()
+        if len(txt) > 30:
+            paginas_lexicas.append({
+                "pagina": i,
+                "texto": txt
+            })
+
+# 2. Reabrir a colecao persistida no ChromaDB
 chroma_client = chromadb.PersistentClient(path="./chroma_data")
 collection = chroma_client.get_or_create_collection(
-    name="base_conhecimento_datalakers",
+    name="manual_xiaomi_watch5",
     metadata={"hnsw:space": "cosine"}
 )
 
-# Mesmo corpus do Bloco 2, usado aqui só para a busca léxica de comparação
-documentos = [
-    {"texto": "A DataLakers adota pipelines ETL modernos em Python utilizando Apache Airflow para orquestração e DBT para transformação."},
-    {"texto": "Nossos modelos de Machine Learning são empacotados com Docker e versionados com MLflow no cluster Kubernetes."},
-    {"texto": "Para projetos com LLMs, utilizamos ChromaDB para busca vetorial local e o Modelo Gemini para geração e Grounding."},
-    {"texto": "Os colaboradores possuem horário flexível de trabalho e encontros presenciais às terças e quintas no Tecnopuc."},
-    {"texto": "A política de segurança exige autenticação em dois fatores (2FA) e proibição de chaves de API commitadas no Git."},
-]
-
-print("=" * 60)
-print("BUSCADOR SEMANTICO vs. BUSCA LEXICA (Digite 'sair' para encerrar)")
-print("=" * 60)
+print("=" * 70)
+print("BUSCADOR TECNICO DO MANUAL: BUSCA SEMANTICA vs. BUSCA LEXICA")
+print(f"Colecao ChromaDB: {collection.name} ({collection.count()} paginas indexadas)")
+print("Digite sua pergunta sobre o Smartwatch Xiaomi (ou 'sair' para encerrar)")
+print("=" * 70)
 
 while True:
-    query = input("\nDigite sua busca em linguagem natural: ").strip()
+    query = input("\nSua duvida sobre o relogio: ").strip()
     if query.lower() in ["sair", "exit", "quit"]:
         break
     if not query:
         continue
 
-    # --- Busca Léxica (contém alguma das palavras da query, literalmente?) ---
-    print("\n--- BUSCA LEXICA (palavra-chave) ---")
-    termos_query = query.lower().split()
-    encontrados_lexico = [
-        doc["texto"] for doc in documentos
-        if any(termo in doc["texto"].lower() for termo in termos_query)
-    ]
-    if encontrados_lexico:
-        for texto in encontrados_lexico:
-            print(f"    - \"{texto}\"")
-    else:
-        print("    (nenhum documento contém as palavras exatas da busca)")
+    # --- 1. BUSCA LEXICA (Procura palavras exatas da query no texto) ---
+    print("\n--- 1. RESULTADOS DA BUSCA LEXICA (Palavras Exatas) ---")
+    termos_query = [t for t in query.lower().split() if len(t) > 2]
+    encontrados_lexico = []
+    for pag in paginas_lexicas:
+        texto_lower = pag["texto"].lower()
+        if any(termo in texto_lower for termo in termos_query):
+            encontrados_lexico.append(pag["pagina"])
 
-    # --- Busca Semântica (ChromaDB) ---
+    if encontrados_lexico:
+        paginas_str = ", ".join(f"Pagina {p}" for p in encontrados_lexico[:4])
+        print(f"  [Match Palavra-Chave]: {paginas_str}")
+    else:
+        print("  (Nenhuma pagina contem as palavras exatas digitadas)")
+
+    # --- 2. BUSCA SEMANTICA (ChromaDB + Embeddings Gemini) ---
+    print("\n--- 2. RESULTADOS DA BUSCA SEMANTICA (Similaridade de Cosseno) ---")
     vetor_query = gerar_embedding(query)
     resultados = collection.query(
         query_embeddings=[vetor_query],
         n_results=2
     )
 
-    print("\n--- BUSCA SEMANTICA (ChromaDB) ---")
     for i, (doc_texto, meta, dist) in enumerate(zip(
         resultados["documents"][0],
         resultados["metadatas"][0],
         resultados["distances"][0]
     ), 1):
         similaridade = 1.0 - dist
-        print(f"    [{i}] Categoria: {meta['categoria']} (Similaridade: {similaridade:.2%})")
-        print(f"        \"{doc_texto}\"")
-
-# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
+        primeiras_linhas = " ".join(doc_texto.split("\n")[:3])
+        print(f"  [Top #{i}] Pagina {meta['pagina']:02d} do Manual (Similaridade: {similaridade:.2%})")
+        print(f"         Trecho: \"{primeiras_linhas[:180]}...\"\n")
 ```
 
-**Experimento sugerido em dupla:** busquem por `"como a empresa organiza dados de forma automatizada"`. A busca léxica provavelmente não encontra nada (nenhuma palavra bate exatamente com o texto), mas a busca semântica deve trazer o `doc_01` sobre Airflow/ETL como resultado mais relevante — essa é a diferença entre buscar por palavra e buscar por significado.
+---
 
-> 💡 Se a geração de embeddings acusar erro ou o ChromaDB reclamar de dimensões incompatíveis, certifique-se de usar o mesmo modelo (`gemini-embedding-001`) para a indexação e para a query. Ler o traceback e debugar faz parte do dia a dia do projeto! 😉
+### 🧪 Experimentos Sugeridos em Dupla:
+Testem perguntas em linguagem natural e observem como a busca léxica falha e a busca semântica brilha:
+
+1. **Restauração de Fábrica / Reset:**
+   * *Pergunta:* `"como resetar o relogio para as configuracoes de fabrica"`
+2. **Resistência à Água & Piscina:**
+   * *Pergunta:* `"posso mergulhar na piscina ou tomar banho com o relogio?"`
+3. **Aplicativo para Celular:**
+   * *Pergunta:* `"qual o aplicativo que devo baixar no celular para conectar?"`
+4. **Capacidade de Bateria:**
+   * *Pergunta:* `"qual a capacidade da bateria em mAh e como carrega?"`
+5. **Cuidados com Limpeza e Produtos:**
+   * *Pergunta:* `"como limpar o relogio se sujar de suor no treino?"`
+6. **Travamento de Tela / Reset Forçado:**
+   * *Pergunta:* `"a tela travou e nao responde ao toque, o que fazer?"`
 
 ---
 
@@ -231,9 +277,9 @@ while True:
 
 ### ✅ Checklist de Conclusão da Semana 1:
 - [x] Leituras da Cloudflare sobre Embeddings e Bancos Vetoriais concluídas.
-- [x] ChromaDB instalado e testado com persistência local em disco (`indexar_documentos.py`).
+- [x] Manual oficial em PDF (`data/manual_xiaomi_watch5.pdf`) lido e indexado página por página com `pypdf` e ChromaDB.
 - [x] Buscador semântico funcionando com embeddings do Google (`gemini-embedding-001`).
-- [x] Comparação prática entre busca léxica e busca semântica realizada em `buscador_semantico.py`.
+- [x] Comparação prática entre busca léxica e busca semântica realizada em `buscador_semantico.py` com perguntas reais sobre o smartwatch.
 - [x] Trios formados e alinhados para a Semana de Projeto.
 - [x] Formulário de auto-avaliação e feedback preenchido no Google Forms.
 

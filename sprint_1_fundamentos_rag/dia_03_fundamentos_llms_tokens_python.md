@@ -264,6 +264,8 @@ Analise com sua dupla os resultados obtidos nos terminais:
 > 📋 **Link do Formulário de Auto-Avaliação:**  
 > [Preencher Formulário do Google Forms - Dia 03](#) *(Link disponibilizado pelo instrutor em sala)*
 
+> 🎧 **Lembrete para o Dia 04:** Tragam fones de ouvido para o próximo encontro! O material de leitura de Engenharia de Prompt contém vídeos explicativos.
+
 ### ✅ Checklist de Conclusão do Dia 03:
 - [x] Leituras da Cloudflare sobre LLMs e Tokenização concluídas.
 - [x] Variáveis de ambiente configuradas no `.env` e testadas.
