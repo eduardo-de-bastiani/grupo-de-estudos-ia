@@ -15,10 +15,10 @@ A Sprint 1 estabelece as fundações sólidas da Engenharia de IA Generativa. De
 
 | Dia | Data | Tipo | Título do Encontro | Links & Conteúdo |
 | :---: | :---: | :--- | :--- | :--- |
-| **01** | 14/09 (Seg) | Onboarding | [Kickoff Oficial & Boas-Vindas DataLakers](dia_01_onboarding_boas_vindas.md) | Abertura, Coffee de Boas-Vindas, Dinâmica Quebra-Gelo, Setup Inicial |
+| **01** | 14/09 (Seg) | Onboarding | [Kickoff Oficial & Boas-Vindas DataLakers](dia_01_onboarding_boas_vindas.md) | Abertura, Coffee de Boas-Vindas, Dinâmica de Apresentação em Duplas, Setup Inicial |
 | **02** | 15/09 (Ter) | Plataforma | [Explorando o Google AI Studio: Playground, Tools & Comparação de Modelos](dia_02_explorando_google_ai_studio.md) | Imersão no Google AI Studio, chaves de API, parâmetros (Temp, Top-P, Top-K, Thinking), Tools nativas, Safety Settings e Compare Mode |
 | **03** | 16/09 (Qua) | Código/Fundamentos | [Fundamentos de LLMs em Código, Tokenização & SDK Python](dia_03_fundamentos_llms_tokens_python.md) | Primeiras chamadas via SDK Python, tokens vs caracteres/palavras em PT/EN/código, validação de hiperparâmetros |
-| **04** | 17/09 (Qui) | Prompt/Segurança | [Engenharia de Prompt Avançada & Segurança (Desafio Gandalf)](dia_04_prompt_engineering_gandalf.md) | Few-shot, CoT, delimitadores estruturais, desafio Lakera Gandalf (1 ao 8) e Mini-CTF em Python |
+| **04** | 17/09 (Qui) | Prompt/Segurança | [Engenharia de Prompt Avançada & Segurança (Lakera Agent Breakers)](dia_04_prompt_engineering_gandalf.md) | Few-shot, CoT, delimitadores estruturais, desafio Lakera Agent Breakers e Mini-CTF em Python |
 | **05** | 18/09 (Sex) | Prática/Vetores | [Embeddings & Bancos Vetoriais com ChromaDB](dia_05_embeddings_vector_search_chroma.md) | Estudo sobre Embeddings/VectorDB, ChromaDB local, buscador semântico, formação dos trios |
 | **06** | 21/09 (Seg) | Projeto (Kickoff) | [Kickoff do AskData, Coleta de Documentos & Setup Git](dia_06_kickoff_projeto_arquitetura_rag.md) | Leitura RAG, escolha de domínio e coleta ativa de documentos reais (PDFs), setup do Git e dinâmica piloto/copiloto |
 | **07** | 22/09 (Ter) | Palestra + Projeto | [Conversa com Ramon Lummertz & Ingestão com Chunking no ChromaDB](dia_07_ingestao_chunking_embeddings.md) | **14h-15h: Palestra Online com Ramon Lummertz**; 15h-17h: Ingestão de PDFs e Chunking com ChromaDB |

@@ -25,8 +25,8 @@
 │ 14:35 - 15:30   │ Escolha do Domínio & Pesquisa e Coleta dos Documentos  │
 │ 15:30 - 15:45   │ Coffee Break & Networking                              │
 │ 15:45 - 16:30   │ Setup do Repositório GitHub & Carga dos Dados em data/ │
-│ 16:30 - 16:45   │ Dinâmica do Trio: Modelo Piloto/Copiloto Rotativo      │
-│ 16:45 - 17:00   │ Sincronização Final no GitHub & Checklist do Dia 06    │
+│ 16:30 - 16:45   │ Dinâmica do Trio: Modelo Rotativo & Git Sync           │
+│ 16:45 - 17:00   │ Formulário de Auto-Avaliação & Feedback (Google Forms) │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
@@ -71,7 +71,7 @@ flowchart TD
 
 ## 📚 5. Bloco 3: Escolha do Domínio & Coleta Ativa dos Documentos (14:35 - 15:30)
 
-Neste bloco de 55 minutos, o trio deve definir o problema de negócio que deseja resolver e **pesquisar, selecionar e baixar entre 3 e 5 arquivos reais** (PDF ou Markdown) para compor a base de conhecimento do assistente.
+Neste bloco de 55 minutos, o trio deve definir o problema de negócio que deseja resolver e **pesquisar, selecionar e baixar entre 3 e 5 arquivos reais** (PDFs) para compor a base de conhecimento do assistente.
 
 ### Critérios Importantes para Seleção dos Documentos:
 * **Texto Selecionável:** Os arquivos PDF devem conter texto digital nativo (não utilize PDFs compostos por fotos/scans de documentos, pois exigem OCR).
@@ -151,14 +151,10 @@ Em cada dia de desenvolvimento, um membro assume o papel de **Piloto (Driver)** 
 
 ---
 
-## 🏁 8. Bloco 6: Sincronização no GitHub & Checklist do Dia 06 (16:45 - 17:00)
+## 📝 8. Bloco 6: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
-Dediquem os 15 minutos finais para verificar que o repositório colaborativo está devidamente sincronizado entre as três máquinas:
-- Todos os 3 integrantes clonaram o projeto e estão com o `.venv` configurado?
-- A pasta `data/` contém os documentos selecionados e está sincronizada no GitHub?
-- O arquivo `.env` com a `GEMINI_API_KEY` está criado nas máquinas locais e devidamente protegido pelo `.gitignore`?
-
-> 💡 Se houver qualquer divergência de arquivos ou permissão no repositório, aproveitem para debugar em conjunto. Resolver problemas de ambiente e alinhamento faz parte do dia a dia da engenharia de software!
+> 📋 **Link do Formulário de Auto-Avaliação:**  
+> [Preencher Formulário do Google Forms - Dia 06](#) *(Link disponibilizado pelo instrutor em sala)*
 
 > 📌 **Lembrete Importante:** Amanhã (Dia 07), das 14:00 às 15:00, teremos a palestra online com **Ramon Lummertz**. Tragam fones de ouvido e estejam conectados pontualmente às 14:00!
 
@@ -167,3 +163,4 @@ Dediquem os 15 minutos finais para verificar que o repositório colaborativo est
 - [x] Domínio temático definido e documentos reais (3 a 5 arquivos) coletados e armazenados em `data/`.
 - [x] Repositório GitHub criado com `.gitignore` e colaboradores configurados.
 - [x] Escala do Modelo Piloto/Copiloto Rotativo definida para os Dias 07, 08 e 09.
+- [x] Formulário de auto-avaliação e feedback preenchido no Google Forms.

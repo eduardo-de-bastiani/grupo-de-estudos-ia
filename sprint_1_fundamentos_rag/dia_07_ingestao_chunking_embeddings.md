@@ -24,9 +24,10 @@
 │ 14:00 - 15:00   │ 🎙️ CONVERSA ONLINE COM RAMON LUMMERTZ (Palestra de IA) │
 │ 15:00 - 15:15   │ Coffee Break & Descompressão                           │
 │ 15:15 - 15:40   │ Leitura Padronizada: Chunking & O que é o ChromaDB?    │
-│ 15:40 - 16:10   │ Lab Prático: Como Configurar e Testar o ChromaDB       │
-│ 16:10 - 16:45   │ Mão na Massa em Trio: Implementação do `ingestion.py`  │
-│ 16:45 - 17:00   │ Verificação da Ingestão no ChromaDB & Git Sync         │
+│ 15:40 - 16:05   │ Lab Prático: Como Configurar e Testar o ChromaDB       │
+│ 16:05 - 16:35   │ Mão na Massa em Trio: Implementação do `ingestion.py`  │
+│ 16:35 - 16:45   │ Verificação da Ingestão no ChromaDB & Git Sync         │
+│ 16:45 - 17:00   │ Formulário Diário de Auto-Avaliação & Feedback (Forms) │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
@@ -57,7 +58,7 @@ Chunk 3:                                  [ ════════════
 
 ---
 
-## 🛠️ 5. Bloco 3: Como Configurar e Testar o ChromaDB (15:40 - 16:10)
+## 🛠️ 5. Bloco 3: Como Configurar e Testar o ChromaDB (15:40 - 16:05)
 
 ### 💡 O que você precisa saber sobre a configuração do ChromaDB:
 * **Gratuito e Local:** O ChromaDB não exige cadastro, chave de API própria ou cartão de crédito. Ele roda 100% na máquina local.
@@ -94,14 +95,13 @@ print("Amostra dos metadados:", collection.peek()["metadatas"])
 print("=" * 50)
 print("ChromaDB configurado e persistindo localmente com sucesso!")
 
-# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
 ```
 
 > 💡 Se algo der erro de importação ou execução, verifique se instalou as dependências com `pip install chromadb pypdf` no seu `.venv`. Ler os logs de erro e debugar faz parte do dia a dia do projeto! 😉
 
 ---
 
-## 💻 6. Bloco 4: Implementação do Pipeline `src/ingestion.py` (16:10 - 16:45)
+## 💻 6. Bloco 4: Implementação do Pipeline `src/ingestion.py` (16:05 - 16:35)
 
 Agora, o trio junta a extração de PDFs com o chunking e a indexação vetorial no ChromaDB utilizando o modelo de embedding atual gratuito do Google: **`gemini-embedding-001`**.
 
@@ -246,7 +246,7 @@ if __name__ == "__main__":
 
 ---
 
-## 🧪 7. Bloco 5: Teste & Sincronização no GitHub (16:45 - 17:00)
+## 🧪 7. Bloco 5: Teste & Sincronização no GitHub (16:35 - 16:45)
 
 1. Execute a ingestão dos documentos do trio:
    ```bash
@@ -260,9 +260,17 @@ if __name__ == "__main__":
 
 > 💡 Se a chamada ao embedding der limite de cota ou erro de rede, verifique sua conexão ou adicione um pequeno delay (`import time; time.sleep(0.5)`). Debugar e contornar limites faz parte do dia a dia do projeto! 😉
 
+---
+
+## 📝 8. Bloco 6: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
+
+> 📋 **Link do Formulário de Auto-Avaliação:**  
+> [Preencher Formulário do Google Forms - Dia 07](#) *(Link disponibilizado pelo instrutor em sala)*
+
 ### ✅ Checklist de Conclusão do Dia 07:
 - [x] Participação na palestra online com Ramon Lummertz.
 - [x] Leitura sobre Chunking e funcionamento do ChromaDB concluída.
 - [x] Script de teste e configuração do ChromaDB (`test_chroma_setup.py`) executado.
 - [x] Pipeline `src/ingestion.py` testado com o modelo `gemini-embedding-001`.
-- [x] Chunks e metadados persistidos localmente no ChromaDB e código commitado no GitHub.
+- [x] Chunks e metadados persistidos localmente no ChromaDB e código sincronizado no GitHub.
+- [x] Formulário de auto-avaliação e feedback preenchido no Google Forms.

@@ -12,17 +12,17 @@
 2. Explorar os modos de interação da plataforma: **Chat Prompt**, **Freeform Prompt** e configuração de **System Instructions**.
 3. Compreender a fundo e testar empiricamente os parâmetros de geração:
    - **Temperature:** Determinismo vs. Criatividade.
-   - **Top-P (Nucleus Sampling) & Top-K:** Controle estatístico do conjunto de tokens candidatos.
+   - **Top-P & Top-K:** Controle estatístico do conjunto de tokens candidatos.
    - **Output Length (Max Output Tokens):** Teto máximo de tokens na resposta gerada.
-   - **Thinking Level / Budget:** Capacidade de raciocínio passo a passo interno em modelos com suporte a pensamento.
-4. Explorar e testar as ferramentas nativas (**Tools**) do Google AI Studio:
+   - **Thinking Level:** Capacidade de raciocínio passo a passo interno em modelos com suporte a pensamento.
+4. Explorar e testar as ferramentas nativas (Tools) do Google AI Studio:
    - **Structured Output:** Definição visual de JSON Schemas sem quebrar formato.
    - **Code Execution:** Sandbox Python integrada para cálculos matemáticos e manipulação exata de dados.
    - **Grounding with Google Search:** Ancoragem de respostas na busca web em tempo real com citação de links.
    - **Grounding with Google Maps:** Conexão com dados geográficos e estabelecimentos.
    - **URL Context:** Leitura, extração e análise direta de links e páginas web.
 5. Ajustar e analisar os limites de moderação em **Safety Settings** (avaliação de filtros de ódio, assédio e conteúdo perigoso).
-6. Utilizar o **Compare Mode** para testar lado a lado diferentes modelos (Gemini Flash vs. Gemini Pro) e diferentes hiperparâmetros com o mesmo prompt.
+6. Utilizar o **Compare Mode** para testar lado a lado diferentes modelos e diferentes hiperparâmetros com o mesmo prompt.
 7. Utilizar o recurso **"Get Code"** para exportar qualquer teste do Studio diretamente para código Python com o SDK oficial (`google-genai`).
 
 ---
@@ -37,7 +37,7 @@
 │ 15:30 - 15:45   │ Coffee Break & Networking                              │
 │ 15:45 - 16:25   │ Bloco 3: Ferramentas Nativas (Tools) & Grounding       │
 │ 16:25 - 16:45   │ Bloco 4: Safety Settings, Compare Mode & "Get Code"    │
-│ 16:45 - 17:00   │ Bloco 5: Checklist do Dia & Alinhamento para Python    │
+│ 16:45 - 17:00   │ Formulário de Auto-Avaliação & Feedback (Google Forms) │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
@@ -69,10 +69,10 @@ Antes de iniciar os testes práticos, cada aluno deve ler os seguintes guias ofi
 > ⚠️ **Atenção:** Nunca compartilhe sua API Key em repositórios públicos do GitHub ou em mensagens abertas.
 
 ### 3. Conhecendo os Modos de Prompt
-No menu superior esquerdo, explore as opções de criação:
+Em Playground, explore as opções de criação:
 * **Chat Prompt:** Interface conversacional com turnos alternados entre *User* e *Model*. Ideal para testar fluxos de assistentes e personas.
-* **Freeform Prompt:** Tela aberta de completamento de texto. Permite inserir instruções, exemplos (*few-shot*) e testar geração sem formatação rígida de chat.
-* **System Instructions (Instrução de Sistema):** Campo dedicado no topo da tela. Define o comportamento base, papel, restrições e regras inquebráveis do modelo antes mesmo de qualquer mensagem do usuário.
+* **Freeform Prompt:** Tela aberta de completamento de texto. Permite inserir instruções, exemplos e testar geração sem formatação rígida de chat.
+* **System Instructions:** Campo dedicado no topo da tela. Define o comportamento base, papel, restrições e regras inquebráveis do modelo antes mesmo de qualquer mensagem do usuário.
 
 #### Exercício Prático 1: Testando System Instructions
 1. Abra um **Chat Prompt**.
@@ -96,7 +96,7 @@ No menu superior esquerdo, explore as opções de criação:
 
 ## 🎛️ 5. Bloco 2: Laboratório Prático de Hiperparâmetros (14:50 - 15:30)
 
-No painel lateral direito (**Run Settings**), você encontra os parâmetros que governam a distribuição estatística de geração de texto da LLM.
+No painel lateral direito, você encontra os parâmetros que governam a distribuição estatística de geração de texto da LLM.
 
 ### 1. O que significa cada parâmetro?
 
@@ -106,14 +106,14 @@ No painel lateral direito (**Run Settings**), você encontra os parâmetros que 
 | **Top-P** (Nucleus Sampling, 0.0 a 1.0) | Soma as probabilidades dos tokens mais prováveis até atingir $P$. O modelo só escolhe dentre esse "núcleo". | `0.1 - 0.5`: Restringe a escolha apenas às opções estatisticamente seguras. | `0.9 - 1.0`: Permite que tokens menos prováveis tenham chance de serem sorteados. |
 | **Top-K** (1 a 40) | Limita a escolha aos $K$ tokens mais prováveis a cada passo, descartando todo o resto. | `1`: O modelo escolhe sempre o token número 1 (praticamente determinístico). | `40`: Maior variedade e vocabulário aberto. |
 | **Output Length** (Max Tokens) | Define o número máximo de tokens que o modelo pode gerar na resposta. | Reduzido para evitar respostas excessivamente longas e economizar latência. | Elevado para textos longos, artigos ou blocos extensos de código. |
-| **Thinking Level / Budget** | Disponível na família Gemini com raciocínio (ex: *Gemini 2.5 Flash / Thinking*). Permite ao modelo gerar tokens internos de reflexão ("thought") antes da resposta final. | Desativado/baixo para tarefas simples e rápidas (reduz latência). | Elevado para problemas matemáticos complexos, enigmas lógicos e depuração profunda de algoritmos. |
+| **Thinking Level** | Disponível na família Gemini com raciocínio. Permite ao modelo gerar tokens internos de reflexão ("thought") antes da resposta final. | Desativado/baixo para tarefas simples e rápidas (reduz latência). | Elevado para problemas matemáticos complexos, enigmas lógicos e depuração profunda de algoritmos. |
 
 ---
 
 ### 2. Experimentos em Duplas
 
 #### Experimento A: O Impacto da Temperatura
-1. Configure o modelo para **Gemini Flash**.
+1. Escolha um modelo Gemini que permita modificação na Temperatura.
 2. Defina o prompt:
    ```text
    Complete a frase com uma metáfora poética e original: "Um banco de dados vetorial é como..."
@@ -126,10 +126,10 @@ No painel lateral direito (**Run Settings**), você encontra os parâmetros que 
 1. Mantenha a **Temperature = 1.0** (alta aleatoriedade).
 2. Ajuste o **Top-K = 1**.
 3. Execute o mesmo prompt 3 vezes.
-4. **Discussão em dupla:** Por que, mesmo com a temperatura alta, as respostas ficaram idênticas? *(Resposta: porque com Top-K=1, só existe 1 candidato elegível a cada passo, anulando a aleatoriedade da temperatura).*
+4. **Discussão em dupla:** Por que, mesmo com a temperatura alta, as respostas ficaram idênticas?
 
 #### Experimento C: Testando o Thinking Level (Raciocínio Interno)
-1. No seletor de modelos, escolha um modelo que suporte *Thinking* (ex: *Gemini 2.5 Flash* com Thinking ativado ou *Gemini 2.0 Flash Thinking*).
+1. No seletor de modelos, escolha um modelo que suporte *Thinking*.
 2. Envie o seguinte enigma lógico:
    ```text
    Um fazendeiro precisa atravessar um rio com um lobo, uma cabra e um repolho.
@@ -150,7 +150,7 @@ No Google AI Studio, as LLMs podem ir além do texto estático ativando **Tools*
 * **O Problema:** Todo modelo pré-treinado tem uma data de corte de conhecimento (*knowledge cutoff*). Se perguntarmos sobre notícias de hoje, ele alucina ou recusa.
 * **A Solução:** Ative a opção **"Google Search"** em Tools.
 * **Teste Prático:**
-  1. Com a busca desligada, pergunte: `"Quem ganhou o último jogo do Grêmio ou Internacional ontem?"` ou `"Qual é a versão mais recente do Python lançada neste mês?"`.
+  1. Com a busca desligada, pergunte: `"Quando ocorreu o último grenal, quem ganhou e qual foi o placar?"`.
   2. Agora **ative o Google Search** e refaça a pergunta.
   3. Note como o modelo inclui trechos da web e **citações com links diretos** para as fontes consultadas.
 
@@ -204,7 +204,7 @@ No Google AI Studio, as LLMs podem ir além do texto estático ativando **Tools*
 1. No topo da tela do Studio, clique no botão **"Compare"** (ícone com duas janelas divididas).
 2. O Google AI Studio divide a tela em duas colunas:
    * **Coluna da Esquerda:** Modelo A (ex: *Gemini 3.8 Flash* com Temperature 0.1).
-   * **Coluna da Direita:** Modelo B (ex: *Gemini 2.5 Pro* com Temperature 0.1, ou o mesmo modelo com Temperature 1.0).
+   * **Coluna da Direita:** Modelo B (ex: *Gemini 3.1 Pro* com Temperature 0.1, ou o mesmo modelo com Temperature 1.0).
 3. Digite um prompt de desafio lógico ou de geração de código e clique em executar.
 4. Compare lado a lado:
    * Tempo de resposta e latência.
@@ -236,17 +236,14 @@ response = client.models.generate_content(
 )
 print(response.text)
 
-# Dica de Engenharia: Se algo nao funcionar de primeira, leia o traceback e debugar faz parte do projeto!
 ```
 
 ---
 
-## 🏁 8. Bloco 5: Checklist do Dia & Preparação para Python (16:45 - 17:00)
+## 📝 8. Bloco 5: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
-Dediquem os 15 minutos finais para garantir que todos os alunos possuem suas credenciais prontas para o Dia 03:
-- Sua `GEMINI_API_KEY` está gerada e testada no Google AI Studio?
-- Você experimentou a diferença entre Temperatura 0.0 e 1.5?
-- Você testou o Compare Mode e viu como o "Get Code" exporta scripts Python?
+> 📋 **Link do Formulário de Auto-Avaliação:**  
+> [Preencher Formulário do Google Forms - Dia 02](#) *(Link disponibilizado pelo instrutor em sala)*
 
 > 📌 **Próximo Encontro (Dia 03):** Sairemos do navegador e colocaremos as mãos no código! Vamos construir nossos primeiros scripts em Python com o SDK oficial da Google, investigar como as LLMs contam tokens e validar nossos testes direto no terminal.
 
@@ -257,3 +254,4 @@ Dediquem os 15 minutos finais para garantir que todos os alunos possuem suas cre
 - [x] Ferramentas nativas (Search Grounding, Code Execution e Structured Output) testadas no Studio.
 - [x] Compare Mode experimentado com dois modelos ou hiperparâmetros lado a lado.
 - [x] Recurso "Get Code" visualizado e compreendido.
+- [x] Formulário de auto-avaliação e feedback preenchido no Google Forms.
