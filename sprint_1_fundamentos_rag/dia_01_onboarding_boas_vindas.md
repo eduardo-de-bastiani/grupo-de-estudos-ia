@@ -179,6 +179,6 @@ Todos os encontros do grupo de estudos reservam os **15 minutos finais** para qu
 
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
-> [Preencher Formulário do Google Forms - Dia 01](https://forms.gle/aaaaaaaaaa)
+> [Preencher Formulário do Google Forms - Dia 01](https://docs.google.com/forms/d/e/1FAIpQLSeQa6-EazMm0P-iwUoLqGAwwxrMaDzM9ApJfou1s27t5oKNIQ/viewform)
 
 ---
