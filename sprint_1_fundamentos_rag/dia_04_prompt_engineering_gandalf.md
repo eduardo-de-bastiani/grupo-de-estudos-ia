@@ -344,7 +344,7 @@ Ao término dos dois rounds, a turma se reúne em frente ao quadro branco para c
 ## 📝 8. Bloco 4: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
-> [Preencher Formulário do Google Forms - Dia 04](#) *(Link disponibilizado pelo instrutor em sala)*
+> [Preencher Formulário do Google Forms - Dia 04](https://docs.google.com/forms/d/e/1FAIpQLSfwAa5BJ5wnaXSQ8hABOF5eX5sZCy7yjsPjy_cso6XwPcAigQ/viewform)
 
 > 📌 **Próximo Encontro (Dia 05):** Como buscar respostas em milhares de páginas sem estourar o limite de contexto da LLM? Entraremos no universo de **Embeddings Vetoriais e ChromaDB** e formaremos os trios oficiais da Semana 2!
 

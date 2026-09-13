@@ -115,8 +115,7 @@ O voluntário desenha 4 quadrantes no quadro branco:
 ## 📝 7. Bloco 4: Formulário Final de Avaliação da Sprint 1 & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Avaliação Final da Sprint 1:**  
-> [Preencher Formulário do Google Forms - Fechamento Sprint 1](#) *(Link disponibilizado pelo instrutor em sala)*
-
+> [Preencher Formulário do Google Forms - Fechamento Sprint 1](https://docs.google.com/forms/d/e/1FAIpQLSc_kvGX7dlcZSDYyabCgkr_uSEoCqtEwnfcWjJeDgsC7vXOuQ/viewform)
 ### ✅ Checklist de Conclusão da Sprint 1:
 - [x] Apresentações dos 5 projetos *AskData* concluídas com sucesso no Demo Day.
 - [x] Repositórios finais consolidados no GitHub.

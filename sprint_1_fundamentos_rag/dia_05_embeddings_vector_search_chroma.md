@@ -273,7 +273,7 @@ Testem perguntas em linguagem natural e observem como a busca léxica falha e a 
 ## 📝 7. Bloco 5: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
-> [Preencher Formulário do Google Forms - Dia 05](#) *(Link disponibilizado pelo instrutor em sala)*
+> [Preencher Formulário do Google Forms - Dia 05](https://docs.google.com/forms/d/e/1FAIpQLSfwAa5BJ5wnaXSQ8hABOF5eX5sZCy7yjsPjy_cso6XwPcAigQ/viewform)
 
 ### ✅ Checklist de Conclusão da Semana 1:
 - [x] Leituras da Cloudflare sobre Embeddings e Bancos Vetoriais concluídas.

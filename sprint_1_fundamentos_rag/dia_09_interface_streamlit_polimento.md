@@ -184,7 +184,7 @@ Cada trio cronometra e ensaia seu Pitch de **10 minutos** com divisão de fala e
 ## 📝 7. Bloco 5: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
-> [Preencher Formulário do Google Forms - Dia 09](#) *(Link disponibilizado pelo instrutor em sala)*
+> [Preencher Formulário do Google Forms - Dia 09](https://docs.google.com/forms/d/e/1FAIpQLSfwAa5BJ5wnaXSQ8hABOF5eX5sZCy7yjsPjy_cso6XwPcAigQ/viewform)
 
 ### ✅ Checklist de Conclusão do Dia 09:
 - [x] Leituras conceituais de interfaces com Streamlit concluídas.

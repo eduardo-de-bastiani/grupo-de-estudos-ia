@@ -214,7 +214,7 @@ Dediquem esses 10 minutos para que o trio sincronize as alterações no reposit�
 ## 📝 7. Bloco 5: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
-> [Preencher Formulário do Google Forms - Dia 08](#) *(Link disponibilizado pelo instrutor em sala)*
+> [Preencher Formulário do Google Forms - Dia 08](https://docs.google.com/forms/d/e/1FAIpQLSfwAa5BJ5wnaXSQ8hABOF5eX5sZCy7yjsPjy_cso6XwPcAigQ/viewform)
 
 ### ✅ Checklist de Conclusão do Dia 08:
 - [x] Leitura de Grounding, RAG e mitigação de alucinações concluída.
