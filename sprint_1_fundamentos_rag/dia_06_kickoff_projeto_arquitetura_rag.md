@@ -30,6 +30,8 @@
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
+> 💡 Sobrou tempo antes do fim do dia? Aproveite as **Atividades Extras** (seção 9).
+
 ---
 
 ## 📖 3. Bloco 1: Leitura Padronizada de Referência (14:00 - 14:20)
@@ -151,7 +153,16 @@ Em cada dia de desenvolvimento, um membro assume o papel de **Piloto (Driver)** 
 
 ---
 
-## 📝 8. Bloco 6: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
+## 🎁 8. Atividades Extras (Opcional — se sobrar tempo)
+
+1. 🎥 **Vídeo:** [Fireship — "Git Explained in 100 Seconds"](https://www.youtube.com/watch?v=hwP7WQkmECE). Ótimo para assistir logo antes do Bloco 4 (Setup do Repositório Git), como revisão rápida.
+2. 🧑‍🤝‍🧑 **Dinâmica entre trios ("Pitch Relâmpago de 1 Minuto"):** Assim que o trio definir o domínio e os documentos (fim do Bloco 3), façam um pitch de 60 segundos do conceito do AskData para um trio vizinho e recebam 1 sugestão rápida antes de seguir para o setup do repositório.
+3. 🧑‍🤝‍🧑 **Dinâmica em trio ("Contrato de Equipe"):** Reservem 10 minutos para escrever um mini acordo de trabalho do trio: como vão se comunicar, o que fazer se alguém travar, como vão dividir tarefas fora da escala Piloto/Copiloto. Pode virar uma seção curta no `README.md` do projeto.
+4. 💻 **Dinâmica de código em trio — "Smoke Test do Trio":** Escrevam juntos um `check_setup.py` que valida o ambiente dos três: carrega o `.env`, confirma que a `GEMINI_API_KEY` existe, importa `google-genai`, `chromadb` e `pypdf`, e lista cada arquivo de `data/` com o número de páginas lido pelo `pypdf`. Cada integrante roda na própria máquina e commita o script — assim ninguém chega no Dia 07 com ambiente quebrado ou PDF ilegível.
+
+---
+
+## 📝 9. Bloco 6: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
 > [Preencher Formulário do Google Forms - Dia 06](https://docs.google.com/forms/d/e/1FAIpQLSfwAa5BJ5wnaXSQ8hABOF5eX5sZCy7yjsPjy_cso6XwPcAigQ/viewform)
@@ -164,3 +175,4 @@ Em cada dia de desenvolvimento, um membro assume o papel de **Piloto (Driver)** 
 - [x] Repositório GitHub criado com `.gitignore` e colaboradores configurados.
 - [x] Escala do Modelo Piloto/Copiloto Rotativo definida para os Dias 07, 08 e 09.
 - [x] Formulário de auto-avaliação e feedback preenchido no Google Forms.
+- [ ] (Extras) Vídeo sobre Git, "Pitch Relâmpago", "Contrato de Equipe" e/ou "Smoke Test do Trio" realizados.

@@ -30,6 +30,8 @@
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
+> 💡 Sobrou tempo antes do Git Sync? Aproveite para as **Atividades Extras** (seção 7).
+
 ---
 
 ## 📖 3. Leitura Padronizada de Referência (14:00 - 14:20)
@@ -259,7 +261,16 @@ Analise com sua dupla os resultados obtidos nos terminais:
 
 ---
 
-## 📝 7. Bloco 5: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
+## 🎁 7. Atividades Extras (Opcional — se sobrar tempo)
+
+1. 🎥 **Vídeo:** [3Blue1Brown — "But what is a GPT? Visual intro to Transformers"](https://www.youtube.com/watch?v=yMQPQuz5WpA). Assistam pelo menos os ~12 minutos iniciais, que cobrem tokens e embeddings de forma visual.
+2. 🧑‍🤝‍🧑 **Dinâmica em dupla ("Tokenizador Humano"):** Antes de rodar o `02_token_counter.py`, peguem uma das frases de teste e tentem tokenizá-la manualmente no papel (dividindo em pedaços que vocês acham que seriam "tokens"). Depois rodem o script e comparem: vocês chegaram perto da contagem real? O que surpreendeu?
+3. 💻 **Código bônus:** Criem um `05_tiktoken_compare.py` que instala `tiktoken` (`pip install tiktoken`) e conta os tokens dos mesmos textos do Script 2 usando um tokenizador de outra família de modelo (ex: `tiktoken.get_encoding("cl100k_base")`). Compare com a contagem do Gemini: os números batem? Por que tokenizadores de modelos diferentes cortam o texto de forma diferente?
+4. 💻 **Dinâmica de código em dupla — "Code Golf de Tokens":** Em 10 minutos, cada dupla escreve o prompt **mais curto possível** (menor contagem em `client.models.count_tokens`) que ainda faça o Gemini devolver corretamente um JSON com `nome`, `curso` e `semestre` extraídos da frase: *"Oi, sou a Mariana, faço o quarto semestre de Engenharia de Software"*. Anotem o prompt e a contagem no quadro: vence a dupla com menos tokens cuja saída ainda esteja correta.
+
+---
+
+## 📝 8. Bloco 5: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
 > [Preencher Formulário do Google Forms - Dia 03](https://docs.google.com/forms/d/e/1FAIpQLSfwAa5BJ5wnaXSQ8hABOF5eX5sZCy7yjsPjy_cso6XwPcAigQ/viewform)
@@ -272,3 +283,4 @@ Analise com sua dupla os resultados obtidos nos terminais:
 - [x] Scripts `01_hello_gemini.py`, `02_token_counter.py`, `03_temperature_lab.py` e `04_top_p_top_k_lab.py` executados com sucesso.
 - [x] Scripts sincronizados no repositório pessoal do GitHub.
 - [x] Formulário de auto-avaliação e feedback preenchido no Google Forms.
+- [ ] (Extras) Vídeo do 3Blue1Brown, "Tokenizador Humano", comparação com `tiktoken` e/ou "Code Golf de Tokens" realizados.

@@ -31,6 +31,8 @@
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
+> 💡 Sobrou tempo antes do Git Sync? Aproveite as **Atividades Extras** (seção 9).
+
 ---
 
 ## 🎙️ 3. Bloco 1: Sessão com Convidado — Ramon Lummertz (14:00 - 15:00)
@@ -262,7 +264,16 @@ if __name__ == "__main__":
 
 ---
 
-## 📝 8. Bloco 6: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
+## 🎁 8. Atividades Extras (Opcional — se sobrar tempo)
+
+1. 🎥 **Vídeo:** ["RAG Chunking Strategies Explained: Optimize Document Chunking for Maximum Recall, Precision"](https://www.youtube.com/watch?v=SPl-_Z4_c9w), complementando a leitura padronizada da seção 4.
+2. 🧑‍🤝‍🧑 **Dinâmica em trio ("Chunking na Régua"):** Imprimam (ou escrevam à mão) um parágrafo de um dos documentos do trio. Com caneta e régua, marquem manualmente onde cada um cortaria os chunks e quanto de overlap usaria. Depois rodem o `ingestion.py` e comparem: o corte automático por caracteres ficou parecido com a decisão humana? Onde ele cortou uma frase ao meio?
+3. 💻 **Código bônus:** Testem `criar_chunks()` com parâmetros diferentes (`chunk_size`/`chunk_overlap` = 300/50, 700/100 e 1200/200) e comparem a quantidade de chunks gerados e, no `buscador_semantico.py` do Dia 05 ou no `rag_engine.py` de amanhã, se a qualidade das respostas muda.
+4. 💻 **Dinâmica de código em trio — "Caça ao Chunk Perdido":** Escrevam um `inspecionar_chunks.py` que abre a coleção do ChromaDB e imprime um raio-X da ingestão: total de chunks, tamanho médio, quantos chunks por arquivo e por página, e quais chunks **terminam no meio de uma frase** (sem pontuação final). Discutam no trio: o overlap de 100 caracteres está realmente salvando esses cortes ou vocês precisam ajustar os parâmetros?
+
+---
+
+## 📝 9. Bloco 6: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
 > [Preencher Formulário do Google Forms - Dia 07](https://docs.google.com/forms/d/e/1FAIpQLSfwAa5BJ5wnaXSQ8hABOF5eX5sZCy7yjsPjy_cso6XwPcAigQ/viewform)
@@ -274,3 +285,4 @@ if __name__ == "__main__":
 - [x] Pipeline `src/ingestion.py` testado com o modelo `gemini-embedding-001`.
 - [x] Chunks e metadados persistidos localmente no ChromaDB e código sincronizado no GitHub.
 - [x] Formulário de auto-avaliação e feedback preenchido no Google Forms.
+- [ ] (Extras) Vídeo sobre chunking, "Chunking na Régua", testes com parâmetros diferentes e/ou "Caça ao Chunk Perdido" realizados.

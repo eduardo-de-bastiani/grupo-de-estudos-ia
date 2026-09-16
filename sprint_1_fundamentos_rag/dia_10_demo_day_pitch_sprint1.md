@@ -29,6 +29,8 @@
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
+> 💡 As **Atividades Extras** (seção 7) cabem no Coffee Break e nos intervalos entre as apresentações.
+
 ---
 
 ## 🎤 3. Bloco 1: As Apresentações do Demo Day (14:15 - 15:30)
@@ -112,7 +114,16 @@ O voluntário desenha 4 quadrantes no quadro branco:
 
 ---
 
-## 📝 7. Bloco 4: Formulário Final de Avaliação da Sprint 1 & Feedback (16:45 - 17:00)
+## 🎁 7. Atividades Extras (Opcional — se sobrar tempo)
+
+1. 🎥 **Vídeo (indicação para assistir à noite ou depois, reflexão pessoal):** [Carol Dweck — TED Talk "The Power of Believing That You Can Improve"](https://www.youtube.com/watch?v=_X0mgOOSpLU). Conecta bem com a retrospectiva do dia e a virada para a Sprint 2.
+2. 🧑‍🤝‍🧑 **Dinâmica leve no Coffee Break ("Voto do Público"):** Durante o Coffee Break (15:30-16:00), cada participante — incluindo os convidados da DataLakers — vota informalmente (à mão ou em post-its) em categorias divertidas como "Melhor Live Demo" ou "Melhor Storytelling". Não é avaliação oficial, é só reconhecimento leve entre as apresentações e a retrospectiva.
+3. 🧑‍🤝‍🧑 **Dinâmica opcional ("Cápsula do Tempo"):** Se sobrar um instante durante ou logo após a Learning Matrix, cada trio escreve uma carta curta para si mesmo sobre o que espera aprender/mudar na Sprint 2. O monitor guarda as cartas para abrir no Demo Day final.
+4. 💻 **Dinâmica de código em trio — "Números do Projeto" (antes de apresentar):** Rodem um script curto que abre a coleção do ChromaDB e imprime os números reais do projeto: quantos documentos foram indexados, quantas páginas no total, quantos chunks e o tamanho médio do chunk. Levem esses números para a parte de arquitetura do pitch — banca técnica se convence com dado concreto, não com adjetivo.
+
+---
+
+## 📝 8. Bloco 4: Formulário Final de Avaliação da Sprint 1 & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Avaliação Final da Sprint 1:**  
 > [Preencher Formulário do Google Forms - Fechamento Sprint 1](https://docs.google.com/forms/d/e/1FAIpQLSc_kvGX7dlcZSDYyabCgkr_uSEoCqtEwnfcWjJeDgsC7vXOuQ/viewform)
@@ -122,3 +133,4 @@ O voluntário desenha 4 quadrantes no quadro branco:
 - [x] Retrospectiva da Sprint 1 realizada via Learning Matrix no quadro (35 min).
 - [x] Leitura do README da Sprint 2 concluída.
 - [x] Formulário final de avaliação da Sprint 1 preenchido no Google Forms.
+- [ ] (Extras) "Voto do Público", "Cápsula do Tempo" e/ou "Números do Projeto" realizados.

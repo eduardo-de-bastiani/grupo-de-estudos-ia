@@ -30,6 +30,8 @@
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
+> 💡 Sobrou tempo antes da sincronização? Aproveite as **Atividades Extras** (seção 8).
+
 ---
 
 ## 📖 3. Bloco 1: Leitura Padronizada de Referência (14:00 - 14:25)
@@ -211,7 +213,16 @@ Dediquem esses 10 minutos para que o trio sincronize as alterações no reposit�
 
 ---
 
-## 📝 7. Bloco 5: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
+## 🎁 7. Atividades Extras (Opcional — se sobrar tempo)
+
+1. 🎥 **Vídeo:** [IBM Technology — "Why Large Language Models Hallucinate"](https://www.youtube.com/watch?v=cfqtFvWOfg0), complementando a leitura padronizada da seção 3.
+2. 🧑‍🤝‍🧑 **Dinâmica cruzada entre trios ("Tribunal da Alucinação"):** Depois do Laboratório de Stress Test, dois integrantes visitam a máquina de outro trio e tentam "julgar" o RAG alheio com perguntas-armadilha próprias (fora de escopo, ambíguas ou de injeção). Anotem juntos: o assistente do outro trio recusou corretamente ou alucinou?
+3. 💻 **Código bônus:** Adicionem um 4º cenário ao stress test: uma pergunta que é **parcialmente** respondida pelos documentos (mistura algo que está no contexto com algo que não está). Verifiquem se `responder_pergunta()` responde só a parte sustentada pelos documentos e recusa o restante, em vez de inventar ou recusar tudo.
+4. 💻 **Dinâmica de código em trio — "Placar Anti-Alucinação":** Criem um `avaliar_rag.py` com 8 perguntas de teste (4 respondíveis pelos documentos e 4 fora de escopo) e o comportamento esperado de cada uma. O script roda todas em lote pelo `responder_pergunta()` e imprime um placar final: **acertos**, **recusas corretas** e **alucinações**. Comparem os placares entre os trios — quem construiu o assistente mais honesto?
+
+---
+
+## 📝 8. Bloco 5: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
 > [Preencher Formulário do Google Forms - Dia 08](https://docs.google.com/forms/d/e/1FAIpQLSfwAa5BJ5wnaXSQ8hABOF5eX5sZCy7yjsPjy_cso6XwPcAigQ/viewform)
@@ -222,3 +233,4 @@ Dediquem esses 10 minutos para que o trio sincronize as alterações no reposit�
 - [x] Testes de estresse executados (anti-alucinação funcionando).
 - [x] Código sincronizado no GitHub.
 - [x] Formulário de auto-avaliação e feedback preenchido no Google Forms.
+- [ ] (Extras) Vídeo sobre alucinações, "Tribunal da Alucinação", cenário extra de stress test e/ou "Placar Anti-Alucinação" realizados.

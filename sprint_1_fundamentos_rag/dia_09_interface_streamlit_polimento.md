@@ -29,6 +29,8 @@
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
+> 💡 Sobrou tempo antes do ensaio? Aproveite as **Atividades Extras** (seção 7).
+
 ---
 
 ## 📖 3. Bloco 1: Leitura Padronizada de Referência (14:00 - 14:20)
@@ -181,7 +183,16 @@ Cada trio cronometra e ensaia seu Pitch de **10 minutos** com divisão de fala e
 
 ---
 
-## 📝 7. Bloco 5: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
+## 🎁 7. Atividades Extras (Opcional — se sobrar tempo)
+
+1. 🎥 **Vídeo (assistir em casa, fora do horário, se quiser se aprofundar):** [Streamlit Crash Course [2024]](https://www.youtube.com/watch?v=20V_ZB7taCM).
+2. 🧑‍🤝‍🧑 **Dinâmica entre trios ("Teste de Usabilidade Cego"):** Se sobrar uns minutos antes do ensaio do pitch, convidem 2 integrantes de outro trio para usar o `app.py` de vocês por 3 minutos, sem nenhuma explicação prévia. Só observem onde eles travam ou ficam confusos — é feedback de UX real antes da apresentação de amanhã.
+3. 💻 **Código bônus:** Adicionem um badge visual na sidebar (ex: 🟢/🟡/🔴 com `st.metric` ou `st.markdown`) indicando a "confiança" da resposta, calculado a partir da similaridade média das fontes recuperadas em `resultado["fontes"]`.
+4. 💻 **Dinâmica de código em trio — "Sprint de Features de 15 Minutos":** Timebox cronometrado de 15 minutos em que cada integrante implementa **uma** melhoria pequena do `app.py` na própria máquina: `st.download_button` para exportar o histórico do chat, filtro por arquivo na sidebar, tempo de resposta medido com `time.perf_counter()` ou botões de perguntas-exemplo. No fim do timebox, juntem as três melhorias no repositório do trio.
+
+---
+
+## 📝 8. Bloco 5: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
 > [Preencher Formulário do Google Forms - Dia 09](https://docs.google.com/forms/d/e/1FAIpQLSfwAa5BJ5wnaXSQ8hABOF5eX5sZCy7yjsPjy_cso6XwPcAigQ/viewform)
@@ -193,3 +204,4 @@ Cada trio cronometra e ensaia seu Pitch de **10 minutos** com divisão de fala e
 - [x] Sincronização final realizada no GitHub do trio.
 - [x] Pitch ensaiado e cronometrado com fala distribuída entre os 3 membros.
 - [x] Formulário de auto-avaliação e feedback preenchido no Google Forms.
+- [ ] (Extras) "Teste de Usabilidade Cego", badge de confiança na interface e/ou "Sprint de Features de 15 Minutos" realizados.
