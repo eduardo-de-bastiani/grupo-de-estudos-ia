@@ -349,6 +349,7 @@ Ao término dos dois rounds, a turma se reúne em frente ao quadro branco para c
 2. 🧑‍🤝‍🧑 **Dinâmica entre quartetos ("Galeria de Ataques"):** Depois dos 2 rounds do Mini-CTF, cada quarteto escreve num cartão/post-it seu melhor prompt de ataque (o que mais quase funcionou ou funcionou). Colem os cartões na parede e circulem pela sala tentando identificar qual técnica foi usada em cada um (roleplay, delimiter escaping, injeção indireta, etc.).
 3. 💻 **Código bônus:** Implementem uma função `detectar_padroes_suspeitos(texto: str) -> bool` em Python que varre a entrada do usuário por padrões suspeitos comuns (ex: "ignore as instruções anteriores", tentativas de fechar/reabrir tags) antes de montar o `prompt_completo` no `ctf_guardian.py`. É uma Zona 1 (Input Guardrail) mais estruturada que o exemplo comentado no código base.
 4. 💻 **Dinâmica de código entre duplas — "Campeonato de Classificadores":** Partindo do `few_shot_cot_lab.py`, a turma define um gabarito de 10 chamados de suporte com a urgência correta de cada um. Uma dupla monta o classificador em **zero-shot** (só a instrução) e a outra em **few-shot + CoT**. Rodem os dois contra o mesmo gabarito e contem os acertos: qual técnica ganhou, e em quais chamados as duas erraram juntas?
+5. 🧠 **Quiz interativo do dia:** Abra o arquivo [`quizzes/quiz_dia_04.html`](quizzes/quiz_dia_04.html) no navegador e responda às 18 perguntas (verdadeiro/falso, múltipla escolha, completar a palavra, ordenar e associar). A correção é na hora, com explicação de cada erro.
 
 ---
 

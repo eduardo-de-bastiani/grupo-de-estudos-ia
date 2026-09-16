@@ -120,6 +120,7 @@ O voluntário desenha 4 quadrantes no quadro branco:
 2. 🧑‍🤝‍🧑 **Dinâmica leve no Coffee Break ("Voto do Público"):** Durante o Coffee Break (15:30-16:00), cada participante — incluindo os convidados da DataLakers — vota informalmente (à mão ou em post-its) em categorias divertidas como "Melhor Live Demo" ou "Melhor Storytelling". Não é avaliação oficial, é só reconhecimento leve entre as apresentações e a retrospectiva.
 3. 🧑‍🤝‍🧑 **Dinâmica opcional ("Cápsula do Tempo"):** Se sobrar um instante durante ou logo após a Learning Matrix, cada trio escreve uma carta curta para si mesmo sobre o que espera aprender/mudar na Sprint 2. O monitor guarda as cartas para abrir no Demo Day final.
 4. 💻 **Dinâmica de código em trio — "Números do Projeto" (antes de apresentar):** Rodem um script curto que abre a coleção do ChromaDB e imprime os números reais do projeto: quantos documentos foram indexados, quantas páginas no total, quantos chunks e o tamanho médio do chunk. Levem esses números para a parte de arquitetura do pitch — banca técnica se convence com dado concreto, não com adjetivo.
+5. 🧠 **Quiz final da Sprint:** Abra o arquivo [`quizzes/quiz_dia_10.html`](quizzes/quiz_dia_10.html) no navegador e responda às 15 perguntas (verdadeiro/falso, múltipla escolha, completar a palavra, ordenar e associar). Fecha o ciclo da Sprint 1 e já dá o gancho para a Sprint 2.
 
 ---
 

@@ -270,6 +270,7 @@ if __name__ == "__main__":
 2. 🧑‍🤝‍🧑 **Dinâmica em trio ("Chunking na Régua"):** Imprimam (ou escrevam à mão) um parágrafo de um dos documentos do trio. Com caneta e régua, marquem manualmente onde cada um cortaria os chunks e quanto de overlap usaria. Depois rodem o `ingestion.py` e comparem: o corte automático por caracteres ficou parecido com a decisão humana? Onde ele cortou uma frase ao meio?
 3. 💻 **Código bônus:** Testem `criar_chunks()` com parâmetros diferentes (`chunk_size`/`chunk_overlap` = 300/50, 700/100 e 1200/200) e comparem a quantidade de chunks gerados e, no `buscador_semantico.py` do Dia 05 ou no `rag_engine.py` de amanhã, se a qualidade das respostas muda.
 4. 💻 **Dinâmica de código em trio — "Caça ao Chunk Perdido":** Escrevam um `inspecionar_chunks.py` que abre a coleção do ChromaDB e imprime um raio-X da ingestão: total de chunks, tamanho médio, quantos chunks por arquivo e por página, e quais chunks **terminam no meio de uma frase** (sem pontuação final). Discutam no trio: o overlap de 100 caracteres está realmente salvando esses cortes ou vocês precisam ajustar os parâmetros?
+5. 🧠 **Quiz interativo do dia:** Abra o arquivo [`quizzes/quiz_dia_07.html`](quizzes/quiz_dia_07.html) no navegador e responda às 16 perguntas (verdadeiro/falso, múltipla escolha, completar a palavra, ordenar e associar). A correção é na hora, com explicação de cada erro.
 
 ---
 

@@ -159,6 +159,7 @@ Em cada dia de desenvolvimento, um membro assume o papel de **Piloto (Driver)** 
 2. 🧑‍🤝‍🧑 **Dinâmica entre trios ("Pitch Relâmpago de 1 Minuto"):** Assim que o trio definir o domínio e os documentos (fim do Bloco 3), façam um pitch de 60 segundos do conceito do AskData para um trio vizinho e recebam 1 sugestão rápida antes de seguir para o setup do repositório.
 3. 🧑‍🤝‍🧑 **Dinâmica em trio ("Contrato de Equipe"):** Reservem 10 minutos para escrever um mini acordo de trabalho do trio: como vão se comunicar, o que fazer se alguém travar, como vão dividir tarefas fora da escala Piloto/Copiloto. Pode virar uma seção curta no `README.md` do projeto.
 4. 💻 **Dinâmica de código em trio — "Smoke Test do Trio":** Escrevam juntos um `check_setup.py` que valida o ambiente dos três: carrega o `.env`, confirma que a `GEMINI_API_KEY` existe, importa `google-genai`, `chromadb` e `pypdf`, e lista cada arquivo de `data/` com o número de páginas lido pelo `pypdf`. Cada integrante roda na própria máquina e commita o script — assim ninguém chega no Dia 07 com ambiente quebrado ou PDF ilegível.
+5. 🧠 **Quiz interativo do dia:** Abra o arquivo [`quizzes/quiz_dia_06.html`](quizzes/quiz_dia_06.html) no navegador e responda às 15 perguntas (verdadeiro/falso, múltipla escolha, completar a palavra, ordenar e associar). A correção é na hora, com explicação de cada erro.
 
 ---
 

@@ -267,6 +267,7 @@ Analise com sua dupla os resultados obtidos nos terminais:
 2. 🧑‍🤝‍🧑 **Dinâmica em dupla ("Tokenizador Humano"):** Antes de rodar o `02_token_counter.py`, peguem uma das frases de teste e tentem tokenizá-la manualmente no papel (dividindo em pedaços que vocês acham que seriam "tokens"). Depois rodem o script e comparem: vocês chegaram perto da contagem real? O que surpreendeu?
 3. 💻 **Código bônus:** Criem um `05_tiktoken_compare.py` que instala `tiktoken` (`pip install tiktoken`) e conta os tokens dos mesmos textos do Script 2 usando um tokenizador de outra família de modelo (ex: `tiktoken.get_encoding("cl100k_base")`). Compare com a contagem do Gemini: os números batem? Por que tokenizadores de modelos diferentes cortam o texto de forma diferente?
 4. 💻 **Dinâmica de código em dupla — "Code Golf de Tokens":** Em 10 minutos, cada dupla escreve o prompt **mais curto possível** (menor contagem em `client.models.count_tokens`) que ainda faça o Gemini devolver corretamente um JSON com `nome`, `curso` e `semestre` extraídos da frase: *"Oi, sou a Mariana, faço o quarto semestre de Engenharia de Software"*. Anotem o prompt e a contagem no quadro: vence a dupla com menos tokens cuja saída ainda esteja correta.
+5. 🧠 **Quiz interativo do dia:** Abra o arquivo [`quizzes/quiz_dia_03.html`](quizzes/quiz_dia_03.html) no navegador e responda às 19 perguntas (verdadeiro/falso, múltipla escolha, completar a palavra, ordenar e associar). A correção é na hora, com explicação de cada erro — bom para checar se o conteúdo do dia ficou de pé antes do formulário.
 
 ---
 

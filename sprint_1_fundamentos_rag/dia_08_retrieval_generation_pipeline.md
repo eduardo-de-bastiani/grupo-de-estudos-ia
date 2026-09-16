@@ -219,6 +219,7 @@ Dediquem esses 10 minutos para que o trio sincronize as alterações no reposit�
 2. 🧑‍🤝‍🧑 **Dinâmica cruzada entre trios ("Tribunal da Alucinação"):** Depois do Laboratório de Stress Test, dois integrantes visitam a máquina de outro trio e tentam "julgar" o RAG alheio com perguntas-armadilha próprias (fora de escopo, ambíguas ou de injeção). Anotem juntos: o assistente do outro trio recusou corretamente ou alucinou?
 3. 💻 **Código bônus:** Adicionem um 4º cenário ao stress test: uma pergunta que é **parcialmente** respondida pelos documentos (mistura algo que está no contexto com algo que não está). Verifiquem se `responder_pergunta()` responde só a parte sustentada pelos documentos e recusa o restante, em vez de inventar ou recusar tudo.
 4. 💻 **Dinâmica de código em trio — "Placar Anti-Alucinação":** Criem um `avaliar_rag.py` com 8 perguntas de teste (4 respondíveis pelos documentos e 4 fora de escopo) e o comportamento esperado de cada uma. O script roda todas em lote pelo `responder_pergunta()` e imprime um placar final: **acertos**, **recusas corretas** e **alucinações**. Comparem os placares entre os trios — quem construiu o assistente mais honesto?
+5. 🧠 **Quiz interativo do dia:** Abra o arquivo [`quizzes/quiz_dia_08.html`](quizzes/quiz_dia_08.html) no navegador e responda às 16 perguntas (verdadeiro/falso, múltipla escolha, completar a palavra, ordenar e associar). A correção é na hora, com explicação de cada erro.
 
 ---
 

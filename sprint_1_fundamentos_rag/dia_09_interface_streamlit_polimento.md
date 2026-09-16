@@ -189,6 +189,7 @@ Cada trio cronometra e ensaia seu Pitch de **10 minutos** com divisão de fala e
 2. 🧑‍🤝‍🧑 **Dinâmica entre trios ("Teste de Usabilidade Cego"):** Se sobrar uns minutos antes do ensaio do pitch, convidem 2 integrantes de outro trio para usar o `app.py` de vocês por 3 minutos, sem nenhuma explicação prévia. Só observem onde eles travam ou ficam confusos — é feedback de UX real antes da apresentação de amanhã.
 3. 💻 **Código bônus:** Adicionem um badge visual na sidebar (ex: 🟢/🟡/🔴 com `st.metric` ou `st.markdown`) indicando a "confiança" da resposta, calculado a partir da similaridade média das fontes recuperadas em `resultado["fontes"]`.
 4. 💻 **Dinâmica de código em trio — "Sprint de Features de 15 Minutos":** Timebox cronometrado de 15 minutos em que cada integrante implementa **uma** melhoria pequena do `app.py` na própria máquina: `st.download_button` para exportar o histórico do chat, filtro por arquivo na sidebar, tempo de resposta medido com `time.perf_counter()` ou botões de perguntas-exemplo. No fim do timebox, juntem as três melhorias no repositório do trio.
+5. 🧠 **Quiz interativo do dia:** Abra o arquivo [`quizzes/quiz_dia_09.html`](quizzes/quiz_dia_09.html) no navegador e responda às 16 perguntas (verdadeiro/falso, múltipla escolha, completar a palavra, ordenar e associar). A correção é na hora, com explicação de cada erro.
 
 ---
 
