@@ -11,8 +11,10 @@
 1. Realizar o **Demo Day Oficial da Sprint 1**, com os 5 trios apresentando seus produtos *AskData* funcionando ao vivo para os colegas, coordenação do Navi Hub e convidados da DataLakers.
 2. Demonstrar o domínio prático autônomo dos conceitos de RAG, Embeddings, ChromaDB, Prompt Grounding e Streamlit.
 3. Consolidar competências de comunicação técnica, trabalho em equipe e capacidade de resolução autônoma de problemas.
-4. Realizar a retrospectiva ágil da Sprint 1 via **Learning Matrix** (35 minutos no quadro, mapeando aprendizados técnicos e comportamentais).
-5. Ler e explorar o documento `README.md` introdutório da **Sprint 2 (Agentes Autônomos, Function/Tool Calling & Model Context Protocol - MCP)**.
+4. Promover a celebração e reconhecimento mútuo entre pares através da **Votação Popular ("Destaques da Sprint 1")**.
+5. Consolidar os conceitos da Sprint inteira através do **Quiz Final de Fixação** (`quizzes/quiz_dia_10.html`).
+6. Realizar a retrospectiva ágil da Sprint 1 via **Learning Matrix** (35 minutos no quadro, mapeando aprendizados técnicos e comportamentais).
+7. Ler e explorar o documento `README.md` introdutório da **Sprint 2 (Agentes Autônomos, Function/Tool Calling & Model Context Protocol - MCP)**.
 
 ---
 
@@ -22,14 +24,14 @@
 ┌─────────────────┬────────────────────────────────────────────────────────┐
 │ 14:00 - 14:15   │ Abertura do Demo Day & Boas-Vindas aos Convidados      │
 │ 14:15 - 15:30   │ Apresentações dos 5 Trios (15 min por trio)            │
-│ 15:30 - 16:00   │ Coffee Break & Networking                              │
-│ 16:00 - 16:35   │ Retrospectiva Ágil: Learning Matrix no Quadro (35 min) │
-│ 16:35 - 16:45   │ Teaser da Sprint 2: Leitura do README da Sprint 2      │
-│ 16:45 - 17:00   │ Formulário Final de Avaliação da Sprint 1 (Forms)      │
+│ 15:30 - 15:45   │ Coffee Break & Descompressão                           │
+│ 15:45 - 16:00   │ Votação Popular & Destaques da Sprint 1                │
+│ 16:00 - 16:10   │ Quiz Final de Fixação da Sprint 1                      │
+│ 16:10 - 16:45   │ Retrospectiva Ágil: Learning Matrix no Quadro (35 min) │
+│ 16:45 - 16:50   │ Teaser da Sprint 2: Leitura do README da Sprint 2      │
+│ 16:50 - 17:00   │ Formulário Final de Avaliação da Sprint 1 (Forms)      │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
-
-> 💡 As **Atividades Extras** (seção 7) cabem no Coffee Break e nos intervalos entre as apresentações.
 
 ---
 
@@ -46,15 +48,42 @@ Cada trio terá **15 minutos rigorosamente cronometrados**:
 
 ---
 
-## ☕ 4. Coffee Break & Networking (15:30 - 16:00)
+## ☕ 4. Coffee Break & Descompressão (15:30 - 15:45)
 
 Momento de descontração, comemoração e conversas informais entre os estudantes, instrutores e convidados da DataLakers e Navi Hub após a conclusão de todas as apresentações.
 
 ---
 
-## 🔄 5. Bloco 2: Retrospectiva Ágil — Learning Matrix no Quadro (16:00 - 16:35)
+## 🏆 5. Bloco 2: Votação Popular & Destaques da Sprint 1 (15:45 - 16:00)
 
-Após as apresentações e o coffee break, a turma realiza uma **Learning Matrix** (Matriz de Aprendizado) de **35 minutos**, dinâmica ágil clássica adaptada para debriefing integral de sprints. O objetivo é consolidar com clareza não apenas o código e a arquitetura técnica gerados, mas o amadurecimento profissional e colaborativo de cada estudante.
+Para celebrar o esforço e a criatividade de todos os trios sem criar uma competição excludente, a turma realiza uma votação rápida e descontraída entre pares.
+
+### Categorias de Destaque:
+1. 🛡️ **Guardião do RAG:** O assistente com o prompt anti-alucinação mais robusto e elegante (que recusou perguntas fora de escopo com maior precisão).
+2. 🎨 **Melhor UX no Streamlit:** A interface mais limpa, intuitiva, responsiva e agradável de usar.
+3. ⚡ **Live Demo Mais Fluida:** A demonstração que rodou com maior rapidez, sem engasgos técnicos e com respostas precisas.
+4. 🎤 **Melhor Storytelling Técnico:** O trio que explicou a arquitetura técnica e os trade-offs de engenharia com maior clareza e sinergia de equipe.
+
+### Como Funciona:
+* Cada estudante (e também os convidados da DataLakers e Navi Hub) anota seus votos nas 4 categorias em post-its ou cédulas rápidas.
+* O monitor ou voluntário apura rapidamente os resultados e anuncia os trios mais votados sob aplausos coletivos.
+
+---
+
+## 🧠 6. Bloco 3: Quiz Final de Fixação da Sprint 1 (16:00 - 16:10)
+
+Antes de iniciar a retrospectiva, cada estudante abre no navegador o arquivo:
+[`quizzes/quiz_dia_10.html`](quizzes/quiz_dia_10.html)
+
+* **15 Perguntas Abrangentes:** O quiz revisa os conceitos essenciais aprendidos ao longo dos 10 dias (LLMs, Tokens, Embeddings, Busca Vetorial no ChromaDB, Chunking com Overlap, Prompt Grounding, Arquitetura RAG e Interfaces Web).
+* **Feedback Instantâneo:** Cada resposta traz a explicação detalhada de acertos e erros.
+* **Aquecimento Cognitivo:** Serve para reativar na memória de cada estudante os conceitos técnicos e desafios vivenciados, preparando a cabeça para a dinâmica da Learning Matrix a seguir.
+
+---
+
+## 🔄 7. Bloco 4: Retrospectiva Ágil — Learning Matrix no Quadro (16:10 - 16:45)
+
+A turma realiza a **Learning Matrix** (Matriz de Aprendizado) de **35 minutos**, dinâmica ágil clássica adaptada para debriefing integral de sprints. O objetivo é consolidar com clareza não apenas o código e a arquitetura técnica gerados, mas o amadurecimento profissional e colaborativo de cada estudante.
 
 ### 📋 Papéis & Materiais Necessários:
 * **Voluntário ou Monitor Anotador:** Um estudante voluntário da turma (ou o monitor) vai à frente da sala para atuar como escriba/facilitador no quadro branco, agrupando e organizando visualmente as ideias trazidas pela sala.
@@ -106,7 +135,7 @@ O voluntário desenha 4 quadrantes no quadro branco:
 
 ---
 
-## 🔮 6. Bloco 3: Teaser da Sprint 2 — Leitura do README (16:35 - 16:45)
+## 🔮 8. Bloco 5: Teaser da Sprint 2 — Leitura do README (16:45 - 16:50)
 
 * **Leitura Inicial:** Leitura e exploração do documento `README.md` da Sprint 2 (localizado na pasta `sprint_2_agentes_mcp/README.md`).
 * **O Próximo Salto:** Compreensão geral da transição: enquanto na Sprint 1 a LLM aprendeu a *ler e responder documentos* com RAG, na Sprint 2 a LLM aprenderá a **agir no mundo real** por meio de Agentes Autônomos, Function/Tool Calling e Model Context Protocol (MCP).
@@ -114,24 +143,16 @@ O voluntário desenha 4 quadrantes no quadro branco:
 
 ---
 
-## 🎁 7. Atividades Extras (Opcional — se sobrar tempo)
-
-1. 🎥 **Vídeo (indicação para assistir à noite ou depois, reflexão pessoal):** [Carol Dweck — TED Talk "The Power of Believing That You Can Improve"](https://www.youtube.com/watch?v=_X0mgOOSpLU). Conecta bem com a retrospectiva do dia e a virada para a Sprint 2.
-2. 🧑‍🤝‍🧑 **Dinâmica leve no Coffee Break ("Voto do Público"):** Durante o Coffee Break (15:30-16:00), cada participante — incluindo os convidados da DataLakers — vota informalmente (à mão ou em post-its) em categorias divertidas como "Melhor Live Demo" ou "Melhor Storytelling". Não é avaliação oficial, é só reconhecimento leve entre as apresentações e a retrospectiva.
-3. 🧑‍🤝‍🧑 **Dinâmica opcional ("Cápsula do Tempo"):** Se sobrar um instante durante ou logo após a Learning Matrix, cada trio escreve uma carta curta para si mesmo sobre o que espera aprender/mudar na Sprint 2. O monitor guarda as cartas para abrir no Demo Day final.
-4. 💻 **Dinâmica de código em trio — "Números do Projeto" (antes de apresentar):** Rodem um script curto que abre a coleção do ChromaDB e imprime os números reais do projeto: quantos documentos foram indexados, quantas páginas no total, quantos chunks e o tamanho médio do chunk. Levem esses números para a parte de arquitetura do pitch — banca técnica se convence com dado concreto, não com adjetivo.
-5. 🧠 **Quiz final da Sprint:** Abra o arquivo [`quizzes/quiz_dia_10.html`](quizzes/quiz_dia_10.html) no navegador e responda às 15 perguntas (verdadeiro/falso, múltipla escolha, completar a palavra, ordenar e associar). Fecha o ciclo da Sprint 1 e já dá o gancho para a Sprint 2.
-
----
-
-## 📝 8. Bloco 4: Formulário Final de Avaliação da Sprint 1 & Feedback (16:45 - 17:00)
+## 📝 9. Bloco 6: Formulário Final de Avaliação da Sprint 1 & Feedback (16:50 - 17:00)
 
 > 📋 **Link do Formulário de Avaliação Final da Sprint 1:**  
 > [Preencher Formulário do Google Forms - Fechamento Sprint 1](https://docs.google.com/forms/d/e/1FAIpQLSc_kvGX7dlcZSDYyabCgkr_uSEoCqtEwnfcWjJeDgsC7vXOuQ/viewform)
+
 ### ✅ Checklist de Conclusão da Sprint 1:
-- [x] Apresentações dos 5 projetos *AskData* concluídas com sucesso no Demo Day.
+- [x] Apresentações dos projetos *AskData* concluídas com sucesso no Demo Day.
 - [x] Repositórios finais consolidados no GitHub.
+- [x] Votação popular e reconhecimento de destaques da turma realizado.
+- [x] Quiz final de fixação da Sprint 1 (`quizzes/quiz_dia_10.html`) respondido.
 - [x] Retrospectiva da Sprint 1 realizada via Learning Matrix no quadro (35 min).
 - [x] Leitura do README da Sprint 2 concluída.
 - [x] Formulário final de avaliação da Sprint 1 preenchido no Google Forms.
-- [ ] (Extras) "Voto do Público", "Cápsula do Tempo" e/ou "Números do Projeto" realizados.
