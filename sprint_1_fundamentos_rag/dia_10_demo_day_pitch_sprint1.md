@@ -11,8 +11,10 @@
 1. Realizar o **Demo Day Oficial da Sprint 1**, com os 5 trios apresentando seus produtos *AskData* funcionando ao vivo para os colegas, coordenação do Navi Hub e convidados da DataLakers.
 2. Demonstrar o domínio prático autônomo dos conceitos de RAG, Embeddings, ChromaDB, Prompt Grounding e Streamlit.
 3. Consolidar competências de comunicação técnica, trabalho em equipe e capacidade de resolução autônoma de problemas.
-4. Realizar a retrospectiva ágil da Sprint 1 via **Learning Matrix** (35 minutos no quadro, mapeando aprendizados técnicos e comportamentais).
-5. Ler e explorar o documento `README.md` introdutório da **Sprint 2 (Agentes Autônomos, Function/Tool Calling & Model Context Protocol - MCP)**.
+4. Promover a celebração e reconhecimento mútuo entre pares através da **Votação Popular ("Destaques da Sprint 1")**.
+5. Consolidar os conceitos da Sprint inteira através do **Quiz Final de Fixação** (`quizzes/quiz_dia_10.html`).
+6. Realizar a retrospectiva ágil da Sprint 1 via **Learning Matrix** (35 minutos no quadro, mapeando aprendizados técnicos e comportamentais).
+7. Ler e explorar o documento `README.md` introdutório da **Sprint 2 (Agentes Autônomos, Function/Tool Calling & Model Context Protocol - MCP)**.
 
 ---
 
@@ -22,10 +24,12 @@
 ┌─────────────────┬────────────────────────────────────────────────────────┐
 │ 14:00 - 14:15   │ Abertura do Demo Day & Boas-Vindas aos Convidados      │
 │ 14:15 - 15:30   │ Apresentações dos 5 Trios (15 min por trio)            │
-│ 15:30 - 16:00   │ Coffee Break & Networking                              │
-│ 16:00 - 16:35   │ Retrospectiva Ágil: Learning Matrix no Quadro (35 min) │
-│ 16:35 - 16:45   │ Teaser da Sprint 2: Leitura do README da Sprint 2      │
-│ 16:45 - 17:00   │ Formulário Final de Avaliação da Sprint 1 (Forms)      │
+│ 15:30 - 15:45   │ Coffee Break & Descompressão                           │
+│ 15:45 - 16:00   │ Votação Popular & Destaques da Sprint 1                │
+│ 16:00 - 16:10   │ Quiz Final de Fixação da Sprint 1                      │
+│ 16:10 - 16:45   │ Retrospectiva Ágil: Learning Matrix no Quadro (35 min) │
+│ 16:45 - 16:50   │ Teaser da Sprint 2: Leitura do README da Sprint 2      │
+│ 16:50 - 17:00   │ Formulário Final de Avaliação da Sprint 1 (Forms)      │
 └─────────────────┴────────────────────────────────────────────────────────┘
 ```
 
@@ -44,15 +48,42 @@ Cada trio terá **15 minutos rigorosamente cronometrados**:
 
 ---
 
-## ☕ 4. Coffee Break & Networking (15:30 - 16:00)
+## ☕ 4. Coffee Break & Descompressão (15:30 - 15:45)
 
 Momento de descontração, comemoração e conversas informais entre os estudantes, instrutores e convidados da DataLakers e Navi Hub após a conclusão de todas as apresentações.
 
 ---
 
-## 🔄 5. Bloco 2: Retrospectiva Ágil — Learning Matrix no Quadro (16:00 - 16:35)
+## 🏆 5. Bloco 2: Votação Popular & Destaques da Sprint 1 (15:45 - 16:00)
 
-Após as apresentações e o coffee break, a turma realiza uma **Learning Matrix** (Matriz de Aprendizado) de **35 minutos**, dinâmica ágil clássica adaptada para debriefing integral de sprints. O objetivo é consolidar com clareza não apenas o código e a arquitetura técnica gerados, mas o amadurecimento profissional e colaborativo de cada estudante.
+Para celebrar o esforço e a criatividade de todos os trios sem criar uma competição excludente, a turma realiza uma votação rápida e descontraída entre pares.
+
+### Categorias de Destaque:
+1. 🛡️ **Guardião do RAG:** O assistente com o prompt anti-alucinação mais robusto e elegante (que recusou perguntas fora de escopo com maior precisão).
+2. 🎨 **Melhor UX no Streamlit:** A interface mais limpa, intuitiva, responsiva e agradável de usar.
+3. ⚡ **Live Demo Mais Fluida:** A demonstração que rodou com maior rapidez, sem engasgos técnicos e com respostas precisas.
+4. 🎤 **Melhor Storytelling Técnico:** O trio que explicou a arquitetura técnica e os trade-offs de engenharia com maior clareza e sinergia de equipe.
+
+### Como Funciona:
+* Cada estudante (e também os convidados da DataLakers e Navi Hub) anota seus votos nas 4 categorias em post-its ou cédulas rápidas.
+* O monitor ou voluntário apura rapidamente os resultados e anuncia os trios mais votados sob aplausos coletivos.
+
+---
+
+## 🧠 6. Bloco 3: Quiz Final de Fixação da Sprint 1 (16:00 - 16:10)
+
+Antes de iniciar a retrospectiva, cada estudante abre no navegador o arquivo:
+[`quizzes/quiz_dia_10.html`](quizzes/quiz_dia_10.html)
+
+* **15 Perguntas Abrangentes:** O quiz revisa os conceitos essenciais aprendidos ao longo dos 10 dias (LLMs, Tokens, Embeddings, Busca Vetorial no ChromaDB, Chunking com Overlap, Prompt Grounding, Arquitetura RAG e Interfaces Web).
+* **Feedback Instantâneo:** Cada resposta traz a explicação detalhada de acertos e erros.
+* **Aquecimento Cognitivo:** Serve para reativar na memória de cada estudante os conceitos técnicos e desafios vivenciados, preparando a cabeça para a dinâmica da Learning Matrix a seguir.
+
+---
+
+## 🔄 7. Bloco 4: Retrospectiva Ágil — Learning Matrix no Quadro (16:10 - 16:45)
+
+A turma realiza a **Learning Matrix** (Matriz de Aprendizado) de **35 minutos**, dinâmica ágil clássica adaptada para debriefing integral de sprints. O objetivo é consolidar com clareza não apenas o código e a arquitetura técnica gerados, mas o amadurecimento profissional e colaborativo de cada estudante.
 
 ### 📋 Papéis & Materiais Necessários:
 * **Voluntário ou Monitor Anotador:** Um estudante voluntário da turma (ou o monitor) vai à frente da sala para atuar como escriba/facilitador no quadro branco, agrupando e organizando visualmente as ideias trazidas pela sala.
@@ -104,7 +135,7 @@ O voluntário desenha 4 quadrantes no quadro branco:
 
 ---
 
-## 🔮 6. Bloco 3: Teaser da Sprint 2 — Leitura do README (16:35 - 16:45)
+## 🔮 8. Bloco 5: Teaser da Sprint 2 — Leitura do README (16:45 - 16:50)
 
 * **Leitura Inicial:** Leitura e exploração do documento `README.md` da Sprint 2 (localizado na pasta `sprint_2_agentes_mcp/README.md`).
 * **O Próximo Salto:** Compreensão geral da transição: enquanto na Sprint 1 a LLM aprendeu a *ler e responder documentos* com RAG, na Sprint 2 a LLM aprenderá a **agir no mundo real** por meio de Agentes Autônomos, Function/Tool Calling e Model Context Protocol (MCP).
@@ -112,13 +143,16 @@ O voluntário desenha 4 quadrantes no quadro branco:
 
 ---
 
-## 📝 7. Bloco 4: Formulário Final de Avaliação da Sprint 1 & Feedback (16:45 - 17:00)
+## 📝 9. Bloco 6: Formulário Final de Avaliação da Sprint 1 & Feedback (16:50 - 17:00)
 
 > 📋 **Link do Formulário de Avaliação Final da Sprint 1:**  
 > [Preencher Formulário do Google Forms - Fechamento Sprint 1](https://docs.google.com/forms/d/e/1FAIpQLSc_kvGX7dlcZSDYyabCgkr_uSEoCqtEwnfcWjJeDgsC7vXOuQ/viewform)
+
 ### ✅ Checklist de Conclusão da Sprint 1:
-- [x] Apresentações dos 5 projetos *AskData* concluídas com sucesso no Demo Day.
+- [x] Apresentações dos projetos *AskData* concluídas com sucesso no Demo Day.
 - [x] Repositórios finais consolidados no GitHub.
+- [x] Votação popular e reconhecimento de destaques da turma realizado.
+- [x] Quiz final de fixação da Sprint 1 (`quizzes/quiz_dia_10.html`) respondido.
 - [x] Retrospectiva da Sprint 1 realizada via Learning Matrix no quadro (35 min).
 - [x] Leitura do README da Sprint 2 concluída.
 - [x] Formulário final de avaliação da Sprint 1 preenchido no Google Forms.
