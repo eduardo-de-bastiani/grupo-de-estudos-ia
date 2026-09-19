@@ -21,7 +21,8 @@
 
 ```
 ┌─────────────────┬────────────────────────────────────────────────────────┐
-│ 14:00 - 14:20   │ Leitura Padronizada de Referência (Prompting & Injeção)│
+│ 14:00 - 14:05   │ Daily Standup de Abertura                              │
+│ 14:05 - 14:20   │ Leitura Padronizada de Referência (Prompting & Injeção)│
 │ 14:20 - 14:50   │ Bloco 1: Few-Shot, CoT & Campeonato de Classificadores │
 │ 14:50 - 15:20   │ Bloco 2: Desafio Gamificado — Lakera Agent Breakers    │
 │ 15:20 - 15:35   │ Coffee Break & Networking                              │
@@ -34,7 +35,23 @@
 
 ---
 
-## 📖 3. Leitura Padronizada de Referência (14:00 - 14:20)
+## ⚡ 1. Daily Standup de Abertura (14:00 - 14:05)
+
+Reunião em pé de 5 minutos onde cada estudante responde brevemente:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│ 1. 🌟 O QUE MAIS GOSTEI:                                               │
+│    O que mais curti aprender ou explorar no encontro anterior?         │
+│                                                                        │
+│ 2. 🚧 MINHA MAIOR DIFICULDADE:                                         │
+│    Onde eu mais me bati, qual bug enfrentei ou qual dúvida ficou?      │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📖 3. Leitura Padronizada de Referência (14:05 - 14:20)
 
 Antes de iniciar as práticas, leia os artigos conceituais sobre técnicas de prompting e segurança:
 

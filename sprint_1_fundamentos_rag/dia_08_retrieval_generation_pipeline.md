@@ -21,8 +21,9 @@
 
 ```
 ┌─────────────────┬────────────────────────────────────────────────────────┐
-│ 14:00 - 14:25   │ Leitura Padronizada de Referência (Grounding & RAG)    │
-│ 14:25 - 14:40   │ Daily Standup Autônoma do Trio: Meta do RAG Engine     │
+│ 14:00 - 14:05   │ Daily Standup de Abertura                              │
+│ 14:05 - 14:25   │ Leitura Padronizada de Referência (Grounding & RAG)    │
+│ 14:25 - 14:40   │ Alinhamento do Trio: Papéis & Meta do RAG Engine       │
 │ 14:40 - 15:30   │ Codificação em Trio: Implementação do `rag_engine.py`  │
 │ 15:30 - 15:45   │ Coffee Break & Descompressão                           │
 │ 15:45 - 16:25   │ Stress Test, Placar Anti-Alucinação & Tribunal         │
@@ -34,7 +35,23 @@
 
 ---
 
-## 📖 3. Bloco 1: Leitura Padronizada de Referência (14:00 - 14:25)
+## ⚡ 1. Daily Standup de Abertura (14:00 - 14:05)
+
+Reunião em pé de 5 minutos onde cada estudante responde brevemente:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│ 1. 🌟 O QUE MAIS GOSTEI:                                               │
+│    O que mais curti aprender ou explorar no encontro anterior?         │
+│                                                                        │
+│ 2. 🚧 MINHA MAIOR DIFICULDADE:                                         │
+│    Onde eu mais me bati, qual bug enfrentei ou qual dúvida ficou?      │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📖 3. Bloco 1: Leitura Padronizada de Referência (14:05 - 14:25)
 
 Realize a leitura dos materiais de referência sobre fundamentação (grounding) e mitigação de alucinações:
 

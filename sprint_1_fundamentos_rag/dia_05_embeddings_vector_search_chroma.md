@@ -22,7 +22,8 @@
 
 ```
 ┌─────────────────┬────────────────────────────────────────────────────────┐
-│ 14:00 - 14:25   │ Leitura Padronizada de Referência (Cloudflare Hub)     │
+│ 14:00 - 14:05   │ Daily Standup de Abertura                              │
+│ 14:05 - 14:25   │ Leitura Padronizada de Referência (Cloudflare Hub)     │
 │ 14:25 - 15:20   │ Setup do ChromaDB + Indexação do Manual em PDF         │
 │ 15:20 - 15:35   │ Coffee Break & Networking                              │
 │ 15:35 - 16:20   │ Laboratório: Buscador Semântico, Detetive & Duelo      │
@@ -34,7 +35,23 @@
 
 ---
 
-## 📖 3. Bloco 1: Leitura Padronizada de Referência (14:00 - 14:25)
+## ⚡ 1. Daily Standup de Abertura (14:00 - 14:05)
+
+Reunião em pé de 5 minutos onde cada estudante responde brevemente:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│ 1. 🌟 O QUE MAIS GOSTEI:                                               │
+│    O que mais curti aprender ou explorar no encontro anterior?         │
+│                                                                        │
+│ 2. 🚧 MINHA MAIOR DIFICULDADE:                                         │
+│    Onde eu mais me bati, qual bug enfrentei ou qual dúvida ficou?      │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📖 3. Bloco 1: Leitura Padronizada de Referência (14:05 - 14:25)
 
 Realize a leitura introdutória no **Cloudflare Learning Hub** e **ChromaDB Docs**:
 

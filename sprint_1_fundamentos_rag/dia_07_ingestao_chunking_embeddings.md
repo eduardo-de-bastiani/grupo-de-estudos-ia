@@ -22,7 +22,8 @@
 
 ```
 ┌─────────────────┬────────────────────────────────────────────────────────┐
-│ 14:00 - 15:00   │ 🎙️ CONVERSA ONLINE COM RAMON LUMMERTZ (Palestra de IA) │
+│ 14:00 - 14:05   │ Daily Standup de Abertura                              │
+│ 14:05 - 15:00   │ 🎙️ CONVERSA ONLINE COM RAMON LUMMERTZ (Palestra de IA) │
 │ 15:00 - 15:10   │ Leitura Padronizada: Chunking & O que é o ChromaDB?    │
 │ 15:10 - 15:20   │ Setup Prático: Como Configurar e Testar o ChromaDB     │
 │ 15:20 - 15:35   │ Coffee Break & Descompressão                           │
@@ -35,8 +36,24 @@
 
 ---
 
-## 🎙️ 3. Bloco 1: Sessão com Convidado — Ramon Lummertz (14:00 - 15:00)
-- **Horário:** 14:00 às 15:00 (Pontual).
+## ⚡ 1. Daily Standup de Abertura (14:00 - 14:05)
+
+Reunião em pé de 5 minutos onde cada estudante responde brevemente:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│ 1. 🌟 O QUE MAIS GOSTEI:                                               │
+│    O que mais curti aprender ou explorar no encontro anterior?         │
+│                                                                        │
+│ 2. 🚧 MINHA MAIOR DIFICULDADE:                                         │
+│    Onde eu mais me bati, qual bug enfrentei ou qual dúvida ficou?      │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🎙️ 3. Bloco 1: Sessão com Convidado — Ramon Lummertz (14:05 - 15:00)
+- **Horário:** 14:05 às 15:00 (Pontual).
 - **Formato:** Transmissão Online na sala/auditório do Navi Hub.
 - **Pauta:** Inteligência Artificial no mundo real, carreira em tecnologia, engenharia de dados e modelos generativos.
 - **Ação dos Alunos:** Anotar insights e formular perguntas para a rodada final de Q&A.

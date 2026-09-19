@@ -23,7 +23,8 @@
 
 ```
 ┌─────────────────┬────────────────────────────────────────────────────────┐
-│ 14:00 - 14:20   │ Leitura Padronizada de Referência (Streamlit para IA)  │
+│ 14:00 - 14:05   │ Daily Standup de Abertura                              │
+│ 14:05 - 14:20   │ Leitura Padronizada de Referência (Streamlit para IA)  │
 │ 14:20 - 15:30   │ Codificação da Interface Web & Sprint de Features      │
 │ 15:30 - 15:45   │ Coffee Break & Networking                              │
 │ 15:45 - 16:05   │ Testes Finais, README do Trio & Sincronização no Git   │
@@ -36,7 +37,23 @@
 
 ---
 
-## 📖 3. Bloco 1: Leitura Padronizada de Referência (14:00 - 14:20)
+## ⚡ 1. Daily Standup de Abertura (14:00 - 14:05)
+
+Reunião em pé de 5 minutos onde cada estudante responde brevemente:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│ 1. 🌟 O QUE MAIS GOSTEI:                                               │
+│    O que mais curti aprender ou explorar no encontro anterior?         │
+│                                                                        │
+│ 2. 🚧 MINHA MAIOR DIFICULDADE:                                         │
+│    Onde eu mais me bati, qual bug enfrentei ou qual dúvida ficou?      │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📖 3. Bloco 1: Leitura Padronizada de Referência (14:05 - 14:20)
 
 Realize a leitura dos artigos de referência sobre prototipação ágil de interfaces de IA com Streamlit:
 

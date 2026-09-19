@@ -22,7 +22,8 @@
 
 ```
 ┌─────────────────┬────────────────────────────────────────────────────────┐
-│ 14:00 - 14:15   │ Abertura do Demo Day & Boas-Vindas aos Convidados      │
+│ 14:00 - 14:05   │ Daily Standup de Abertura                              │
+│ 14:05 - 14:15   │ Abertura do Demo Day & Boas-Vindas aos Convidados      │
 │ 14:15 - 15:30   │ Apresentações dos 5 Trios (15 min por trio)            │
 │ 15:30 - 15:45   │ Coffee Break & Descompressão                           │
 │ 15:45 - 16:00   │ Votação Popular & Destaques da Sprint 1                │
@@ -31,6 +32,22 @@
 │ 16:45 - 16:50   │ Teaser da Sprint 2: Leitura do README da Sprint 2      │
 │ 16:50 - 17:00   │ Formulário Final de Avaliação da Sprint 1 (Forms)      │
 └─────────────────┴────────────────────────────────────────────────────────┘
+```
+
+---
+
+## ⚡ 1. Daily Standup de Abertura (14:00 - 14:05)
+
+Reunião em pé de 5 minutos onde cada estudante responde brevemente:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│ 1. 🌟 O QUE MAIS GOSTEI:                                               │
+│    O que mais curti aprender ou explorar no encontro anterior?         │
+│                                                                        │
+│ 2. 🚧 MINHA MAIOR DIFICULDADE:                                         │
+│    Onde eu mais me bati, qual bug enfrentei ou qual dúvida ficou?      │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---

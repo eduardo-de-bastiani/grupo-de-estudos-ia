@@ -22,7 +22,8 @@
 
 ```
 ┌─────────────────┬────────────────────────────────────────────────────────┐
-│ 14:00 - 14:20   │ Leitura Padronizada de Referência: O que é RAG?        │
+│ 14:00 - 14:05   │ Daily Standup de Abertura                              │
+│ 14:05 - 14:20   │ Leitura Padronizada de Referência: O que é RAG?        │
 │ 14:20 - 14:35   │ Kickoff do AskData: Visão Geral do Fluxo e Entregáveis │
 │ 14:35 - 15:30   │ Coleta dos Documentos & Pitch Relâmpago de 1 Minuto    │
 │ 15:30 - 15:45   │ Coffee Break & Networking                              │
@@ -35,7 +36,23 @@
 
 ---
 
-## 📖 3. Bloco 1: Leitura Padronizada de Referência (14:00 - 14:20)
+## ⚡ 1. Daily Standup de Abertura (14:00 - 14:05)
+
+Reunião em pé de 5 minutos onde cada estudante responde brevemente:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│ 1. 🌟 O QUE MAIS GOSTEI:                                               │
+│    O que mais curti aprender ou explorar no encontro anterior?         │
+│                                                                        │
+│ 2. 🚧 MINHA MAIOR DIFICULDADE:                                         │
+│    Onde eu mais me bati, qual bug enfrentei ou qual dúvida ficou?      │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📖 3. Bloco 1: Leitura Padronizada de Referência (14:05 - 14:20)
 
 Antes de iniciar os trabalhos práticos, cada estudante deve ler os artigos conceituais sobre RAG:
 
