@@ -154,7 +154,7 @@ O voluntário desenha 4 quadrantes no quadro branco:
 
 ## 🔮 8. Bloco 5: Teaser da Sprint 2 — Leitura do README (16:45 - 16:50)
 
-* **Leitura Inicial:** Leitura e exploração do documento `README.md` da Sprint 2 (localizado na pasta `sprint_2_agentes_mcp/README.md`).
+* **Leitura Inicial:** Leitura e exploração do documento `README.md` da Sprint 2 (localizado na pasta `sprint_2_agentes/README.md`).
 * **O Próximo Salto:** Compreensão geral da transição: enquanto na Sprint 1 a LLM aprendeu a *ler e responder documentos* com RAG, na Sprint 2 a LLM aprenderá a **agir no mundo real** por meio de Agentes Autônomos, Function/Tool Calling e Model Context Protocol (MCP).
 * **Nova Rotação de Squads:** Novos trios serão formados na Sprint 2 para ampliar o networking e colaboração entre os participantes.
 

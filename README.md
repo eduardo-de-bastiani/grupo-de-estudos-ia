@@ -77,5 +77,5 @@ Todos os materiais, ferramentas e bibliotecas foram rigorosamente selecionados p
 
 ## 📂 5. Navegação nas Sprints
 - [Sprint 1: Fundamentos de GenAI, Google AI Studio, Prompting & RAG Local](sprint_1_fundamentos_rag/README.md)
-- *Sprint 2: Em breve (Agentes Autônomos, Function Calling & MCP)*
+- [Sprint 2: Agentes Autônomos, Function Calling & Model Context Protocol (MCP)](sprint_2_agentes/README.md)
 - *Sprint 3: Em breve (Multimodalidade & GenAI Aplicada)*
