@@ -12,7 +12,7 @@
 2. Demonstrar o domínio prático autônomo dos conceitos de **Structured Outputs**, **Function Calling**, **Loops de Agentes (ReAct)**, **Model Context Protocol (MCP)** e **Guardrails de Segurança SQL**.
 3. Exibir a rastreabilidade completa das chamadas de ferramentas e a execução de consultas em banco relacional local SQLite via interface web Streamlit.
 4. Promover a celebração e reconhecimento mútuo entre pares através da **Votação Popular ("Destaques da Sprint 2")**.
-5. Consolidar o domínio integral dos temas da Sprint 2 no **Quiz Final de Fixação** (`quizzes/quiz_dia_20.html`).
+5. Consolidar o domínio integral dos temas da Sprint 2 no **Quiz Final de Fixação** (`quizzes/quiz_dia_20.html`) e na **Atividade Interativa** de revisão (`quizzes/atividade_dia_20.html`).
 6. Conduzir a **Retrospectiva Ágil** coletiva via **Learning Matrix no Quadro** (35 minutos), mapeando aprendizados técnicos e comportamentais da Sprint 2.
 7. Conhecer a visão geral da **Sprint 3 (Multimodalidade & GenAI Aplicada)** no teaser de encerramento e preencher a avaliação final da Sprint.
 
@@ -27,7 +27,7 @@
 │ 14:15 - 15:30   │ Apresentações dos 5 Trios (15 min por trio)            │
 │ 15:30 - 15:45   │ Coffee Break & Descompressão                           │
 │ 15:45 - 16:00   │ Votação Popular & Destaques da Sprint 2                │
-│ 16:00 - 16:10   │ Quiz Final de Fixação da Sprint 2 (quiz_dia_20.html)   │
+│ 16:00 - 16:10   │ Quiz Final + Atividade Interativa (dia 20)             │
 │ 16:10 - 16:45   │ Retrospectiva Ágil: Learning Matrix no Quadro (35 min) │
 │ 16:45 - 16:50   │ Teaser da Sprint 3: Apresentação da Visão Geral        │
 │ 16:50 - 17:00   │ Formulário Final de Avaliação da Sprint 2 (Forms)      │
@@ -86,13 +86,14 @@ Votação rápida e descontraída entre pares para celebrar o esforço e a evolu
 
 ---
 
-## 🧠 6. Bloco 3: Quiz Final de Fixação da Sprint 2 (16:00 - 16:10)
+## 🧠 6. Bloco 3: Quiz Final & Atividade Interativa da Sprint 2 (16:00 - 16:10)
 
 Antes de iniciar a retrospectiva, cada estudante abre no navegador o arquivo:
 [`quizzes/quiz_dia_20.html`](quizzes/quiz_dia_20.html)
 
 * **15 Perguntas Abrangentes:** O quiz revisa os tópicos fundamentais da Sprint 2 (Structured Outputs, Pydantic, Function Calling nativo no Gemini, Loops ReAct autônomos, Arquitetura MCP, FastMCP, SQLite e Guardrails de Segurança).
 * **Feedback Instantâneo:** Cada resposta traz a justificativa conceitual e técnica.
+* **Atividade Interativa de revisão:** em seguida, abram [`quizzes/atividade_dia_20.html`](quizzes/atividade_dia_20.html) e resolvam os 5 desafios (ligar conceitos, reconstruir a arquitetura, classificar o que é da Sprint 1 e da Sprint 2 e testar os limites do guardrail). **Divisão sugerida dos 10 minutos:** cerca de 7 minutos no quiz e 3 na atividade; quem terminar antes refaz os itens errados.
 
 ---
 
@@ -135,6 +136,7 @@ Dinâmica coletiva de **35 minutos cronometrados** conduzida no quadro branco da
 - [x] Repositórios finais sincronizados com documentação completa no GitHub.
 - [x] Votação popular e premiação simbólica de destaques realizada.
 - [x] Quiz final de consolidação da Sprint 2 (`quizzes/quiz_dia_20.html`) concluído.
+- [x] Atividade interativa de revisão (`quizzes/atividade_dia_20.html`) concluída.
 - [x] Retrospectiva ágil da Sprint 2 realizada via Learning Matrix no quadro (35 min).
 - [x] Teaser e introdução da Sprint 3 acompanhados.
 - [x] Formulário final de avaliação da Sprint 2 preenchido.
@@ -143,5 +145,67 @@ Dinâmica coletiva de **35 minutos cronometrados** conduzida no quadro branco da
 
 ## 🎁 Atividades Complementares
 
-1. 🎥 **Vídeo:** <!-- CAMADA 2: Inserir link de talk internacional sobre o ecossistema e futuro de Agentes Autônomos com MCP -->
-2. 💻 **Código Bônus:** <!-- CAMADA 2: Inserir script utilitário de benchmarking de latência e consumo de tokens para loops agênticos -->
+1. 🎥 **Vídeo:** [The Future of MCP (David Soria Parra, Anthropic, AI Engineer, YouTube)](https://www.youtube.com/watch?v=v3Fr2JR47KA). Fala de um dos criadores do protocolo sobre para onde o ecossistema está indo; anotem 3 pontos que se conectam ao que o seu trio construiu nesta sprint (servidor `stdio` local, ferramentas tipadas, segurança) e 1 que ainda parece distante da realidade de vocês.
+2. 💻 **Código Bônus:** benchmark do DataOps Agent, medindo latência total, número de turnos e tokens consumidos por pergunta. Um agente que "funciona" mas gasta 40 mil tokens para contar linhas de uma tabela tem um problema de engenharia. Salve como `tests/benchmark_agente.py`.
+
+```python
+import asyncio
+import statistics
+import sys
+import time
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from src.agent.dataops_agent import DataOpsAgent  # noqa: E402
+
+PERGUNTAS = [
+    "Quantas tabelas existem no banco?",
+    "Quantos clientes nao tem e-mail cadastrado?",
+    "Qual a media de valor_total dos pedidos?",
+    "Quantos pedidos cada cidade possui? Mostre as 3 maiores.",
+]
+
+
+class ContadorDeTokens:
+    """Envolve client.aio.models para somar os tokens de cada chamada ao modelo."""
+
+    def __init__(self, models):
+        self._models = models
+        self.tokens = 0
+        self.chamadas = 0
+
+    async def generate_content(self, **kwargs):
+        response = await self._models.generate_content(**kwargs)
+        self.chamadas += 1
+        # TODO: some response.usage_metadata.total_token_count (se existir) em self.tokens
+        return response
+
+
+async def medir(pergunta: str) -> dict:
+    async with DataOpsAgent() as agente:
+        contador = ContadorDeTokens(agente.client.aio.models)
+        agente.client.aio.models = contador
+        inicio = time.perf_counter()
+        saida = await agente.perguntar(pergunta)
+        segundos = time.perf_counter() - inicio
+        # TODO: retorne {"pergunta", "segundos", "chamadas_modelo", "ferramentas" (len do trace), "tokens", "sucesso"}
+        #       onde "sucesso" e False se a resposta comecar com "Limite de turnos"
+        ...
+
+
+async def main() -> None:
+    resultados = []
+    for pergunta in PERGUNTAS:
+        r = await medir(pergunta)
+        resultados.append(r)
+        print(f"{r['segundos']:6.2f}s | {r['chamadas_modelo']} turnos | {r['ferramentas']} tools | {r['tokens']:6} tokens | {r['pergunta']}")
+    # TODO: imprima a media e o maximo de "segundos" e o total de tokens usando statistics.mean e max
+    # TODO: sinalize com "ATENCAO" qualquer pergunta que passou de 15 s ou de 20000 tokens
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+Resultado esperado: uma linha por pergunta, um resumo com média e pior caso e a identificação da pergunta mais cara. Use os números para propor **uma** otimização concreta (por exemplo, encurtar a instrução de sistema, limitar o tamanho das amostras devolvidas pelas ferramentas ou cachear o schema) e meça de novo para comprovar o ganho.
