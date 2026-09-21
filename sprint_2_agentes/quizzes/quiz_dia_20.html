@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz — Dia 20 | Revisão Final da Sprint 2</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este quiz precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 20",
+  "titulo": "Revisão Final da Sprint 2",
+  "chave": "quiz_dia_20",
+  "perguntas": [
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual é a diferença central entre a Sprint 1 e a Sprint 2?",
+      "opcoes": [
+        "A Sprint 1 usava Python e a 2 usa Java",
+        "Na Sprint 1 o modelo lia documentos (RAG); na Sprint 2 ele passa a agir por meio de ferramentas",
+        "A Sprint 2 dispensa o modelo",
+        "Não há diferença"
+      ],
+      "correta": 1,
+      "explicacao": "De \"ler e citar\" para \"decidir e agir\", com contratos, ferramentas, loops e MCP."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "O que o parâmetro `response_schema` garante?",
+      "opcoes": [
+        "Que o conteúdo é factualmente correto",
+        "Que a forma do JSON segue o contrato declarado",
+        "Que o modelo é mais rápido",
+        "Que a resposta é em inglês"
+      ],
+      "correta": 1,
+      "explicacao": "Garante **forma**, não verdade. Validadores e testes cuidam do restante."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "No function calling, o modelo executa diretamente a função Python no seu computador.",
+      "resposta": false,
+      "explicacao": "Falso. Ele emite a intenção (`function_call`); o seu código executa e devolve o resultado."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual controle impede que um agente ReAct rode indefinidamente?",
+      "opcoes": [
+        "`max_iterations` e detecção de chamadas repetidas",
+        "Aumentar a temperatura",
+        "Usar um schema",
+        "Desligar o modelo"
+      ],
+      "correta": 0,
+      "explicacao": "Teto de iterações e detecção de repetição são as guardas do loop. Temperatura (segunda) e schema (terceira) não têm relação, e desligar o modelo (quarta) é inviável."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual transporte MCP usamos e por quê?",
+      "opcoes": [
+        "`stdio`: comunicação local por processo filho, sem abrir portas de rede",
+        "HTTP público para facilitar o acesso",
+        "WebSocket aberto na internet",
+        "Nenhum, o MCP dispensa transporte"
+      ],
+      "correta": 0,
+      "explicacao": "O `stdio` mantém tudo local e seguro. As demais opções expõem rede desnecessariamente ou não existem."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "O import do FastMCP usado no projeto é `from mcp.server.______ import FastMCP`.",
+      "respostas": [
+        "fastmcp"
+      ],
+      "explicacao": "`mcp.server.fastmcp`, com o pacote fixado em `mcp<2`."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Em um servidor MCP `stdio`, `print()` no `stdout` é seguro para depuração.",
+      "resposta": false,
+      "explicacao": "Falso. O `stdout` é o canal do protocolo; logs vão para `stderr`."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "O que o `PRAGMA foreign_keys = ON;` faz?",
+      "opcoes": [
+        "Cria índices automaticamente",
+        "Ativa a verificação de chaves estrangeiras na conexão atual",
+        "Apaga tabelas órfãs",
+        "Habilita escrita no banco"
+      ],
+      "correta": 1,
+      "explicacao": "As chaves estrangeiras vêm desligadas por padrão no SQLite e precisam ser ativadas em cada conexão."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual das defesas abaixo é **determinística**?",
+      "opcoes": [
+        "Pedir educadamente ao modelo que não apague dados",
+        "Validar a query em Python antes de executá-la e usar conexão somente leitura",
+        "Confiar no treinamento do modelo",
+        "Aumentar o `max_tokens`"
+      ],
+      "correta": 1,
+      "explicacao": "Código que decide sempre igual para a mesma entrada. Pedir no prompt (primeira) e confiar no treinamento (terceira) são probabilísticos; `max_tokens` (quarta) não tem relação."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Um bom guardrail bloqueia perigos sem reprovar consultas legítimas (por exemplo, com a palavra DELETE dentro de uma string).",
+      "resposta": true,
+      "explicacao": "Verdadeiro. Falsos positivos frustram o usuário; por isso tratamos literais antes de procurar palavras proibidas."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Por que exibimos o SQL e o selo do guardrail na interface?",
+      "opcoes": [
+        "Por estética",
+        "Para dar rastreabilidade e permitir que o usuário audite a resposta (IA caixa de vidro)",
+        "Para reduzir tokens",
+        "Porque o SQLite exige"
+      ],
+      "correta": 1,
+      "explicacao": "Explicabilidade constrói confiança. Não é estética (primeira) nem economia de tokens (terceira)."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada dia da Semana 1 ao seu tema:",
+      "pares": [
+        [
+          "Dia 11",
+          "Structured Outputs e Pydantic"
+        ],
+        [
+          "Dia 12",
+          "Function Calling"
+        ],
+        [
+          "Dia 13",
+          "Loops ReAct"
+        ],
+        [
+          "Dia 14-15",
+          "MCP e FastMCP"
+        ]
+      ],
+      "explicacao": "A Semana 1 construiu, em ordem, os blocos que o DataOps Agent reúne na Semana 2."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "Ordene o caminho de uma pergunta do usuário no DataOps Agent:",
+      "itens": [
+        "Streamlit recebe a pergunta",
+        "O agente envia ao Gemini com as ferramentas MCP",
+        "O Gemini pede `executar_query_analitica`",
+        "O servidor MCP passa a query pelo guardrail",
+        "O SQLite (somente leitura) executa e devolve os dados"
+      ],
+      "explicacao": "Interface, agente, decisão do modelo, barreira de segurança e banco."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Uma consulta `SELECT email FROM clientes` passa pelo guardrail de SQL. Que camada adicional protegeria dados sensíveis?",
+      "opcoes": [
+        "Nenhuma, o guardrail já resolve tudo",
+        "Permissões por tabela/coluna, mascaramento de dados e auditoria de acesso",
+        "Aumentar o `LIMIT`",
+        "Trocar o SQLite por outro banco"
+      ],
+      "correta": 1,
+      "explicacao": "O guardrail conhece **sintaxe**, não sensibilidade dos dados. Riscos de acesso exigem outras camadas: permissões, mascaramento e auditoria. Aumentar o `LIMIT` (terceira) piora o cenário, e trocar de banco (quarta) não muda o princípio."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual destes é um bom motivo para usar Pydantic + `response_schema` no seu projeto?",
+      "opcoes": [
+        "Para o modelo nunca errar",
+        "Para receber dados tipados e falhar cedo (e claramente) quando o contrato for violado",
+        "Para evitar o uso de tokens",
+        "Para dispensar testes"
+      ],
+      "correta": 1,
+      "explicacao": "Contratos tornam a integração previsível. Nada garante que o modelo nunca erre (primeira), tokens continuam sendo usados (terceira) e testes seguem necessários (quarta)."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atividade — Dia 15 | Servidores MCP Locais com FastMCP</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este atividade precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 15",
+  "titulo": "Servidores MCP Locais com FastMCP",
+  "chave": "atividade_dia_15",
+  "perguntas": [
+    {
+      "tipo": "bug",
+      "enunciado": "Este servidor MCP funciona sozinho, mas **quebra a conversa** quando usado por um cliente com transporte `stdio`. **Qual linha é a culpada?**",
+      "codigo": [
+        "@mcp.tool()",
+        "def calcular_hash_arquivo(caminho: str) -> str:",
+        "    \"\"\"Calcula o SHA-256 de um arquivo.\"\"\"",
+        "    print(f\"lendo {caminho}\")",
+        "    return hashlib.sha256(Path(caminho).read_bytes()).hexdigest()"
+      ],
+      "bug": [
+        3
+      ],
+      "explicacao": "O `print` no `stdout` corrompe o protocolo. (O uso de `Path(...).read_bytes()` sem validar existência é outro problema, mas não quebra a conversa.) Logs devem ir para `stderr`."
+    },
+    {
+      "tipo": "sandbox",
+      "enunciado": "**Chame uma ferramenta.** Escreva o envelope `tools/call` da ferramenta `somar` (do servidor de testes) com `a` = 40 e `b` = 2. O padrão é o mesmo que você usaria para `converter_temperatura`.",
+      "validador": "jsonrpc",
+      "esperado": "aceito",
+      "placeholder": "{\"jsonrpc\": \"2.0\", \"id\": 7, ...}",
+      "linhas": 6,
+      "explicacao": "Um `tools/call` válido tem `params.name` e `params.arguments` numéricos. O servidor de testes do Dia 14 expõe `somar`.",
+      "config": {
+        "metodo": "tools/call",
+        "nome": "somar",
+        "args": [
+          "a",
+          "b"
+        ]
+      }
+    },
+    {
+      "tipo": "classificar",
+      "enunciado": "**Quem barra o erro?** Classifique onde cada erro é tratado.",
+      "categorias": [
+        "FastMCP (tipos)",
+        "Sua função (regras)"
+      ],
+      "itens": [
+        [
+          "`valor = \"abc\"` para um `float`",
+          0
+        ],
+        [
+          "Unidade \"X\" que não existe",
+          1
+        ],
+        [
+          "Falta o argumento obrigatório `caminho`",
+          0
+        ],
+        [
+          "Diretório inexistente",
+          1
+        ],
+        [
+          "Arquivo sem permissão de leitura",
+          1
+        ],
+        [
+          "`ano` enviado como lista no lugar de inteiro",
+          0
+        ]
+      ],
+      "explicacao": "O FastMCP valida **forma** (tipos e obrigatoriedade); a função valida **domínio** (o que faz sentido no seu negócio)."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "Reconstrua o `02_test_mcp_server.py`: coloque as etapas na ordem.",
+      "itens": [
+        "Abrir `stdio_client` com o `server_utils.py`",
+        "`await sessao.initialize()`",
+        "Listar as ferramentas e conferir o catálogo",
+        "Chamar ferramentas com entradas válidas e inválidas",
+        "Provar que o servidor continua vivo e imprimir o resumo"
+      ],
+      "explicacao": "Conectar, apresentar-se, descobrir, testar e provar resiliência."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "O `03_full_mcp_agent.py` precisa declarar manualmente as três ferramentas do `server_utils.py` para o Gemini.",
+      "resposta": false,
+      "explicacao": "Falso. A ponte lê o catálogo via `tools/list` e converte tudo automaticamente; por isso adicionar uma ferramenta ao servidor não exige mexer no agente."
+    }
+  ],
+  "rotulo": "Atividade"
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz — Dia 18 | Servidor MCP, Guardrails &amp; Segurança SQL</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este quiz precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 18",
+  "titulo": "Servidor MCP, Guardrails & Segurança SQL",
+  "chave": "quiz_dia_18",
+  "perguntas": [
+    {
+      "tipo": "multipla",
+      "enunciado": "Por que uma instrução de sistema como \"nunca execute comandos destrutivos\" **não** basta como segurança?",
+      "opcoes": [
+        "Porque o modelo não entende português",
+        "Porque é uma instrução probabilística: pode ser ignorada, contornada ou esquecida",
+        "Porque o SQLite ignora prompts",
+        "Porque só funciona em inglês"
+      ],
+      "correta": 1,
+      "explicacao": "Prompts influenciam, mas não garantem. É preciso barreiras **determinísticas** em código. O modelo entende português (primeira) e o idioma não é o problema (quarta); o SQLite nem recebe o prompt (terceira)."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "O que caracteriza um guardrail **determinístico**?",
+      "opcoes": [
+        "Depende do humor do modelo",
+        "Dá sempre o mesmo veredito para a mesma entrada, independente da LLM",
+        "Usa outra LLM para julgar",
+        "Só roda em produção"
+      ],
+      "correta": 1,
+      "explicacao": "É uma função pura em Python: mesma query, mesmo veredito. Usar outra LLM (terceira) reintroduz probabilidade."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Uma abordagem de **lista de permissões** (aceitar só `SELECT`/`WITH`) é, em geral, mais robusta que apenas proibir palavras perigosas.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. Quem escreve listas de proibição sempre esquece algo (`ATTACH`, `PRAGMA`...). A lista de permissões define o que é conhecido como seguro."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Por que `SELECT * FROM clientes; DELETE FROM pedidos;` é bloqueada?",
+      "opcoes": [
+        "Porque tem letras maiúsculas",
+        "Porque contém múltiplos statements separados por `;`",
+        "Porque `SELECT *` é proibido",
+        "Porque a tabela não existe"
+      ],
+      "correta": 1,
+      "explicacao": "A regra de statement único barra o acoplamento clássico de injeção. Maiúsculas (primeira) e `SELECT *` (terceira) não são problema, e as tabelas existem (quarta)."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Por que o nosso guardrail **rejeita** comentários SQL (`--` e `/* */`) em vez de removê-los?",
+      "opcoes": [
+        "Porque comentários deixam o SQL lento",
+        "Porque comentários podem esconder intenções e ofuscar ataques; rejeitar é mais simples e previsível",
+        "Porque o SQLite não os entende",
+        "Porque o Python não os lê"
+      ],
+      "correta": 1,
+      "explicacao": "Rejeição elimina uma classe inteira de truques. Os comentários não afetam desempenho (primeira) e o SQLite os entende (terceira e quarta são falsas)."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "A consulta `SELECT * FROM clientes WHERE nome = 'DELETE'` deve ser **aprovada**, pois `DELETE` está apenas dentro de uma string literal.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. Removemos o conteúdo das strings antes de procurar palavras proibidas, evitando falsos positivos em dados legítimos."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "A consulta `WITH x AS (SELECT 1) DELETE FROM clientes` começa com `WITH`. Qual regra a barra?",
+      "opcoes": [
+        "A de comentários",
+        "A lista de palavras proibidas aplicada ao statement único (encontra `DELETE`)",
+        "A regra de LIMIT",
+        "Nenhuma: ela passa"
+      ],
+      "correta": 1,
+      "explicacao": "A lista de permissões aceita `WITH`, mas a lista de proibições pega o `DELETE`. É por isso que usamos as duas. Ela não passa (quarta)."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "A camada que recusa escrita mesmo se o guardrail falhar é a conexão SQLite em modo ______ (`mode=ro`).",
+      "respostas": [
+        "somente leitura",
+        "readonly",
+        "read-only",
+        "leitura"
+      ],
+      "explicacao": "Conexão somente leitura: defesa em profundidade, independente do guardrail."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual princípio de segurança diz que o agente deve ter apenas as permissões estritamente necessárias?",
+      "opcoes": [
+        "Princípio do menor privilégio",
+        "Princípio da máxima confiança",
+        "Segurança por obscuridade",
+        "Princípio do log completo"
+      ],
+      "correta": 0,
+      "explicacao": "Menor privilégio (*least privilege*): o DataOps Agent só precisa ler, então nunca recebe permissão de escrita."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "No servidor `dataops_mcp.py`, por que o guardrail fica **dentro** da ferramenta `executar_query_analitica`?",
+      "opcoes": [
+        "Por organização visual",
+        "Para que nenhum cliente (nem outro agente) consiga chegar ao banco sem passar por ele",
+        "Porque o MCP exige",
+        "Para acelerar a consulta"
+      ],
+      "correta": 1,
+      "explicacao": "Colocar a barreira no servidor protege todos os clientes. Não é estética (primeira), o MCP não a exige (terceira) e ela não acelera nada (quarta)."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "Coloque em ordem o que acontece quando o agente tenta uma query maliciosa:",
+      "itens": [
+        "O modelo pede `executar_query_analitica` com o SQL",
+        "O guardrail reprova e devolve `sucesso: False` com o motivo",
+        "O agente recebe o erro como observação",
+        "O agente explica ao usuário que a operação é recusada"
+      ],
+      "explicacao": "A barreira age antes do banco e o resultado volta como observação normal, sem derrubar nada."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Se o modelo receber um erro de sintaxe do SQLite, o loop deve encerrar imediatamente, pois a query estava errada.",
+      "resposta": false,
+      "explicacao": "Falso. A **auto-recuperação** devolve o erro ao modelo, que ajusta o SQL e tenta de novo, respeitando o limite de turnos."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

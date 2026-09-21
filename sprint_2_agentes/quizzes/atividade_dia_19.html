@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atividade — Dia 19 | Streamlit, Rastreabilidade &amp; Explicabilidade</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este atividade precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 19",
+  "titulo": "Streamlit, Rastreabilidade & Explicabilidade",
+  "chave": "atividade_dia_19",
+  "perguntas": [
+    {
+      "tipo": "classificar",
+      "enunciado": "**Onde isso aparece na interface?** Classifique cada informação do DataOps Agent.",
+      "categorias": [
+        "Balão do chat",
+        "Gaveta de rastro",
+        "Barra lateral"
+      ],
+      "itens": [
+        [
+          "A resposta final em português",
+          0
+        ],
+        [
+          "O SQL exato executado",
+          1
+        ],
+        [
+          "O total de tabelas do banco",
+          2
+        ],
+        [
+          "O selo \"Bloqueado pelo guardrail\"",
+          1
+        ],
+        [
+          "O tempo em ms de cada ferramenta",
+          1
+        ],
+        [
+          "O botão \"Limpar conversa\"",
+          2
+        ]
+      ],
+      "explicacao": "O chat mostra a conclusão; a gaveta, as evidências; a barra lateral, o contexto e os controles."
+    },
+    {
+      "tipo": "bug",
+      "enunciado": "Ao enviar a segunda pergunta, a primeira resposta **desaparece** da tela. **Qual linha causa o problema?**",
+      "codigo": [
+        "def inicializar_estado():",
+        "    st.session_state.messages = []",
+        "    st.session_state.historico_llm = []",
+        "",
+        "def main():",
+        "    inicializar_estado()",
+        "    pergunta = st.chat_input(\"Pergunte algo...\")"
+      ],
+      "bug": [
+        1
+      ],
+      "explicacao": "O script reroda a cada interação; se `messages` for zerado toda vez, o histórico some. A inicialização precisa ser condicional: `if \"messages\" not in st.session_state:`."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada elemento da rubrica do pitch ao que o observador deve conferir:",
+      "pares": [
+        [
+          "Problema e domínio",
+          "A plateia entendeu a dor em 1 minuto"
+        ],
+        [
+          "Demo ao vivo",
+          "Pergunta complexa com tabela/gráfico sem travar"
+        ],
+        [
+          "Explicabilidade e segurança",
+          "Rastro aberto e ataque barrado ao vivo"
+        ],
+        [
+          "Comunicação e tempo",
+          "5 minutos, falas divididas entre os 3"
+        ]
+      ],
+      "explicacao": "A rubrica avalia produto e comunicação; o rastro e o guardrail são o diferencial do DataOps Agent."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "Ordene o roteiro de 5 minutos do pitch:",
+      "itens": [
+        "Minuto 1: problema e domínio de dados",
+        "Minutos 2-3: live demo com pergunta analítica",
+        "Minuto 4: rastro aberto e ataque bloqueado",
+        "Minuto 5: arquitetura e aprendizados"
+      ],
+      "explicacao": "Contexto, demonstração, explicabilidade/segurança e arquitetura: cada parte prepara a seguinte."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "O botão \"Limpar conversa\" deve esvaziar **tanto** `messages` (tela) **quanto** `historico_llm` (memória do modelo).",
+      "resposta": true,
+      "explicacao": "Verdadeiro. Se limpar só a tela, o modelo continuaria \"lembrando\" da conversa antiga e responderia com contexto invisível ao usuário."
+    }
+  ],
+  "rotulo": "Atividade"
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atividade — Dia 18 | Servidor MCP, Guardrails &amp; Segurança SQL</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este atividade precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 18",
+  "titulo": "Servidor MCP, Guardrails & Segurança SQL",
+  "chave": "atividade_dia_18",
+  "perguntas": [
+    {
+      "tipo": "sandbox",
+      "enunciado": "**Passe pelo guardrail.** Escreva uma consulta legítima que o guardrail **aceite** (dica: um `SELECT` ou `WITH`, sem comentários e com um único statement).",
+      "validador": "guardrail_sql",
+      "esperado": "aceito",
+      "placeholder": "SELECT ...",
+      "linhas": 4,
+      "explicacao": "Uma consulta como `SELECT cidade, COUNT(*) FROM clientes GROUP BY cidade` passa: começa com SELECT, tem um único statement e nenhuma palavra proibida."
+    },
+    {
+      "tipo": "sandbox",
+      "enunciado": "**Ataque 1: statement acoplado.** Escreva uma consulta que **comece** com `SELECT` mas tente executar um segundo comando destrutivo. Ela deve ser barrada.",
+      "validador": "guardrail_sql",
+      "esperado": "recusado",
+      "placeholder": "SELECT 1; ...",
+      "linhas": 4,
+      "explicacao": "Um segundo statement (`; DELETE ...`) é barrado pela regra de statement único, mesmo que o primeiro seja um `SELECT` inocente."
+    },
+    {
+      "tipo": "sandbox",
+      "enunciado": "**Ataque 2: esconder no comentário.** Escreva uma consulta que use um comentário SQL para tentar disfarçar um comando. Confirme que o guardrail recusa.",
+      "validador": "guardrail_sql",
+      "esperado": "recusado",
+      "placeholder": "SELECT 1 -- ...",
+      "linhas": 4,
+      "explicacao": "Qualquer comentário (`--` ou `/* */`) é rejeitado. É uma decisão de projeto: comentários escondem intenções."
+    },
+    {
+      "tipo": "sandbox",
+      "enunciado": "**Sem falso positivo.** Escreva uma consulta legítima que contenha a palavra `DELETE` **apenas dentro de uma string** e que o guardrail aceite.",
+      "validador": "guardrail_sql",
+      "esperado": "aceito",
+      "placeholder": "SELECT * FROM clientes WHERE nome = '...'",
+      "linhas": 4,
+      "explicacao": "Como o conteúdo das strings é removido antes da busca por palavras proibidas, `WHERE nome = 'DELETE'` passa. Um bom guardrail bloqueia perigos sem atrapalhar dados legítimos."
+    },
+    {
+      "tipo": "classificar",
+      "enunciado": "**Aprovada ou bloqueada?** Classifique cada consulta segundo o guardrail do projeto.",
+      "categorias": [
+        "Aprovada",
+        "Bloqueada"
+      ],
+      "itens": [
+        [
+          "`SELECT COUNT(*) FROM clientes`",
+          0
+        ],
+        [
+          "`DROP TABLE clientes`",
+          1
+        ],
+        [
+          "`WITH t AS (SELECT * FROM pedidos) SELECT COUNT(*) FROM t`",
+          0
+        ],
+        [
+          "`SELECT 1; DELETE FROM pedidos`",
+          1
+        ],
+        [
+          "`PRAGMA table_info(clientes)`",
+          1
+        ],
+        [
+          "`SELECT replace(nome, 'a', 'b') FROM clientes`",
+          0
+        ]
+      ],
+      "explicacao": "`replace()` é uma função de leitura (só `REPLACE INTO` é bloqueado); `PRAGMA` é bloqueado por completo; qualquer segundo statement e qualquer comando que não seja SELECT/WITH também."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "Ordene as etapas do que acontece com uma query, do pedido do modelo até o banco:",
+      "itens": [
+        "O modelo emite `executar_query_analitica`",
+        "O guardrail valida a query",
+        "O executor aplica `LIMIT`",
+        "A conexão somente leitura executa a query no SQLite"
+      ],
+      "explicacao": "Modelo, guardrail, executor (LIMIT) e, por último, o banco em modo somente leitura: cada etapa pode barrar sozinha."
+    }
+  ],
+  "rotulo": "Atividade"
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

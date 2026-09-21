@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz — Dia 15 | Servidores MCP Locais com FastMCP</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este quiz precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 15",
+  "titulo": "Servidores MCP Locais com FastMCP",
+  "chave": "quiz_dia_15",
+  "perguntas": [
+    {
+      "tipo": "multipla",
+      "enunciado": "O que o decorador `@mcp.tool()` do FastMCP infere automaticamente a partir da função?",
+      "opcoes": [
+        "Somente o nome",
+        "Nome, descrição (docstring) e JSON Schema dos parâmetros (type hints)",
+        "O código-fonte inteiro",
+        "O consumo de memória"
+      ],
+      "correta": 1,
+      "explicacao": "Nome, docstring e type hints viram a definição da ferramenta em `tools/list`. Só o nome (primeira) seria pouco, o código-fonte (terceira) nunca é enviado e memória (quarta) não faz parte do contrato."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual é o import correto do FastMCP usado neste curso (série 1.x do SDK oficial)?",
+      "opcoes": [
+        "`from mcp.server.fastmcp import FastMCP`",
+        "`from fastmcp_sdk import Server`",
+        "`import mcp.fast`",
+        "`from google.genai import FastMCP`"
+      ],
+      "correta": 0,
+      "explicacao": "É `from mcp.server.fastmcp import FastMCP`, com o pacote fixado em `mcp<2`. Na série 2.x a classe foi renomeada, e as outras opções não existem."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Para iniciar o servidor com o transporte padrão local usamos `mcp.run(transport=\"______\")`.",
+      "respostas": [
+        "stdio"
+      ],
+      "explicacao": "`stdio`: comunicação por entrada e saída padrão, sem portas de rede."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Se o cliente enviar `\"abc\"` para um parâmetro declarado como `float`, o FastMCP valida e devolve erro sem executar a função.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. Os argumentos são validados contra o schema gerado pelos type hints, e o erro volta em formato padronizado sem derrubar o servidor."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Uma ferramenta lança `ValueError(\"Diretorio nao encontrado\")`. O que o cliente recebe?",
+      "opcoes": [
+        "O servidor encerra",
+        "Uma resposta com `isError=True` e a mensagem, com o servidor continuando ativo",
+        "Nada, a chamada fica pendente",
+        "Uma resposta de sucesso vazia"
+      ],
+      "correta": 1,
+      "explicacao": "O FastMCP converte exceções em respostas de erro padronizadas, o que permite ao modelo (ou ao usuário) reagir. Encerrar (primeira), ficar pendente (terceira) ou responder sucesso (quarta) seriam comportamentos incorretos."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Por que a docstring é tão importante em uma ferramenta MCP?",
+      "opcoes": [
+        "Só serve como documentação para humanos",
+        "Ela é enviada ao modelo como descrição da ferramenta e orienta quando e como usá-la",
+        "É exigida pelo Python",
+        "Reduz o tempo de execução"
+      ],
+      "correta": 1,
+      "explicacao": "A docstring vira a `description` da ferramenta e é o manual de instruções do modelo. Não é só para humanos (primeira), o Python não a exige (terceira) e não afeta desempenho (quarta)."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Em ferramentas que tocam o sistema de arquivos, o correto é confiar que o modelo sempre enviará caminhos válidos.",
+      "resposta": false,
+      "explicacao": "Falso. Valide **dentro** da ferramenta (existência, tipo, permissões) e limite o que ela pode tocar; o modelo pode errar ou ser induzido a enviar caminhos indevidos."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Para que serve o MCP Inspector?",
+      "opcoes": [
+        "Treinar o modelo",
+        "Testar um servidor MCP pela interface visual, sem escrever cliente",
+        "Compactar respostas",
+        "Monitorar preços de API"
+      ],
+      "correta": 1,
+      "explicacao": "O Inspector lista e executa ferramentas de um servidor de forma interativa. Não treina (primeira), não compacta (terceira) e não monitora preços (quarta)."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual a vantagem de `async def` em uma ferramenta que espera resposta de rede?",
+      "opcoes": [
+        "O código roda mais rápido no CPU",
+        "O servidor pode atender outras chamadas enquanto aguarda o I/O",
+        "Elimina a necessidade de type hints",
+        "Ativa o transporte HTTP"
+      ],
+      "correta": 1,
+      "explicacao": "Com `await`, o loop de eventos fica livre durante a espera, permitindo concorrência. Não acelera cálculo (primeira), não dispensa tipos (terceira) e não muda o transporte (quarta)."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Dentro de uma ferramenta assíncrona, usar `time.sleep(1)` é equivalente a `await asyncio.sleep(1)`.",
+      "resposta": false,
+      "explicacao": "Falso. `time.sleep` bloqueia todo o processo (nenhuma outra chamada avança), enquanto `await asyncio.sleep` cede o controle ao loop de eventos."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "Coloque em ordem os passos para publicar uma ferramenta com FastMCP:",
+      "itens": [
+        "Criar a instância `FastMCP(\"nome\")`",
+        "Escrever a função com type hints e docstring",
+        "Decorar com `@mcp.tool()`",
+        "Chamar `mcp.run(transport=\"stdio\")` no bloco principal"
+      ],
+      "explicacao": "Instância, função bem descrita, registro por decorador e execução do servidor."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada teste do `02_test_mcp_server.py` ao que ele comprova:",
+      "pares": [
+        [
+          "Listar as 3 ferramentas",
+          "O catálogo está correto"
+        ],
+        [
+          "Enviar `\"abc\"` como número",
+          "A validação de tipos do FastMCP"
+        ],
+        [
+          "Unidade \"X\" em `converter_temperatura`",
+          "A validação de domínio da própria função"
+        ],
+        [
+          "Chamada válida após vários erros",
+          "O servidor continua vivo"
+        ]
+      ],
+      "explicacao": "Bons testes de servidor cobrem catálogo, tipos, regras de domínio e resiliência."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

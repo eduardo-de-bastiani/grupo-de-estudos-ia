@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz — Dia 17 | Ferramentas de Dados &amp; Text-to-SQL</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este quiz precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 17",
+  "titulo": "Ferramentas de Dados & Text-to-SQL",
+  "chave": "quiz_dia_17",
+  "perguntas": [
+    {
+      "tipo": "multipla",
+      "enunciado": "Por que **não** enviamos o banco inteiro no prompt em Text-to-SQL?",
+      "opcoes": [
+        "Porque o SQLite não permite",
+        "Porque estoura o contexto, custa caro e aumenta a alucinação de tabelas e colunas",
+        "Porque o modelo só lê texto em inglês",
+        "Porque o prompt não aceita números"
+      ],
+      "correta": 1,
+      "explicacao": "Bases reais são grandes demais, e mais ruído no contexto piora as respostas. O SQLite permite ler tudo (primeira), o modelo entende português (terceira) e prompts aceitam números (quarta)."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "O que é **schema grounding**?",
+      "opcoes": [
+        "Aterrar o servidor em rede elétrica",
+        "Ancorar o raciocínio do modelo em metadados reais consultados por ferramentas, em vez de memória",
+        "Criptografar o schema",
+        "Traduzir nomes de colunas"
+      ],
+      "correta": 1,
+      "explicacao": "O agente consulta o schema real antes de escrever SQL, o que evita colunas inventadas. As demais opções não correspondem ao conceito."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Para listar as colunas de uma tabela no SQLite usamos `PRAGMA ______(nome_tabela)`.",
+      "respostas": [
+        "table_info",
+        "tableinfo"
+      ],
+      "explicacao": "`PRAGMA table_info(tabela)` devolve nome, tipo, obrigatoriedade e chave primária de cada coluna."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual pragma mostra as chaves estrangeiras de uma tabela?",
+      "opcoes": [
+        "`PRAGMA foreign_key_list(tabela)`",
+        "`PRAGMA list_keys(tabela)`",
+        "`PRAGMA joins(tabela)`",
+        "`PRAGMA schema(tabela)`"
+      ],
+      "correta": 0,
+      "explicacao": "`foreign_key_list` devolve as relações que o modelo precisa conhecer antes de escrever um `JOIN`. Os outros nomes não existem."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Por que nomes de tabela e coluna **não** podem ser parametrizados com `?`?",
+      "opcoes": [
+        "Porque o SQLite não tem tabelas",
+        "Porque placeholders só substituem valores; identificadores precisam ser validados contra uma lista de permissões",
+        "Porque `?` é reservado para JOIN",
+        "Porque o Python proíbe"
+      ],
+      "correta": 1,
+      "explicacao": "Placeholders vinculam **valores**. Para identificadores a defesa correta é conferir se o nome existe em `sqlite_master`/`table_info`. As outras razões são falsas."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Validar o nome da tabela contra a lista de tabelas reais barra `pedidos; DROP TABLE clientes` sem precisar de filtro de palavras.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. Esse texto simplesmente não é o nome de uma tabela existente. É o princípio da **lista de permissões**, mais robusto que uma lista de proibições."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual é a função do `LIMIT` obrigatório no executor de consultas?",
+      "opcoes": [
+        "Ordenar o resultado",
+        "Evitar que uma consulta devolva milhares de linhas ao modelo e ao usuário",
+        "Criptografar dados",
+        "Aumentar a precisão"
+      ],
+      "correta": 1,
+      "explicacao": "Protege contexto, custo e desempenho. Não ordena (primeira), não criptografa (terceira) nem altera precisão (quarta)."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Abrir o SQLite com `mode=ro` (somente leitura) recusa gravações mesmo que uma query maliciosa chegue ao banco.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. É uma camada de defesa em profundidade: o banco responde `attempt to write a readonly database`."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Se o modelo escrever `SELECT vendas FROM clientes` e a coluna não existir, o que o executor deve devolver?",
+      "opcoes": [
+        "Lançar exceção e derrubar o agente",
+        "Um resultado estruturado com `sucesso: False` e a mensagem de erro, para o modelo se corrigir",
+        "Uma lista vazia",
+        "O valor 0"
+      ],
+      "correta": 1,
+      "explicacao": "Erro instrutivo como observação permite auto-recuperação. Derrubar (primeira), lista vazia (terceira) ou 0 (quarta) escondem o problema e induzem respostas falsas."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada função do projeto ao que ela devolve:",
+      "pares": [
+        [
+          "`listar_tabelas`",
+          "Nomes das tabelas de dados"
+        ],
+        [
+          "`descrever_schema_tabela`",
+          "Colunas, tipos e chave primária"
+        ],
+        [
+          "`contar_nulos_e_distintos`",
+          "Qualidade de uma coluna"
+        ],
+        [
+          "`executar_query_analitica`",
+          "Linhas, colunas e tempo de uma consulta SELECT"
+        ]
+      ],
+      "explicacao": "Metadados, perfil de qualidade e execução formam as três categorias de ferramentas do agente."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "Coloque em ordem as duas fases do Text-to-SQL robusto:",
+      "itens": [
+        "Listar as tabelas",
+        "Descrever o schema e as chaves das tabelas relevantes",
+        "Escrever a query com base nos fatos consultados",
+        "Executar com LIMIT e conexão somente leitura",
+        "Interpretar o resultado e responder"
+      ],
+      "explicacao": "Fase 1 (descoberta): tabelas e schema. Fase 2 (execução controlada): escrever, executar com proteções e explicar."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Com o parâmetro `qtd` de `amostrar_linhas`, é aceitável deixar o modelo pedir 1 milhão de linhas, pois o SQLite é rápido.",
+      "resposta": false,
+      "explicacao": "Falso. Limite sempre o tamanho (`max(1, min(qtd, 20))`): o problema não é o SQLite, é o volume enviado ao modelo e ao usuário."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>
