@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atividade — Dia 20 | Revisão Final da Sprint 2</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este atividade precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 20",
+  "titulo": "Revisão Final da Sprint 2",
+  "chave": "atividade_dia_20",
+  "perguntas": [
+    {
+      "tipo": "associar",
+      "enunciado": "**Ligue os pontos.** Associe cada camada ao componente do DataOps Agent que a implementa:",
+      "pares": [
+        [
+          "Contrato de saída",
+          "Pydantic + `response_schema`"
+        ],
+        [
+          "Ação sobre o mundo",
+          "Function calling / ferramentas"
+        ],
+        [
+          "Padrão de conexão de ferramentas",
+          "Servidor FastMCP via `stdio`"
+        ],
+        [
+          "Segurança determinística",
+          "Guardrail de SQL + conexão read-only"
+        ]
+      ],
+      "explicacao": "O projeto reúne as quatro ideias: contratos, ferramentas, protocolo e segurança."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "**Reconstrua a arquitetura.** Ordene o caminho de uma pergunta até a tabela na tela.",
+      "itens": [
+        "Usuário pergunta no chat",
+        "Agente ReAct consulta o Gemini",
+        "Gemini pede uma ferramenta MCP",
+        "Guardrail valida o SQL",
+        "SQLite devolve dados",
+        "Streamlit mostra resposta, tabela e rastro"
+      ],
+      "explicacao": "Cada seta da arquitetura é uma decisão que você tomou na Sprint 2."
+    },
+    {
+      "tipo": "classificar",
+      "enunciado": "**Sprint 1 ou Sprint 2?** Classifique cada conceito.",
+      "categorias": [
+        "Sprint 1 (RAG)",
+        "Sprint 2 (Agentes)"
+      ],
+      "itens": [
+        [
+          "Embeddings e ChromaDB",
+          0
+        ],
+        [
+          "Chunking de PDFs",
+          0
+        ],
+        [
+          "Function calling",
+          1
+        ],
+        [
+          "Servidor FastMCP",
+          1
+        ],
+        [
+          "Citação de fontes (grounding)",
+          0
+        ],
+        [
+          "Guardrails de SQL",
+          1
+        ]
+      ],
+      "explicacao": "A Sprint 1 ensinou o modelo a ler com fundamentação; a Sprint 2, a agir com segurança."
+    },
+    {
+      "tipo": "sandbox",
+      "enunciado": "**Limite do guardrail.** Escreva uma consulta que leia dados potencialmente **sensíveis** (por exemplo, todos os e-mails de clientes). O guardrail deve **aceitá-la**: ele só conhece sintaxe. Discuta com o trio qual outra camada deveria proteger esses dados.",
+      "validador": "guardrail_sql",
+      "esperado": "aceito",
+      "placeholder": "SELECT ...",
+      "linhas": 5,
+      "explicacao": "Uma consulta `SELECT email FROM clientes` é sintaticamente segura e passa. Riscos de **dados** (ler o que não deveria) exigem outras camadas: permissões por tabela/coluna, mascaramento e auditoria."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Todo projeto de agente com acesso a dados deve ter, no mínimo, uma camada determinística de segurança independente do modelo.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. É o aprendizado central da Sprint 2: o modelo decide, o código protege."
+    }
+  ],
+  "rotulo": "Atividade"
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

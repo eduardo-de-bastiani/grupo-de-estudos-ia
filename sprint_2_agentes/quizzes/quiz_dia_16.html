@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz — Dia 16 | Kickoff do DataOps Agent &amp; Modelagem SQLite</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este quiz precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 16",
+  "titulo": "Kickoff do DataOps Agent & Modelagem SQLite",
+  "chave": "quiz_dia_16",
+  "perguntas": [
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual é a vantagem principal do SQLite para o nosso projeto?",
+      "opcoes": [
+        "Escala para milhões de usuários simultâneos",
+        "É um banco relacional completo em um único arquivo, embutido no Python, sem servidor para instalar",
+        "Só funciona com Docker",
+        "É pago, mas tem versão de teste"
+      ],
+      "correta": 1,
+      "explicacao": "SQLite roda sem servidor e vem com o Python (`import sqlite3`). Ele não é feito para alta concorrência de escrita (primeira), não exige Docker (terceira) e é gratuito e de domínio público (quarta)."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "No SQLite, as chaves estrangeiras vêm ativadas por padrão em toda conexão.",
+      "resposta": false,
+      "explicacao": "Falso. É preciso executar `PRAGMA foreign_keys = ON;` **em cada conexão**, senão o SQLite aceita registros órfãos."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "O comando que liga a verificação de chaves estrangeiras é `PRAGMA ______ = ON;`",
+      "respostas": [
+        "foreign_keys",
+        "foreignkeys"
+      ],
+      "explicacao": "`PRAGMA foreign_keys = ON;`. Sem ele, a `FOREIGN KEY` declarada na tabela é ignorada."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Por que o arquivo `data/dataops.db` **não** vai para o Git?",
+      "opcoes": [
+        "Porque o Git não aceita arquivos binários",
+        "Porque ele é gerado por scripts reproduzíveis; o que se versiona é o código que o cria",
+        "Porque é confidencial por lei",
+        "Porque é grande demais"
+      ],
+      "correta": 1,
+      "explicacao": "Reprodutibilidade é uma ideia central de DataOps: qualquer pessoa recria o banco com `init_db.py` e `seed_data.py`. O Git aceita binários (primeira) e o motivo não é legal nem tamanho (terceira e quarta)."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Por que a carga de dados usa `random.Random(42)` (semente fixa)?",
+      "opcoes": [
+        "Para acelerar o script",
+        "Para os três integrantes gerarem exatamente o mesmo banco e o smoke test ser comparável",
+        "Porque o SQLite exige",
+        "Para evitar duplicatas"
+      ],
+      "correta": 1,
+      "explicacao": "Determinismo torna os testes repetíveis e comparáveis entre máquinas. Não acelera (primeira), o SQLite não exige (terceira) e duplicatas são injetadas de propósito (quarta)."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Por que injetamos anomalias (nulos, duplicatas, valores negativos) de propósito?",
+      "opcoes": [
+        "Para testar se o SQLite aguenta erros",
+        "Para dar ao agente algo real a auditar e permitir testes com números conhecidos",
+        "Porque o Python gera dados ruins",
+        "Para deixar o banco maior"
+      ],
+      "correta": 1,
+      "explicacao": "As anomalias são o laboratório do agente de qualidade de dados: sabemos quantas existem e podemos verificar se ele as encontra. Não é para testar o SQLite (primeira) nem consequência do Python (terceira)."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Valores literais podem ser montados dentro de f-strings em comandos SQL, desde que o script seja local.",
+      "resposta": false,
+      "explicacao": "Falso. Use placeholders (`?`) para valores; f-strings em SQL abrem espaço para injeção mesmo em scripts locais, e criam o hábito errado. (Nomes de tabela/coluna não aceitam `?` e exigem validação por lista de permissões.)"
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual tipo SQLite é o mais adequado para o preço de um produto?",
+      "opcoes": [
+        "`TEXT`",
+        "`REAL`",
+        "`BLOB`",
+        "`INTEGER PRIMARY KEY`"
+      ],
+      "correta": 1,
+      "explicacao": "`REAL` guarda números com casas decimais. `TEXT` (primeira) perderia operações numéricas, `BLOB` (terceira) é para binários e `INTEGER PRIMARY KEY` (quarta) identifica registros."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "O que o `smoke_test_db.py` deve garantir?",
+      "opcoes": [
+        "Que a interface Streamlit está bonita",
+        "Que o banco existe, está íntegro, tem dados, permite JOIN e contém as anomalias esperadas",
+        "Que o modelo responde em menos de 1 segundo",
+        "Que a chave da API é válida"
+      ],
+      "correta": 1,
+      "explicacao": "É um teste rápido de sanidade da base. Interface, latência do modelo e chave de API (as outras opções) são outros tipos de verificação."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada arquivo ao seu papel:",
+      "pares": [
+        [
+          "`init_db.py`",
+          "Cria tabelas, chaves e índices"
+        ],
+        [
+          "`seed_data.py`",
+          "Popula dados sintéticos com anomalias"
+        ],
+        [
+          "`smoke_test_db.py`",
+          "Verifica integridade e anomalias"
+        ],
+        [
+          "`.gitignore`",
+          "Impede versionar `.env` e o arquivo `.db`"
+        ]
+      ],
+      "explicacao": "Cada arquivo tem uma responsabilidade: estrutura, dados, verificação e higiene do repositório."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "Coloque em ordem a preparação do repositório do trio:",
+      "itens": [
+        "Criar o repositório e a estrutura de pastas modular",
+        "Adicionar `.gitignore` com `.env` e `data/*.db`",
+        "Rodar `init_db.py` e `seed_data.py`",
+        "Executar `smoke_test_db.py` nas 3 máquinas",
+        "Fazer push e a tag `v0.1-setup`"
+      ],
+      "explicacao": "Estrutura e segurança primeiro, depois o banco, a verificação cruzada e a entrega versionada."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Um índice em `pedidos(cliente_id)` acelera consultas que filtram ou agrupam por cliente.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. Índices evitam varrer a tabela inteira; o custo é um pouco mais de espaço e escrita mais lenta, aceitável em um banco analítico local."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

@@ -56,11 +56,23 @@ Um assistente inteligente local e autônomo que:
 * **Modelo:** `gemini-3.8-flash` via Google AI Studio (gratuito, sem cartão de crédito).
 * **SDK:** `google-genai` oficial em Python.
 * **Banco de Dados:** SQLite nativo do Python (`import sqlite3`, zero configuração).
-* **Protocolo:** SDK oficial `mcp` em Python via transporte local `stdio`.
+* **Protocolo:** SDK oficial `mcp` (série 1.x, `mcp<2`) em Python com `FastMCP` via transporte local `stdio`.
 * **Frontend:** Streamlit local (`localhost:8501`).
 
 ---
 
-## 👥 5. Guia para Colaboradores & Agentes de IA
-Para membros da equipe e agentes de IA que estão detalhando as atividades, consulte o guia de execução procedural:
-- 📘 [Instruções para Equipe e Agentes de IA](INSTRUCOES_EQUIPE_E_AGENTES.md)
+## 🧩 5. Materiais de Apoio
+
+| Recurso | Onde está | Para que serve |
+| :--- | :--- | :--- |
+| **Quizzes interativos** | [`quizzes/quiz_dia_11.html`](quizzes/quiz_dia_11.html) a [`quiz_dia_20.html`](quizzes/quiz_dia_20.html) | Fixação do conteúdo do dia (12 a 15 questões com gabarito comentado). Abrem direto no navegador. |
+| **Atividades interativas** | [`quizzes/atividade_dia_11.html`](quizzes/atividade_dia_11.html) a [`atividade_dia_20.html`](quizzes/atividade_dia_20.html) | Desafios de "encontrar o erro no código", ordenar etapas, classificar conceitos e testar você mesmo (guardrail SQL, envelopes JSON-RPC, contratos Pydantic). |
+| **Formulários** | [`formularios/README.md`](formularios/README.md) e [`formularios/criar_formularios_sprint2.gs`](formularios/criar_formularios_sprint2.gs) | Especificação dos 3 formulários da Sprint 2 e script Google Apps Script que os gera. |
+
+> Os quizzes e as atividades funcionam offline: basta dar dois cliques no arquivo `.html` (ou usar a extensão Live Server do VS Code). O melhor resultado de cada um fica salvo no navegador.
+
+### ⚙️ Instalação de referência (Semana 1)
+```
+pip install google-genai pydantic python-dotenv "mcp<2"
+```
+O pacote `mcp` é fixado na série 1.x porque a série 2.x renomeou o `FastMCP` usado nos roteiros.

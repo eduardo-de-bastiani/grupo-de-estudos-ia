@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atividade — Dia 16 | Kickoff do DataOps Agent &amp; Modelagem SQLite</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este atividade precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 16",
+  "titulo": "Kickoff do DataOps Agent & Modelagem SQLite",
+  "chave": "atividade_dia_16",
+  "perguntas": [
+    {
+      "tipo": "bug",
+      "enunciado": "O SQLite **aceita** um pedido com `cliente_id = 9999`, mesmo com a `FOREIGN KEY` declarada. **Antes de qual linha do `conectar` falta o comando `PRAGMA foreign_keys = ON`?**",
+      "codigo": [
+        "def conectar(caminho):",
+        "    conexao = sqlite3.connect(caminho)",
+        "    conexao.row_factory = sqlite3.Row",
+        "    return conexao",
+        "",
+        "# ... DDL com FOREIGN KEY (cliente_id) REFERENCES clientes(id)"
+      ],
+      "bug": [
+        3
+      ],
+      "explicacao": "Logo antes do `return` é preciso `conexao.execute(\"PRAGMA foreign_keys = ON;\")`. Sem isso, o SQLite ignora as chaves estrangeiras declaradas."
+    },
+    {
+      "tipo": "classificar",
+      "enunciado": "**Vai para o Git ou fica de fora?** Classifique cada arquivo do repositório do trio.",
+      "categorias": [
+        "Vai para o Git",
+        "Fica fora (.gitignore)"
+      ],
+      "itens": [
+        [
+          "`src/database/init_db.py`",
+          0
+        ],
+        [
+          "`.env` com a chave da API",
+          1
+        ],
+        [
+          "`data/dataops.db`",
+          1
+        ],
+        [
+          "`docs/dicionario_dados.md`",
+          0
+        ],
+        [
+          "`__pycache__/`",
+          1
+        ],
+        [
+          "`requirements.txt`",
+          0
+        ]
+      ],
+      "explicacao": "Versiona-se o **código e a documentação**; segredos, caches e artefatos gerados ficam de fora."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada anomalia injetada à consulta que a encontra:",
+      "pares": [
+        [
+          "Clientes sem e-mail",
+          "`SELECT COUNT(*) FROM clientes WHERE email IS NULL`"
+        ],
+        [
+          "Produtos com preço zero",
+          "`SELECT COUNT(*) FROM produtos WHERE preco = 0`"
+        ],
+        [
+          "Pedidos com valor negativo",
+          "`SELECT COUNT(*) FROM pedidos WHERE valor_total < 0`"
+        ],
+        [
+          "Pedidos com data futura",
+          "`SELECT COUNT(*) FROM pedidos WHERE data_pedido > date('now')`"
+        ]
+      ],
+      "explicacao": "Cada anomalia tem uma assinatura em SQL: o agente do Dia 17 vai gerar consultas como essas sozinho."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "Reconstrua o `popular()` do `seed_data.py`: coloque as linhas na ordem.",
+      "itens": [
+        "resetar_banco()",
+        "criar_tabelas(conexao)",
+        "clientes = gerar_clientes()",
+        "produtos = gerar_produtos()",
+        "pedidos = gerar_pedidos(150, clientes, produtos)",
+        "conexao.executemany(\"INSERT INTO clientes VALUES (?, ?, ?, ?, ?)\", clientes)"
+      ],
+      "explicacao": "Recomeça do zero, cria a estrutura, gera as tabelas-pai (clientes e produtos), depois os pedidos (que dependem delas) e só então insere.",
+      "codigo": true
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Inserir os pedidos **antes** dos clientes funcionaria com as chaves estrangeiras ativas.",
+      "resposta": false,
+      "explicacao": "Falso. Com `foreign_keys = ON`, o SQLite recusa um pedido que referencia um cliente que ainda não existe. A ordem é: tabelas-pai primeiro."
+    }
+  ],
+  "rotulo": "Atividade"
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

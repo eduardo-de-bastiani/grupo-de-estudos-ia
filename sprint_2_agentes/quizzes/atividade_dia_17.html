@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atividade — Dia 17 | Ferramentas de Dados &amp; Text-to-SQL</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este atividade precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 17",
+  "titulo": "Ferramentas de Dados & Text-to-SQL",
+  "chave": "atividade_dia_17",
+  "perguntas": [
+    {
+      "tipo": "bug",
+      "enunciado": "A função de profiling funciona, mas é vulnerável à injeção. **Qual linha usa um identificador sem validação?**",
+      "codigo": [
+        "def contar_nulos(nome_tabela, nome_coluna):",
+        "    with conectar() as conexao:",
+        "        validar_tabela(conexao, nome_tabela)",
+        "        sql = f\"SELECT COUNT(*) FROM {nome_tabela} WHERE {nome_coluna} IS NULL\"",
+        "        return conexao.execute(sql).fetchone()[0]"
+      ],
+      "bug": [
+        3
+      ],
+      "explicacao": "A tabela foi validada, mas a **coluna** vai para o SQL sem conferência (falta uma chamada como `_validar_coluna`). É preciso validar `nome_coluna` contra `PRAGMA table_info` antes de interpolar."
+    },
+    {
+      "tipo": "classificar",
+      "enunciado": "**Fase 1 ou fase 2?** Classifique cada ação do agente.",
+      "categorias": [
+        "Fase 1: descoberta",
+        "Fase 2: execução controlada"
+      ],
+      "itens": [
+        [
+          "`listar_tabelas()`",
+          0
+        ],
+        [
+          "`obter_chaves_estrangeiras(\"pedidos\")`",
+          0
+        ],
+        [
+          "`executar_query_analitica(\"SELECT ...\")`",
+          1
+        ],
+        [
+          "`amostrar_linhas(\"produtos\", 3)`",
+          0
+        ],
+        [
+          "Garantir `LIMIT 50` na consulta",
+          1
+        ],
+        [
+          "Medir o tempo da query em milissegundos",
+          1
+        ]
+      ],
+      "explicacao": "Na descoberta o agente entende o banco; na execução ele o consulta com proteções."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe o problema à camada de defesa:",
+      "pares": [
+        [
+          "Consulta retornando 1 milhão de linhas",
+          "`LIMIT` obrigatório"
+        ],
+        [
+          "Query tentando gravar no banco",
+          "Conexão `mode=ro`"
+        ],
+        [
+          "Nome de tabela malicioso",
+          "Validação por lista de permissões"
+        ],
+        [
+          "Coluna inexistente escrita pelo modelo",
+          "Erro instrutivo + auto-recuperação"
+        ]
+      ],
+      "explicacao": "Cada camada cobre um risco diferente; juntas formam defesa em profundidade."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "Reconstrua a função `garantir_limit`: coloque as linhas na ordem.",
+      "itens": [
+        "query = query.strip().rstrip(\";\").strip()",
+        "achado = re.search(r\"\\blimit\\s+(\\d+)\\s*$\", query, re.IGNORECASE)",
+        "if achado is None: return f\"{query} LIMIT {limite}\"",
+        "if int(achado.group(1)) > limite: return substituir_limit(query, limite)",
+        "return query"
+      ],
+      "explicacao": "Limpar, procurar um LIMIT existente, acrescentar se ausente, reduzir se exceder e, caso contrário, manter.",
+      "codigo": true
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Se o banco já é somente leitura, o guardrail de SQL do Dia 18 se torna desnecessário.",
+      "resposta": false,
+      "explicacao": "Falso. Somente leitura não impede vazamento de dados sensíveis, `ATTACH` de outros arquivos ou consultas caríssimas. Defesa em profundidade significa camadas independentes."
+    }
+  ],
+  "rotulo": "Atividade"
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

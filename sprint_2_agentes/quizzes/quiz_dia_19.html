@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz — Dia 19 | Streamlit, Rastreabilidade &amp; Explicabilidade</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este quiz precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 19",
+  "titulo": "Streamlit, Rastreabilidade & Explicabilidade",
+  "chave": "quiz_dia_19",
+  "perguntas": [
+    {
+      "tipo": "multipla",
+      "enunciado": "O que acontece com o script do Streamlit a cada interação do usuário?",
+      "opcoes": [
+        "Ele roda uma única vez",
+        "Ele é reexecutado do início ao fim",
+        "Ele é pausado",
+        "Ele reinicia o servidor"
+      ],
+      "correta": 1,
+      "explicacao": "O Streamlit reexecuta o script inteiro a cada interação. Por isso o estado que precisa sobreviver vai para `st.session_state`."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Onde guardamos o histórico da conversa para que sobreviva às reexecuções?",
+      "opcoes": [
+        "Em uma variável global comum",
+        "Em `st.session_state`",
+        "No `.env`",
+        "Em `st.cache_data`"
+      ],
+      "correta": 1,
+      "explicacao": "`st.session_state` persiste entre execuções da sessão. Uma variável comum (primeira) é recriada a cada rerun, o `.env` (terceira) é para segredos e cache de dados (quarta) serve para resultados de funções."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual par de componentes cria uma interface de chat?",
+      "opcoes": [
+        "`st.chat_message` e `st.chat_input`",
+        "`st.button` e `st.text`",
+        "`st.form` e `st.table`",
+        "`st.tabs` e `st.image`"
+      ],
+      "correta": 0,
+      "explicacao": "`st.chat_message` desenha os balões e `st.chat_input` recebe a mensagem. Os demais são componentes de propósito geral."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "A gaveta recolhível do rastro de ferramentas é criada com `st.______`.",
+      "respostas": [
+        "expander"
+      ],
+      "explicacao": "`st.expander` cria a seção recolhível, ideal para *progressive disclosure*: quem quer detalhes abre, quem não quer não é poluído."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "O que é uma IA \"caixa de vidro\" (*glass-box*)?",
+      "opcoes": [
+        "Uma IA com interface transparente visualmente",
+        "Uma IA cujo processo (ferramentas, SQL, decisões) pode ser inspecionado e auditado pelo usuário",
+        "Uma IA que roda offline",
+        "Uma IA sem modelo"
+      ],
+      "correta": 1,
+      "explicacao": "O usuário consegue ver como a resposta foi produzida. A ideia não é estética (primeira), nem sobre estar offline (terceira)."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "O SQL exibido na gaveta deve ser o que o **modelo disse** ter executado, e não o que realmente rodou.",
+      "resposta": false,
+      "explicacao": "Falso. A rastreabilidade só tem valor se mostrar o que **realmente** foi executado, extraído do trace, sem depender do relato do modelo."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Por que um erro do guardrail deve aparecer visualmente para o usuário?",
+      "opcoes": [
+        "Para assustar",
+        "Porque esconder ações bloqueadas reduz a confiança e a auditabilidade",
+        "Porque o Streamlit exige",
+        "Porque acelera a resposta"
+      ],
+      "correta": 1,
+      "explicacao": "Um produto confiável explica por que **não** fez algo. Assustar (primeira) não é objetivo, o Streamlit não exige (terceira) e não afeta velocidade (quarta)."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Como o `app.py` evita que o servidor MCP fique aberto para sempre?",
+      "opcoes": [
+        "O servidor nunca é iniciado",
+        "A cada pergunta o agente abre o servidor (async with) e o fecha ao final",
+        "O usuário fecha manualmente",
+        "O Streamlit encerra a cada minuto"
+      ],
+      "correta": 1,
+      "explicacao": "O `async with DataOpsAgent(...)` abre e fecha o processo MCP por pergunta, e o histórico do modelo é reaproveitado via `session_state`."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Um gráfico de barras é apropriado quando o resultado tem 1 coluna categórica e 1 ou mais numéricas, com poucas linhas.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. Para um único número (COUNT) não há o que comparar, e para muitas linhas o gráfico fica ilegível."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada componente do Streamlit à sua função no app:",
+      "pares": [
+        [
+          "`st.chat_input`",
+          "Receber a pergunta do usuário"
+        ],
+        [
+          "`st.expander`",
+          "Gaveta do rastro de ferramentas"
+        ],
+        [
+          "`st.dataframe`",
+          "Tabela interativa com os dados"
+        ],
+        [
+          "`st.sidebar.metric`",
+          "Cartões de saúde da base"
+        ]
+      ],
+      "explicacao": "Cada componente cumpre um papel na interface transparente do DataOps Agent."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "Coloque em ordem o fluxo de uma pergunta no `app.py`:",
+      "itens": [
+        "Usuário digita no `st.chat_input`",
+        "A pergunta entra em `st.session_state.messages`",
+        "`perguntar_ao_agente` roda o agente e o servidor MCP",
+        "A resposta e o trace são guardados no estado",
+        "A tela é redesenhada com resposta, tabela e gaveta"
+      ],
+      "explicacao": "Entrada, estado, agente, novo estado e redesenho."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual é a melhor dica para o pitch de 5 minutos?",
+      "opcoes": [
+        "Ler slides longos",
+        "Dividir falas entre os 3, ensaiar com cronômetro e mostrar a demo ao vivo com plano B",
+        "Não ensaiar para parecer natural",
+        "Mostrar apenas o código"
+      ],
+      "correta": 1,
+      "explicacao": "Ensaio cronometrado e plano B reduzem riscos. Ler slides (primeira) e improvisar (terceira) prejudicam a apresentação, e mostrar só código (quarta) não conta a história do produto."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>
