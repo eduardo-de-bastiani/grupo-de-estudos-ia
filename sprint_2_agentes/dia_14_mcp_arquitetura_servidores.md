@@ -62,12 +62,9 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 
 **Como as mensagens viajam.** Cliente e servidor trocam mensagens **JSON-RPC 2.0** (`{"jsonrpc": "2.0", "id": 1, "method": "tools/list"}`). No transporte **`stdio`**, o cliente inicia o servidor como *processo filho* e as mensagens trafegam pela entrada e saída padrão do processo, uma por linha. Sem porta de rede, sem URL, sem exposição pública: por isso é o transporte adotado no nosso projeto. Uma regra de ouro decorre disso: **um servidor stdio nunca pode usar `print()` para depurar**, porque o `stdout` é o canal do protocolo e qualquer texto solto corrompe a conversa (use `sys.stderr`).
 
-**Foco da leitura (15 minutos).** Leia a introdução do MCP para entender o "porquê", depois a página de arquitetura (procure o ciclo de vida: `initialize`, a notificação `initialized` e as chamadas `tools/list` e `tools/call`) e, por fim, a seção de transportes da especificação. Ao terminar, cada estudante deve conseguir explicar em uma frase a diferença entre Tool e Resource.
-
 * [MCP: Introdução](https://modelcontextprotocol.io/docs/getting-started/intro)
 * [MCP: Arquitetura (host, cliente, servidor)](https://modelcontextprotocol.io/docs/learn/architecture)
 * [MCP Specification: Transports (stdio)](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports)
-* [MCP Python SDK (repositório oficial)](https://github.com/modelcontextprotocol/python-sdk)
 
 ---
 
@@ -352,7 +349,7 @@ if __name__ == "__main__":
 ## 📝 11. Bloco 8: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
-> [Preencher Formulário do Google Forms - Dia 14](#) *(Link disponibilizado pelo instrutor em sala)*
+> [Preencher Formulário do Google Forms - Dia 14](https://forms.gle/Yao5s39kMmbdgwcC8)
 
 ### ✅ Checklist de Conclusão do Dia 14:
 - [x] Daily Standup de abertura realizada no horário.

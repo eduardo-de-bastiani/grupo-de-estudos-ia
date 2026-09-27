@@ -62,10 +62,7 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 
 **Docstring é prompt.** O SDK `google-genai` monta a declaração da ferramenta a partir do nome da função, dos type hints e da docstring. Isso significa que uma docstring vaga ("faz coisas com dados") produz escolhas ruins do modelo, e uma docstring precisa ("Retorna o faturamento anual em reais de uma regiao brasileira") produz roteamento confiável. Trate cada descrição como uma instrução de uso escrita para uma pessoa que nunca viu o seu código.
 
-**Foco da leitura (15 minutos).** No guia oficial, leia as seções de como o function calling funciona, de declaração de funções e de modos de chamada (`AUTO`, `ANY`, `NONE`). Na segunda passada, procure como desligar a execução automática: hoje vamos fazer o despacho **manualmente** para entender cada passo, e só depois de dominar a mecânica é que faz sentido deixar o SDK fazer por você.
-
 * [Gemini API: Function calling](https://ai.google.dev/gemini-api/docs/function-calling)
-* [Gemini API: Function calling, chamadas paralelas e composicionais](https://ai.google.dev/gemini-api/docs/function-calling#parallel_function_calling)
 * [Google Codelabs: How to Interact with APIs Using Function Calling in Gemini](https://codelabs.developers.google.com/codelabs/gemini-function-calling)
 
 ---
@@ -330,7 +327,7 @@ PERGUNTAS = [
 # e imprima a resposta final do modelo
 ```
 
-**Critério de sucesso:** o programa termina sem `Traceback`, e o modelo explica em português que a divisão por zero é impossível e que o serviço está indisponível, sem inventar números. Discussão: *por que devolver a mensagem de erro ao modelo é melhor do que interromper o programa?* (dica: ele pode corrigir os argumentos ou avisar o usuário).
+**Critério de sucesso:** o programa termina sem `Traceback`, e o modelo explica em português que a divisão por zero é impossível e que o serviço está indisponível, sem inventar números. Discussão: *por que devolver a mensagem de erro ao modelo é melhor do que interromper o programa?*
 
 ---
 
@@ -352,7 +349,7 @@ PERGUNTAS = [
 ## 📝 11. Bloco 8: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
-> [Preencher Formulário do Google Forms - Dia 12](#) *(Link disponibilizado pelo instrutor em sala)*
+> [Preencher Formulário do Google Forms - Dia 12](https://forms.gle/Yao5s39kMmbdgwcC8)
 
 ### ✅ Checklist de Conclusão do Dia 12:
 - [x] Daily Standup de abertura realizada no horário.

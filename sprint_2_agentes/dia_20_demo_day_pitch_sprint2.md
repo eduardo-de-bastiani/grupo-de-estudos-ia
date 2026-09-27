@@ -129,7 +129,7 @@ Dinâmica coletiva de **35 minutos cronometrados** conduzida no quadro branco da
 ## 📝 9. Bloco 6: Formulário Final de Avaliação da Sprint 2 & Feedback (16:50 - 17:00)
 
 > 📋 **Link do Formulário de Avaliação Final da Sprint 2:**  
-> [Preencher Formulário do Google Forms - Fechamento Sprint 2](#) *(Link disponibilizado pelo instrutor em sala)*
+> [Preencher Formulário do Google Forms - Fechamento Sprint 2](https://forms.gle/QuNVnC4w8qU4AfRq9)
 
 ### ✅ Checklist de Conclusão da Sprint 2:
 - [x] Apresentações dos projetos *DataOps Agent* concluídas com sucesso no Demo Day 2.

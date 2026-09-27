@@ -62,12 +62,7 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 
 **Ferramentas boas têm cara de API, não de terminal.** Retornem dados estruturados (dicionários e listas, prontos para JSON), com nomes verbais claros, docstrings que dizem **quando** usar cada uma e mensagens de erro instrutivas ("Tabela 'cliente' nao existe. Tabelas validas: clientes, pedidos, produtos"): o modelo lê o erro e se corrige sozinho. Nomes de tabela e coluna **não podem ser parametrizados** com `?` em SQL, então precisam ser validados contra a lista real do banco antes de entrarem em qualquer string: esse é o padrão que você vai implementar hoje.
 
-**Foco da leitura (15 minutos).** Leia no manual do SQLite a tabela `sqlite_schema` (de onde vêm os metadados) e os *pragmas* `table_info` e `foreign_key_list`; depois a seção sobre `LIMIT` do `SELECT`; por último, a parte do guia do Gemini sobre boas práticas de declaração de funções (nomes, descrições e parâmetros). Em trio, respondam: *que informação de schema o modelo precisa para escrever um JOIN correto?*
-
-* [SQLite: The schema table (sqlite_schema)](https://www.sqlite.org/schematab.html)
-* [SQLite: PRAGMA statements (table_info, foreign_key_list)](https://www.sqlite.org/pragma.html)
-* [SQLite: SELECT (cláusula LIMIT)](https://www.sqlite.org/lang_select.html)
-* [Gemini API: Function calling (boas práticas de declaração)](https://ai.google.dev/gemini-api/docs/function-calling)
+* [SQLite as an MCP context saver](https://dev.to/richardbaxter/sqlite-as-an-mcp-context-saver-stop-cramming-raw-api-data-into-your-llm-2oj4)
 
 ---
 
@@ -383,7 +378,7 @@ Rode com `python -m src.agent.test_tools_llm`.
 ## 📝 11. Bloco 8: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
-> [Preencher Formulário do Google Forms - Dia 17](#) *(Link disponibilizado pelo instrutor em sala)*
+> [Preencher Formulário do Google Forms - Dia 17](https://forms.gle/Yao5s39kMmbdgwcC8)
 
 ### ✅ Checklist de Conclusão do Dia 17:
 - [x] Daily Standup de abertura realizada no horário.

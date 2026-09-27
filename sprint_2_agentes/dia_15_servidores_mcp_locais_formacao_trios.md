@@ -61,10 +61,7 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 
 **Boas práticas que valem nota.** Docstrings claras (elas são o manual de instruções para o modelo), nomes de ferramentas verbais e específicos, argumentos simples e tipados, validação **dentro** da ferramenta (nunca confie que o modelo enviou um caminho ou uma unidade válidos) e **nada de `print()`**: no transporte `stdio` o `stdout` pertence ao protocolo, então logs vão para `sys.stderr`. Lembre-se também de que uma ferramenta é código que roda na sua máquina a pedido de um modelo; por isso, limite o que ela pode tocar (hoje: só leitura de arquivos, nada de escrita).
 
-**Foco da leitura (15 minutos).** Comece pelo tutorial oficial "Build an MCP server" (siga o exemplo até entender o padrão decorador + `mcp.run`), depois leia a seção de *Tools* e *Resources* do README do SDK Python e, por fim, dê uma olhada no MCP Inspector, ferramenta visual que permite testar um servidor sem escrever cliente algum.
-
 * [MCP: Build an MCP server](https://modelcontextprotocol.io/docs/develop/build-server)
-* [MCP Python SDK: README (FastMCP, tools, resources)](https://github.com/modelcontextprotocol/python-sdk)
 * [MCP Inspector: depuração visual de servidores](https://modelcontextprotocol.io/docs/tools/inspector)
 
 ---
@@ -288,7 +285,7 @@ Depois de rodar, **abra o arquivo `03_mcp_gemini_bridge.py` copiado e adicione u
 ## 📝 10. Bloco 7: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
-> [Preencher Formulário do Google Forms - Dia 15](#) *(Link disponibilizado pelo instrutor em sala)*
+> [Preencher Formulário do Google Forms - Dia 15](https://forms.gle/Yao5s39kMmbdgwcC8)
 
 ### ✅ Checklist de Conclusão da Semana 1:
 - [x] Daily Standup de abertura realizada no horário.

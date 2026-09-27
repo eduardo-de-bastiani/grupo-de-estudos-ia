@@ -62,12 +62,9 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 
 **Lista de permissões vence lista de proibições.** A primeira ideia costuma ser "barrar as palavras perigosas". Funciona, mas é frágil: quem escreve a lista sempre esquece algo (`ATTACH`, `PRAGMA`, `load_extension`...). O desenho robusto começa pelo oposto: só **aceita** o que é conhecido como seguro (um único comando que comece com `SELECT` ou `WITH`) e, dentro disso, ainda barra a lista de perigosos. Cada regra que você implementar corresponde a um ataque real que os seus colegas vão tentar no fim do encontro.
 
-**Foco da leitura (15 minutos).** Leia o resumo de *Prompt Injection* (LLM01) e o de *Excessive Agency* da OWASP, e depois o guia de prevenção de SQL injection, atento à ideia de validação por lista de permissões e ao princípio do menor privilégio. Como pergunta de alinhamento no trio: *quais permissões o nosso agente realmente precisa? (dica: nenhuma de escrita).*
-
 * [OWASP GenAI: LLM01 Prompt Injection](https://genai.owasp.org/llmrisk/llm01-prompt-injection/)
 * [OWASP GenAI: LLM06 Excessive Agency](https://genai.owasp.org/llmrisk/llm062025-excessive-agency/)
 * [OWASP: SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
-* [SQLite: ATTACH DATABASE (por que também precisa ser bloqueado)](https://www.sqlite.org/lang_attach.html)
 
 ---
 
@@ -501,7 +498,7 @@ Rode `python tests/test_guardrails_attacks.py` (bateria determinística) e, depo
 ## 📝 11. Bloco 8: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
-> [Preencher Formulário do Google Forms - Dia 18](#) *(Link disponibilizado pelo instrutor em sala)*
+> [Preencher Formulário do Google Forms - Dia 18](https://forms.gle/Yao5s39kMmbdgwcC8)
 
 ### ✅ Checklist de Conclusão do Dia 18:
 - [x] Daily Standup de abertura realizada no horário.

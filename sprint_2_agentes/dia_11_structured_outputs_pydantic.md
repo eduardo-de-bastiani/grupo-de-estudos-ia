@@ -30,25 +30,8 @@
 │ 15:45 - 16:15   │ Bloco 4: Desafio Prático: Stress Test de Extração Logs │
 │ 16:15 - 16:25   │ Bloco 5: Benchmark: Structured Outputs vs JSON Livre   │
 │ 16:25 - 16:35   │ Bloco 6: Sincronização no GitHub da Dupla (Git Sync)   │
-│ 16:35 - 16:45   │ Bloco 7: Quiz + Atividade Interativa (dia 11)          │
-│ 16:45 - 17:00   │ Bloco 8: Formulário Diário de Auto-Avaliação & Feedback│
+│ 16:35 - 17:00   │ Bloco 7: Quiz + Atividade Interativa (dia 11)          │
 └─────────────────┴────────────────────────────────────────────────────────┘
-```
-
----
-
-## ⚡ 1. Daily Standup de Abertura (14:00 - 14:05)
-
-Reunião em pé de 5 minutos onde cada estudante responde brevemente:
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│ 1. 🌟 O QUE MAIS GOSTEI:                                               │
-│    O que mais curti aprender ou explorar no encontro anterior?         │
-│                                                                        │
-│ 2. 🚧 MINHA MAIOR DIFICULDADE:                                         │
-│    Onde eu mais me bati, qual bug enfrentei ou qual dúvida ficou?      │
-└────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -63,13 +46,7 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 
 **Por que isso é mais forte do que "peça JSON no prompt".** Quando você pede JSON no prompt, o modelo *tenta* obedecer; quando você usa `response_schema`, a geração é restringida ao schema (*constrained decoding*): a cada token, apenas os que mantêm o documento válido segundo a gramática são candidatos. É a diferença entre pedir educadamente e trancar a porta. Isso não garante que o **conteúdo** esteja certo (o modelo ainda pode errar um valor), apenas que a **forma** está correta, e por isso combinamos o schema com validadores Pydantic para regras de negócio.
 
-**Como ler os links abaixo (15 minutos).** Comece pelo guia de Structured Output do Google (foque nos exemplos com Pydantic e nas limitações de schema), depois passe pelo capítulo de *Models* do Pydantic e termine com *Validators*. Ao ler, anote na dupla: (1) qual parâmetro liga o schema à chamada e (2) onde o Pydantic avisa que um dado é inválido.
-
 * [Gemini API: Structured Output (google-genai)](https://ai.google.dev/gemini-api/docs/structured-output)
-* [Pydantic v2: Models](https://docs.pydantic.dev/latest/concepts/models/)
-* [Pydantic v2: Validators](https://docs.pydantic.dev/latest/concepts/validators/)
-* [Pydantic v2: JSON Schema](https://docs.pydantic.dev/latest/concepts/json_schema/)
-
 ---
 
 ## 💻 4. Bloco 2: Laboratório Pydantic Básico com `response_schema` (14:20 - 14:50)
@@ -373,18 +350,13 @@ if __name__ == "__main__":
 
 ---
 
-## 🧠 10. Bloco 7: Quiz Interativo & Atividade Interativa (16:35 - 16:45)
+## 🧠 10. Bloco 7: Quiz Interativo & Atividade Interativa (16:35 - 17:00)
 
 * Cada estudante abre o arquivo local no navegador: [`quizzes/quiz_dia_11.html`](quizzes/quiz_dia_11.html)
 * **Formato:** Questões práticas sobre gramáticas CFG, Pydantic v2, validação de tipos em tempo de execução, diferença entre prompt livre e `response_schema`, e tratamento de dados aninhados.
 * **Atividade interativa (complementa o quiz):** abram [`quizzes/atividade_dia_11.html`](quizzes/atividade_dia_11.html) e resolvam os 5 desafios (encontrar o erro no código, ordenar etapas, classificar conceitos e testar você mesmo). **Divisão sugerida dos 10 minutos:** cerca de 6 minutos no quiz e 4 na atividade; quem terminar antes refaz os itens errados.
 
 ---
-
-## 📝 11. Bloco 8: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
-
-> 📋 **Link do Formulário de Auto-Avaliação:**  
-> [Preencher Formulário do Google Forms - Dia 11](#) *(Link disponibilizado pelo instrutor em sala)*
 
 ### ✅ Checklist de Conclusão do Dia 11:
 - [x] Daily Standup de abertura realizada no horário.

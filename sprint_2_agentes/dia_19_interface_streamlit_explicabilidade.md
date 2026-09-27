@@ -62,12 +62,8 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 
 **Streamlit em uma página.** O Streamlit reexecuta o seu script inteiro a cada interação do usuário. Por isso, o que precisa sobreviver entre interações (histórico da conversa, por exemplo) fica em `st.session_state`. Os componentes de chat (`st.chat_message`, `st.chat_input`) foram feitos para conversas com LLMs; `st.expander` cria a gaveta recolhível do rastro; `st.dataframe` mostra tabelas interativas; `st.bar_chart` desenha gráficos com uma linha de código. Um detalhe importante: como o script roda de novo a cada mensagem, **as mensagens antigas precisam ser redesenhadas** a partir do `session_state` (é o laço `for` que você verá no scaffold).
 
-**Foco da leitura (15 minutos).** Leia o tutorial oficial de chat com LLM do Streamlit e a documentação do `st.session_state`; depois, percorra o capítulo de explicabilidade e confiança do guia PAIR procurando 2 padrões de interface que possam ser aplicados ao rastro do DataOps Agent. Cada trio escolhe **um** padrão para implementar hoje.
-
 * [Streamlit: Build a basic LLM chat app](https://docs.streamlit.io/develop/tutorials/chat-and-llm-apps/build-conversational-apps)
 * [Streamlit: Session State](https://docs.streamlit.io/develop/concepts/architecture/session-state)
-* [Streamlit: st.expander](https://docs.streamlit.io/develop/api-reference/layout/st.expander) e [st.dataframe](https://docs.streamlit.io/develop/api-reference/data/st.dataframe)
-* [Google PAIR: People + AI Guidebook (explicabilidade e confiança)](https://pair.withgoogle.com/guidebook/)
 
 ---
 
@@ -326,7 +322,7 @@ Depois chame `renderizar_sidebar()` no início de `main()` e `desenhar_grafico(d
 ## 📝 11. Bloco 8: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
-> [Preencher Formulário do Google Forms - Dia 19](#) *(Link disponibilizado pelo instrutor em sala)*
+> [Preencher Formulário do Google Forms - Dia 19](https://forms.gle/Yao5s39kMmbdgwcC8)
 
 ### ✅ Checklist de Conclusão do Dia 19:
 - [x] Daily Standup de abertura realizada no horário.

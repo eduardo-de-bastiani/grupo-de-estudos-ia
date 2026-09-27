@@ -64,13 +64,8 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 
 **Modelar antes de programar.** Um banco bem desenhado é metade do trabalho do agente: nomes de coluna claros, tipos corretos, chaves primárias e estrangeiras explícitas e uma documentação (o *dicionário de dados*) que responde "o que significa cada coluna". Lembre que o modelo de linguagem vai enxergar esse schema para escrever SQL; nomes obscuros como `c1` ou `vl` geram consultas erradas, e nomes como `valor_total_brl` geram consultas certas. E, para que o agente tenha o que auditar, vamos **injetar anomalias de propósito** na carga de dados (nulos, duplicatas, valores absurdos), como um laboratório de testes.
 
-**Foco da leitura (15 minutos, individual, depois 5 minutos de alinhamento no trio).** Leia "When To Use SQLite" (entenda onde o SQLite brilha), o trecho de tipos de dados (*datatype3*: o SQLite tem tipagem flexível, portanto validação vale a pena), o capítulo de chaves estrangeiras (e por que precisam ser ativadas por conexão) e o verbete de DataOps. Cada integrante traz uma pergunta para o alinhamento.
 
-* [SQLite: Appropriate Uses For SQLite](https://www.sqlite.org/whentouse.html)
-* [SQLite: Datatypes In SQLite](https://www.sqlite.org/datatype3.html)
-* [SQLite: Foreign Key Support](https://www.sqlite.org/foreignkeys.html)
-* [Python: módulo `sqlite3`](https://docs.python.org/3/library/sqlite3.html)
-* [DataOps (visão geral)](https://en.wikipedia.org/wiki/DataOps)
+* [O que é SQLite?](https://coddy.tech/docs/pt/sqlite/when-to-use-sqlite)
 
 ---
 
@@ -457,7 +452,7 @@ if __name__ == "__main__":
 ## 📝 12. Bloco 9: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
-> [Preencher Formulário do Google Forms - Dia 16](#) *(Link disponibilizado pelo instrutor em sala)*
+> [Preencher Formulário do Google Forms - Dia 16](https://forms.gle/Yao5s39kMmbdgwcC8)
 
 ### ✅ Checklist de Conclusão do Dia 16:
 - [x] Daily Standup de abertura realizada no horário.

@@ -62,12 +62,8 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 
 **Todo loop precisa de freio.** Um agente que decide quando parar também pode *nunca* decidir parar: repetir a mesma chamada, insistir em um registro inexistente, gastar toda a sua cota em minutos. As defesas são simples e obrigatórias: um teto de iterações (`max_iterations`), detecção de chamadas repetidas e mensagens de erro úteis devolvidas ao modelo. Hoje você implementa as três, e o Dia 18 vai reaproveitá-las no projeto.
 
-**Foco da leitura (15 minutos).** Leia primeiro o resumo do ReAct no Prompting Guide (com o exemplo Pensamento/Ação/Observação), depois a introdução do artigo original, e finalize com a seção "Agents" do texto da Anthropic, prestando atenção na diferença entre *workflows* (caminho fixo) e *agentes* (o modelo escolhe o caminho).
-
 * [Prompting Guide: ReAct](https://www.promptingguide.ai/techniques/react)
-* [ReAct: Synergizing Reasoning and Acting in Language Models (Yao et al., 2022)](https://arxiv.org/abs/2210.03629)
 * [Anthropic: Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents)
-* [Gemini API: Function calling (chamadas compostas)](https://ai.google.dev/gemini-api/docs/function-calling)
 
 ---
 
@@ -371,7 +367,7 @@ if __name__ == "__main__":
 ## 📝 11. Bloco 8: Formulário Diário de Auto-Avaliação & Feedback (16:45 - 17:00)
 
 > 📋 **Link do Formulário de Auto-Avaliação:**  
-> [Preencher Formulário do Google Forms - Dia 13](#) *(Link disponibilizado pelo instrutor em sala)*
+> [Preencher Formulário do Google Forms - Dia 13](https://forms.gle/Yao5s39kMmbdgwcC8)
 
 ### ✅ Checklist de Conclusão do Dia 13:
 - [x] Daily Standup de abertura realizada no horário.
