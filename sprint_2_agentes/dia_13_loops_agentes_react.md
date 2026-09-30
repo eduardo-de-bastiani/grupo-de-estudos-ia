@@ -69,6 +69,12 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 * [Anthropic: Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents)
 * [Gemini API: Function calling (chamadas compostas)](https://ai.google.dev/gemini-api/docs/function-calling)
 
+### 🌐 Playgrounds, Sandboxes & Links Externos para Codar
+* [Prompting Guide: ReAct Interactive Technique & Examples](https://www.promptingguide.ai/techniques/react) - Demonstração interativa da cadeia Pensamento-Ação-Observação.
+* [Hugging Face Smolagents: Building Good Agents](https://huggingface.co/docs/smolagents/conceptual_guides/react) - Guia conceitual e implementação minimalista de loops de raciocínio e execução de ferramentas.
+* [Anthropic Interactive Cookbook: Tool Use Patterns](https://github.com/anthropics/anthropic-cookbook/tree/main/tool_use) - Notebooks interativos demonstrando orquestração de ferramentas em múltiplos turnos.
+* [Google GenAI Python SDK: Function Calling Samples](https://github.com/google-gemini/cookbook/blob/main/quickstarts/Function_Calling.ipynb) - Notebook Colab oficial executável com chamadas encadeadas no Gemini.
+
 ---
 
 ## 💻 4. Bloco 2: Construção do Loop ReAct Artesanal em Python (14:20 - 14:55)
@@ -389,8 +395,18 @@ if __name__ == "__main__":
 
 ## 🎁 Atividades Complementares
 
-1. 🎥 **Vídeo:** [How We Build Effective Agents (Barry Zhang, Anthropic, AI Engineer, YouTube)](https://www.youtube.com/watch?v=D7_ipDqhtwk). Palestra curta sobre quando usar agentes, como mantê-los simples e por que o loop com ferramentas é o coração deles; anote 2 decisões de design que apareceram no vídeo e que vocês tomaram (ou deveriam ter tomado) no `01_react_loop.py`.
-2. 💻 **Código Bônus:** persistir o histórico da execução em JSON para auditoria posterior. Salve como `dia_13/05_bonus_audit_log.py` e chame `salvar_auditoria` ao final de `rodar_agente`.
+### 🎥 Vídeos Recomendados
+
+1. 🎥 **Vídeo Principal:** [How We Build Effective Agents (Barry Zhang, Anthropic, AI Engineer, YouTube)](https://www.youtube.com/watch?v=D7_ipDqhtwk). Palestra sobre quando usar agentes, como mantê-los simples e por que o loop com ferramentas é o coração deles; anote 2 decisões de design que apareceram no vídeo e que vocês tomaram (ou deveriam ter tomado) no `01_react_loop.py`.
+2. 🎥 **Padrões de Agentes:** [Building Agentic Systems with Andrew Ng (DeepLearning.AI / Sequoia Capital, YouTube)](https://www.youtube.com/watch?v=sal78ACtGTc). Andrew Ng detalha os 4 padrões centrais de agentes (Reflection, Tool Use, Planning e Multi-Agent). Identifique por que Tool Use + Reflection combinados formam o alicerce do padrão ReAct que você codificou hoje.
+3. 🎥 **Desmistificando Agentes:** [What is an AI Agent? (Harrison Chase, AI Engineer World's Fair, YouTube)](https://www.youtube.com/watch?v=y3nBwFp06rA). O criador do LangChain desmonta o hype e demonstra como qualquer arquitetura agêntica se resume a um loop com chamada de ferramentas e controle de estado.
+
+---
+
+### 💻 Códigos & Exercícios Práticos Bônus
+
+#### Exercício Bônus 1: Persistência de Auditoria Turno a Turno
+Persistir o histórico da execução em JSON para auditoria posterior. Salve como `dia_13/05_bonus_audit_log.py` e chame `salvar_auditoria` ao final de `rodar_agente`.
 
 ```python
 import json
@@ -429,4 +445,77 @@ def salvar_auditoria(pergunta: str, resposta: str, historico: list) -> Path:
     return caminho
 ```
 
-Resultado esperado: um arquivo `auditoria/execucao_AAAAMMDD_HHMMSS.json` legível, no qual dá para reconstruir o raciocínio turno a turno. Adicione `auditoria/` ao `.gitignore` se o log conter dados sensíveis.
+**Resultado esperado:** um arquivo `auditoria/execucao_AAAAMMDD_HHMMSS.json` legível, no qual dá para reconstruir o raciocínio turno a turno.
+
+#### Exercício Bônus 2: Janela Deslizante de Memória (Sliding Window Context)
+Em conversas longas ou tarefas complexas de muitos passos, enviar o histórico completo a cada turno faz o consumo de tokens explodir. Implemente um podador de histórico que preserva a pergunta inicial (índice 0) e as últimas $N$ mensagens, evitando estourar a cota e mantendo a coerência. Salve como `dia_13/06_bonus_sliding_window_memory.py`.
+
+```python
+from google.genai import types
+
+
+def podar_historico(historico: list[types.Content], max_mensagens: int = 5) -> list[types.Content]:
+    """Mantem a pergunta original do usuario e no maximo as ultimas max_mensagens."""
+    if len(historico) <= max_mensagens:
+        return historico
+
+    pergunta_original = historico[0]
+    mensagens_recentes = historico[-(max_mensagens - 1):]
+
+    # Regra de ouro: nunca iniciar uma janela podada com uma function_response sem a function_call correspondente
+    # TODO: se mensagens_recentes[0].parts contem function_response e o turno anterior foi podado,
+    # ajuste a fatia para incluir tambem o function_call anterior
+    return [pergunta_original] + mensagens_recentes
+
+
+if __name__ == "__main__":
+    # Teste unitario rapido
+    falso_historico = [
+        types.Content(role="user", parts=[types.Part(text="Pergunta inicial")]),
+        types.Content(role="model", parts=[types.Part(text="Pensamento 1")]),
+        types.Content(role="user", parts=[types.Part(text="Obs 1")]),
+        types.Content(role="model", parts=[types.Part(text="Pensamento 2")]),
+        types.Content(role="user", parts=[types.Part(text="Obs 2")]),
+        types.Content(role="model", parts=[types.Part(text="Pensamento 3")]),
+        types.Content(role="user", parts=[types.Part(text="Obs 3")]),
+    ]
+    podado = podar_historico(falso_historico, max_mensagens=4)
+    print(f"Tamanho original: {len(falso_historico)} | Podado: {len(podado)}")
+    assert podado[0].parts[0].text == "Pergunta inicial"
+    print("Janela deslizante implementada com sucesso!")
+```
+
+**Critério de sucesso:** o script roda com `assert` aprovado, demonstrando que a pergunta original nunca se perde mesmo quando dezenas de iterações são executadas.
+
+#### Exercício Bônus 3: Interrupção Human-in-the-Loop para Ações Sensíveis
+Quando um agente tem acesso a ferramentas de efeito colateral (ex: cancelamento de pedido, exclusão de arquivo, emissão de alerta), ele não deve executar autonomamente sem confirmação humana. Implemente um hook `autorizar_acao_sensivel` no loop ReAct. Salve como `dia_13/07_bonus_human_in_the_loop.py`.
+
+```python
+from typing import Callable
+
+
+def criar_guardiao_humano(ferramentas_sensiveis: set[str]) -> Callable[[str, dict], bool]:
+    """Retorna uma funcao hook que interpela o usuario no console antes de acoes de risco."""
+
+    def verificar_autorizacao(nome_ferramenta: str, argumentos: dict) -> bool:
+        if nome_ferramenta not in ferramentas_sensiveis:
+            return True  # Acao segura: liberada sem intervencao
+
+        print(f"\n🛑 [HUMAN-IN-THE-LOOP] O modelo solicitou uma ação sensível: {nome_ferramenta}")
+        print(f"   Parâmetros solicitados: {argumentos}")
+        # TODO: peca input("Deseja autorizar esta execucao? (s/N): ")
+        # se usuario responder 's' ou 'sim', retorne True; senao retorne False
+        ...
+
+    return verificar_autorizacao
+
+
+if __name__ == "__main__":
+    guardiao = criar_guardiao_humano({"cancelar_pedido", "apagar_registro"})
+    print("Teste 1 (ferramenta segura):", guardiao("consultar_saldo", {"id": 10}))
+    # Descomente a linha abaixo para testar a solicitacao interativa no terminal:
+    # print("Teste 2 (ferramenta sensivel):", guardiao("cancelar_pedido", {"id_pedido": 42}))
+```
+
+**Critério de sucesso:** ferramentas seguras executam de forma transparente; ferramentas críticas pausam a execução e só prosseguem com o aval explícito do operador humano.
+
