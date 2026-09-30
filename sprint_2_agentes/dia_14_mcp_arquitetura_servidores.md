@@ -69,6 +69,12 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 * [MCP Specification: Transports (stdio)](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports)
 * [MCP Python SDK (repositório oficial)](https://github.com/modelcontextprotocol/python-sdk)
 
+### 🌐 Playgrounds, Sandboxes & Links Externos para Codar
+* [MCP Interactive Inspector Guide](https://modelcontextprotocol.io/docs/tools/inspector) - Ferramenta visual oficial executável via terminal (`npx @modelcontextprotocol/inspector`) para inspecionar e testar servidores locais pelo navegador.
+* [GitHub: Model Context Protocol Reference Servers](https://github.com/modelcontextprotocol/servers) - Código-fonte dos servidores oficiais da comunidade (SQLite, Git, Postgres, Memory e Filesystem).
+* [Glama MCP Registry & Directory](https://glama.ai/mcp/servers) - Diretório público e catalogação de servidores MCP prontos para inspirar ferramentas analíticas.
+* [JSON-RPC 2.0 Specification & Interactive Guide](https://www.jsonrpc.org/specification) - Referência canônica do protocolo de envelopes que trafega pela stdin/stdout.
+
 ---
 
 ## 🔬 4. Bloco 2: Anatomia do JSON-RPC 2.0 & Transporte `stdio` (14:20 - 14:50)
@@ -370,8 +376,18 @@ if __name__ == "__main__":
 
 ## 🎁 Atividades Complementares
 
-1. 🎥 **Vídeo:** [Building Agents with Model Context Protocol, workshop completo com Mahesh Murag (Anthropic, AI Engineer, YouTube)](https://www.youtube.com/watch?v=kQmXtrmQ5Zg). É longo; assistam pelos trechos de conceitos e de arquitetura (primeira parte) e anotem 3 diferenças entre o que o expositor descreve e o servidor de 20 linhas que vocês escreveram hoje.
-2. 💻 **Código Bônus:** um *host* conectado a vários servidores ao mesmo tempo. Salve como `dia_14/05_bonus_multi_server.py` (crie também um `server_math.py` simples com uma ferramenta `quadrado(n: int)`).
+### 🎥 Vídeos Recomendados
+
+1. 🎥 **Workshop Completo:** [Building Agents with Model Context Protocol (Mahesh Murag, Anthropic, AI Engineer, YouTube)](https://www.youtube.com/watch?v=kQmXtrmQ5Zg). Workshop aprofundado com demonstrações do protocolo. Assistam aos primeiros 20 minutos focando nos conceitos de arquitetura e transporte.
+2. 🎥 **Visão Oficial:** [Model Context Protocol: What, Why, and How (Alex Albert & David Soria Parra, Anthropic Dev Day, YouTube)](https://www.youtube.com/watch?v=Fcx9f5hGf9A). Os líderes do projeto MCP na Anthropic explicam a transição do ecossistema fragmentado para um padrão aberto e os planos para servidores locais e remotos.
+3. 🎥 **Anatomia do Protocolo:** [Inside the Model Context Protocol (Matt Pocock, YouTube)](https://www.youtube.com/watch?v=5rT46q3P4qM). Demonstração clara e objetiva de como mensagens JSON-RPC trafegam via pipes de processos sem expor portas HTTP na máquina.
+
+---
+
+### 💻 Códigos & Exercícios Práticos Bônus
+
+#### Exercício Bônus 1: Host Conectado a Múltiplos Servidores Simultâneos
+Um *host* conectado a vários servidores ao mesmo tempo. Salve como `dia_14/05_bonus_multi_server.py` (crie também um `server_math.py` simples com uma ferramenta `quadrado(n: int)`).
 
 ```python
 import asyncio
@@ -419,4 +435,74 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-Resultado esperado: um catálogo com as ferramentas dos dois servidores (nomes prefixados) e `49` como resultado do quadrado. Pense em por que o prefixo é necessário quando dois servidores expõem uma ferramenta com o mesmo nome.
+**Resultado esperado:** um catálogo com as ferramentas dos dois servidores (nomes prefixados) e `49` como resultado do quadrado.
+
+#### Exercício Bônus 2: Consumindo Resources MCP (`resources/list` e `resources/read`)
+Além de Tools (ações executáveis), servidores MCP expõem **Resources** (dados estáticos ou dinâmicos somente leitura, como logs, esquemas ou documentações). Construa um cliente que lista os recursos disponíveis e lê seu conteúdo via URI padronizada. Salve como `dia_14/06_bonus_mcp_resources_reader.py`.
+
+```python
+import asyncio
+import sys
+
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+
+
+async def inspecionar_recursos(servidor_script: str) -> None:
+    parametros = StdioServerParameters(command=sys.executable, args=[servidor_script])
+    async with stdio_client(parametros) as (leitura, escrita):
+        async with ClientSession(leitura, escrita) as sessao:
+            await sessao.initialize()
+
+            # Lista os recursos expostos pelo servidor
+            resposta_recursos = await sessao.list_resources()
+            print(f"Recursos encontrados: {len(resposta_recursos.resources)}")
+            for recurso in resposta_recursos.resources:
+                print(f" - URI: {recurso.uri} | Nome: {recurso.name} | MIME: {recurso.mimeType}")
+
+                # TODO: use await sessao.read_resource(recurso.uri) para obter o conteudo
+                # e exiba as primeiras 2 linhas do texto lido
+
+
+if __name__ == "__main__":
+    # Teste apontando para o seu server_demo.py (ou servidor com resources)
+    asyncio.run(inspecionar_recursos("server_demo.py"))
+```
+
+**Critério de sucesso:** o cliente conecta via `stdio`, enumera as URIs registradas e lê o payload de texto associado sem invocar chamadas de ferramentas.
+
+#### Exercício Bônus 3: Timeout e Resiliência em Conexões Stdio
+Em produção, um servidor MCP pode travar em um loop infinito ou bloquear na leitura de disco. Se o cliente não definir limites de tempo, o agente inteiro congela. Implemente uma chamada segura com `asyncio.wait_for` e captura de exceção. Salve como `dia_14/07_bonus_mcp_client_resilience.py`.
+
+```python
+import asyncio
+import sys
+
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+
+
+async def chamar_ferramenta_com_timeout(
+    sessao: ClientSession, nome_ferramenta: str, argumentos: dict, timeout_segundos: float = 3.0
+) -> dict:
+    """Executa a ferramenta MCP garantindo que o servidor nao prenda o processo indefinidamente."""
+    try:
+        # TODO: envolva await sessao.call_tool(nome_ferramenta, argumentos) em asyncio.wait_for com timeout_segundos
+        resposta = await asyncio.wait_for(
+            sessao.call_tool(nome_ferramenta, argumentos),
+            timeout=timeout_segundos,
+        )
+        return {"sucesso": True, "resultado": resposta.content[0].text}
+    except asyncio.TimeoutError:
+        return {"sucesso": False, "erro": f"Servidor MCP excedeu o timeout de {timeout_segundos}s"}
+    except Exception as e:
+        return {"sucesso": False, "erro": f"Erro de comunicacao com o servidor: {str(e)}"}
+
+
+if __name__ == "__main__":
+    # Teste rapido da funcao resiliente
+    print("Funcao de resiliencia pronta para integracao!")
+```
+
+**Critério de sucesso:** chamadas que demoram mais que o teto estabelecido retornam erro controlado em formato de dicionário sem quebrar o laço de execução do agente.
+
