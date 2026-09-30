@@ -65,6 +65,12 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 * [Streamlit: Build a basic LLM chat app](https://docs.streamlit.io/develop/tutorials/chat-and-llm-apps/build-conversational-apps)
 * [Streamlit: Session State](https://docs.streamlit.io/develop/concepts/architecture/session-state)
 
+### 🌐 Playgrounds, Sandboxes & Links Externos para Codar
+* [Streamlit App Gallery: Generative AI Showcase](https://streamlit.io/gallery?category=llms) - Dezenas de aplicativos abertos em produção combinando chat, visualização de tabelas e gráficos.
+* [Streamlit Official Cheat Sheet](https://cheat-sheet.streamlit.app/) - Referência rápida e interativa para sintaxe de layouts (`st.columns`, `st.tabs`, `st.expander`), dados e componentes visuais.
+* [Google PAIR (People + AI Research) Guidebook](https://pair.withgoogle.com/guidebook/) - Guia canônico do Google com heurísticas de UX, design de explicabilidade e calibração de confiança para interfaces de IA.
+* [Plotly Express Python Interactive Documentation](https://plotly.com/python/plotly-express/) - Criação de gráficos interativos com tooltips e zoom integráveis diretamente no Streamlit via `st.plotly_chart`.
+
 ---
 
 ## 💻 4. Bloco 2: Construção da Interface Streamlit Básica (14:20 - 14:50)
@@ -340,8 +346,18 @@ Depois chame `renderizar_sidebar()` no início de `main()` e `desenhar_grafico(d
 
 ## 🎁 Atividades Complementares
 
-1. 🎥 **Vídeo:** [Introducing Streamlit Chat Elements (Streamlit, YouTube)](https://www.youtube.com/watch?v=4sPnOqeUDmk). Demonstração oficial dos componentes de chat usados hoje; ao assistir, identifiquem 1 recurso que o vídeo mostra e que o `app.py` do trio ainda não usa (por exemplo, streaming de resposta ou avatares) e proponham como ele melhoraria a transparência do agente.
-2. 💻 **Código Bônus:** exportar em CSV o histórico de perguntas e das queries SQL executadas, útil como registro de auditoria. Crie `src/ui_export.py` e ligue ao app com um `st.download_button`.
+### 🎥 Vídeos Recomendados
+
+1. 🎥 **Vídeo Principal:** [Introducing Streamlit Chat Elements (Streamlit, YouTube)](https://www.youtube.com/watch?v=4sPnOqeUDmk). Demonstração oficial dos componentes `st.chat_message` e `st.chat_input`. Ao assistir, avaliem como incorporar avatares distintos para o usuário e para o agente.
+2. 🎥 **Apps com LLM em Produção:** [Building Production-Ready LLM Apps with Streamlit (Snowflake / Streamlit, YouTube)](https://www.youtube.com/watch?v=b8nQzYn97iA). Arquitetura de estado, cacheamento de conexões com `st.cache_resource` e boas práticas de UX em interfaces conversacionais.
+3. 🎥 **Storytelling e Demonstrações:** [How to Give a Great Product Demo (Michael Seibel, Y Combinator, YouTube)](https://www.youtube.com/watch?v=i63z8Y_8d3A). Dicas cruciais para o Demo Day de amanhã: focar na dor do cliente, evitar jargões vazios e demonstrar o software funcionando em tempo real com confiança.
+
+---
+
+### 💻 Códigos & Exercícios Práticos Bônus
+
+#### Exercício Bônus 1: Exportador de Auditoria de Consultas para CSV
+Exportar em CSV o histórico de perguntas e das queries SQL executadas, útil como registro de conformidade e auditoria. Crie `src/ui_export.py` e ligue ao app com um `st.download_button`.
 
 ```python
 import csv
@@ -375,4 +391,82 @@ def historico_para_csv(mensagens: list[dict]) -> str:
 #   )
 ```
 
-Resultado esperado: após 3 perguntas, o botão baixa um CSV com uma linha por consulta SQL e a coluna do guardrail preenchida. Para um desafio extra, gere também um PDF de uma página com `st.download_button` usando `reportlab` ou a impressão do navegador.
+**Resultado esperado:** após 3 perguntas, o botão baixa um CSV com uma linha por consulta SQL e a coluna do guardrail preenchida.
+
+#### Exercício Bônus 2: Componente de Feedback do Usuário (`src/ui_feedback.py`)
+Permita que o usuário avalie com polegar para cima ou para baixo cada resposta gerada pelo agente analítico, gravando o feedback para aprimoramento contínuo. Salve como `src/ui_feedback.py`.
+
+```python
+import json
+from datetime import datetime, timezone
+from pathlib import Path
+import streamlit as st
+
+LOG_FEEDBACK = Path("logs/feedback.jsonl")
+
+
+def registrar_avaliacao(indice_mensagem: int, pergunta: str, resposta: str, tipo_feedback: str) -> None:
+    """Registra avaliacao qualitativa do usuario em arquivo JSONL."""
+    LOG_FEEDBACK.parent.mkdir(exist_ok=True)
+    payload = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "mensagem_idx": indice_mensagem,
+        "pergunta": pergunta,
+        "resposta": resposta,
+        "feedback": tipo_feedback,
+    }
+    with open(LOG_FEEDBACK, "a", encoding="utf-8") as f:
+        f.write(json.dumps(payload, ensure_ascii=False) + "\n")
+
+
+def exibir_botoes_feedback(indice: int, pergunta: str, resposta: str) -> None:
+    """Renderiza botoes de like/dislike abaixo da resposta do modelo."""
+    col1, col2, _ = st.columns([1, 1, 8])
+    with col1:
+        if st.button("👍", key=f"like_{indice}"):
+            registrar_avaliacao(indice, pergunta, resposta, "positivo")
+            st.toast("Obrigado pelo feedback positivo!")
+    with col2:
+        if st.button("👎", key=f"dislike_{indice}"):
+            registrar_avaliacao(indice, pergunta, resposta, "negativo")
+            st.toast("Feedback registrado. Vamos aprimorar!")
+```
+
+**Critério de sucesso:** clicar nos botões grava um evento no arquivo `logs/feedback.jsonl` com carimbo de tempo ISO 8601 sem travar o Streamlit.
+
+#### Exercício Bônus 3: Cronômetro Regressivo de Pitch na Sidebar (`src/ui_pitch_timer.py`)
+Para o Bloco 5 de ensaio geral cronometrado do trio, integre um cronômetro visual de 5 minutos na barra lateral do Streamlit para manter a equipe no tempo exato. Salve como `src/ui_pitch_timer.py`.
+
+```python
+import time
+import streamlit as st
+
+
+def renderizar_timer_pitch() -> None:
+    """Renderiza um cronometro regressivo de 5 minutos na sidebar para ensaio do Demo Day."""
+    st.sidebar.markdown("### ⏱️ Cronômetro do Pitch")
+    if "timer_inicio" not in st.session_state:
+        st.session_state.timer_inicio = None
+
+    col_a, col_b = st.sidebar.columns(2)
+    if col_a.button("▶️ Iniciar (5m)"):
+        st.session_state.timer_inicio = time.time()
+    if col_b.button("⏹️ Reset"):
+        st.session_state.timer_inicio = None
+
+    if st.session_state.timer_inicio:
+        passado = int(time.time() - st.session_state.timer_inicio)
+        restante = max(0, 300 - passado)
+        minutos = restante // 60
+        segundos = restante % 60
+        st.sidebar.metric("Tempo Restante", f"{minutos:02d}:{segundos:02d}")
+        if restante == 0:
+            st.sidebar.error("🚨 Tempo esgotado! Conclua a fala.")
+        elif restante <= 60:
+            st.sidebar.warning("⚠️ 1 minuto restante! Inicie a conclusão.")
+        else:
+            st.sidebar.info("Apresentação em andamento...")
+```
+
+**Critério de sucesso:** o trio pode ensaiar sua live demo de 5 minutos diretamente dentro do aplicativo, recebendo alertas visuais quando o tempo estiver acabando.
+

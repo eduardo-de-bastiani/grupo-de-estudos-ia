@@ -66,6 +66,12 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 * [OWASP GenAI: LLM06 Excessive Agency](https://genai.owasp.org/llmrisk/llm062025-excessive-agency/)
 * [OWASP: SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
 
+### 🌐 Playgrounds, Sandboxes & Links Externos para Codar
+* [OWASP Top 10 for LLM Applications Hub](https://genai.owasp.org/) - Documentação oficial com estudos de caso detalhados sobre LLM01 (Prompt Injection) e LLM06 (Excessive Agency).
+* [Gandalf by Lakera: The AI Prompt Injection Game](https://gandalf.lakera.ai/) - Jogo interativo no navegador para testar na prática técnicas de bypass e engenharia reversa de guardrails de segurança.
+* [SQLGlot AST Interactive Documentation](https://sqlglot.com/) - Referência do compilador e parser de SQL com suporte a dezenas de dialetos e análise de árvores sintáticas.
+* [NeMo Guardrails Architecture Overview](https://github.com/NVIDIA/NeMo-Guardrails) - Framework da indústria para barreiras programáticas de segurança em sistemas agênticos.
+
 ---
 
 ## 🛡️ 4. Bloco 2: Guardrails Determinísticos de SQL (14:20 - 14:50)
@@ -516,8 +522,18 @@ Rode `python tests/test_guardrails_attacks.py` (bateria determinística) e, depo
 
 ## 🎁 Atividades Complementares
 
-1. 🎥 **Vídeo:** [Indirect Prompt Injections in the Wild: Real World exploits and mitigations (Johann Rehberger, Ekoparty, YouTube)](https://www.youtube.com/watch?v=ADHAokjniE4). Mostra ataques reais em que o texto malicioso está **nos dados** que o agente lê, e não na pergunta do usuário; anotem qual das 4 camadas de defesa de hoje teria barrado cada exemplo do vídeo (e qual não).
-2. 💻 **Código Bônus:** trocar a checagem por texto (regex) por **análise estrutural** com um parser de SQL (`pip install sqlglot`). Um parser entende a estrutura da query e não se engana com espaços, maiúsculas ou palavras dentro de strings. Salve como `src/agent/guardrails_ast.py`.
+### 🎥 Vídeos Recomendados
+
+1. 🎥 **Vídeo Principal:** [Indirect Prompt Injections in the Wild: Real World exploits and mitigations (Johann Rehberger, Ekoparty, YouTube)](https://www.youtube.com/watch?v=ADHAokjniE4). Demonstração de ataques reais em que o texto malicioso reside **nos dados** lidos pelo agente; compare com as 4 camadas de defesa do projeto.
+2. 🎥 **Segurança Prática de Agentes:** [Hacking and Securing AI Agents (Simon Willison, YouTube)](https://www.youtube.com/watch?v=1F_4b8fK2k8). O criador do Datasette e especialista em segurança de LLMs disseca o perigo do "Excessive Agency" e por que barreiras no código anfitrião são indispensáveis.
+3. 🎥 **Fundamentos de Red Teaming:** [AI Safety and Jailbreak Techniques (Computerphile, YouTube)](https://www.youtube.com/watch?v=wVzUkovGZ-c). Discussão técnica sobre como agentes podem ser manipulados para contornar restrições semânticas através de ofuscação e persuasão sintática.
+
+---
+
+### 💻 Códigos & Exercícios Práticos Bônus
+
+#### Exercício Bônus 1: Validação Estrutural com AST via SQLGlot
+Trocar a checagem por texto (regex) por **análise estrutural** com um parser de SQL (`pip install sqlglot`). Um parser entende a estrutura da query e não se engana com espaços, maiúsculas ou palavras dentro de strings. Salve como `src/agent/guardrails_ast.py`.
 
 ```python
 import sqlglot
@@ -556,4 +572,62 @@ if __name__ == "__main__":
         print(validar_com_ast(q), "|", q)
 ```
 
-Resultado esperado: as consultas 1, 2 e 5 aprovadas e as 3 e 4 bloqueadas. Compare com o `validar_query_segura`: em quais casos o parser decide melhor? E quais riscos **continuam** fora do alcance de qualquer validador de sintaxe (por exemplo, uma consulta válida que lê dados sensíveis ou custa caro)?
+**Resultado esperado:** as consultas 1, 2 e 5 aprovadas e as 3 e 4 bloqueadas.
+
+#### Exercício Bônus 2: Torneio de Red Teaming no Trio (`tests/test_red_team_tournament.py`)
+Cada integrante do trio desenvolve 2 ataques engenhosos tentando contornar os guardrails sem disparar alertas óbvios (ex: uso de literais concatenados, funções matemáticas que travam a CPU ou nomes com aliases suspeitos). Salve como `tests/test_red_team_tournament.py`.
+
+```python
+import pytest
+from src.agent.guardrails import validar_query_segura
+
+ATAQUES_ENGENHOSOS = [
+    ("SELECT char(68,69,76,69,84,69) FROM clientes", "Ofuscação ASCII"),
+    ("SELECT * FROM clientes WHERE nome = 'admin'; -- DROP TABLE pedidos", "Comentário após ponto e vírgula"),
+    ("WITH cte AS (SELECT 1) SELECT * FROM cte WHERE (SELECT count(*) FROM sqlite_master) > 0", "Injeção em subquery CTE"),
+    ("SELECT 1 FROM clientes; VACUUM;", "Comando administrativo secundário"),
+]
+
+
+@pytest.mark.parametrize("query,descricao", ATAQUES_ENGENHOSOS)
+def test_resistencia_red_team(query, descricao):
+    valida, motivo = validar_query_segura(query)
+    # Se a query for rejeitada, o guardrail venceu!
+    # Se for aceita, verifique se ao menos ela NAO executa nenhuma operacao destrutiva real.
+    print(f"\n[ATAQUE: {descricao}] Aprovada? {valida} | Motivo: {motivo}")
+```
+
+**Critério de sucesso:** execute `pytest -s tests/test_red_team_tournament.py` e comprove que nenhum ataque de escrita consegue passar para o banco.
+
+#### Exercício Bônus 3: Sanitizador e Mascaramento de PII (`src/agent/pii_masking.py`)
+Em ambientes corporativos reais, um agente analítico não deve expor informações de identificação pessoal (PII) nos logs ou nas respostas. Crie uma função de middleware que mascara e-mails e CPFs/telefones nos resultados das consultas antes de passá-los para a LLM. Salve como `src/agent/pii_masking.py`.
+
+```python
+import re
+
+
+def mascarar_email(email: str) -> str:
+    """Transforma 'marina.souza@empresa.com' em 'm***a@empresa.com'."""
+    padrao = r"^([^@]{1})([^@]+)([^@]{1})@(.+)$"
+    return re.sub(padrao, r"\1***\3@\4", email)
+
+
+def sanitizar_linhas(linhas: list[dict]) -> list[dict]:
+    """Percorre o resultado tabular e aplica anonimização em campos sensíveis conhecidos."""
+    linhas_mascaradas = []
+    for l in linhas:
+        nova_linha = dict(l)
+        for k, v in nova_linha.items():
+            if isinstance(v, str) and "@" in v and "email" in k.lower():
+                nova_linha[k] = mascarar_email(v)
+        linhas_mascaradas.append(nova_linha)
+    return linhas_mascaradas
+
+
+if __name__ == "__main__":
+    exemplo = [{"id": 1, "nome": "Marina Souza", "email": "marina.souza@empresa.com"}]
+    print("Dado mascarado:", sanitizar_linhas(exemplo))
+```
+
+**Critério de sucesso:** e-mails reais são preservados para filtros mas ofuscados visualmente, impedindo vazamento de dados sensíveis para o modelo.
+

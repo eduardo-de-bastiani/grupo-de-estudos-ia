@@ -64,6 +64,12 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 * [MCP: Build an MCP server](https://modelcontextprotocol.io/docs/develop/build-server)
 * [MCP Inspector: depuração visual de servidores](https://modelcontextprotocol.io/docs/tools/inspector)
 
+### 🌐 Playgrounds, Sandboxes & Links Externos para Codar
+* [FastMCP Official Documentation & Codelabs](https://github.com/jlowin/fastmcp) - Guia completo do criador da abstração FastMCP com padrões para ferramentas síncronas e assíncronas.
+* [Claude Desktop MCP Configuration Guide](https://modelcontextprotocol.io/quickstart/user) - Roteiro passo a passo para conectar seu servidor FastMCP local diretamente como ferramenta no Claude Desktop.
+* [Smithery.ai: Registry of MCP Servers](https://smithery.ai) - Diretório de exploração de ferramentas e servidores MCP da comunidade global.
+* [Codelab: Building your first FastMCP Server](https://github.com/modelcontextprotocol/python-sdk/tree/main/examples) - Exemplos oficiais no repositório do SDK da Anthropic.
+
 ---
 
 ## 💻 4. Bloco 2: Criação do Servidor FastMCP Multi-Tool (14:20 - 14:50)
@@ -303,8 +309,18 @@ Depois de rodar, **abra o arquivo `03_mcp_gemini_bridge.py` copiado e adicione u
 
 ## 🎁 Atividades Complementares
 
-1. 🎥 **Vídeo:** [Python + MCP: Building MCP servers with FastMCP (Microsoft Reactor, YouTube)](https://www.youtube.com/watch?v=_mUuhOwv9PY). Sessão prática de construção de servidores em Python; ao assistir, compare o uso de `@mcp.tool()` do vídeo com o seu `server_utils.py` e anote 1 recurso do FastMCP que vocês ainda não usaram.
-2. 💻 **Código Bônus:** ferramentas assíncronas para trabalho *I/O-bound* (rede, disco lento), que não bloqueiam o servidor enquanto esperam. Salve como `dia_15/server_async.py`.
+### 🎥 Vídeos Recomendados
+
+1. 🎥 **Vídeo Principal:** [Python + MCP: Building MCP servers with FastMCP (Microsoft Reactor, YouTube)](https://www.youtube.com/watch?v=_mUuhOwv9PY). Sessão prática de construção de servidores em Python; ao assistir, compare o uso de `@mcp.tool()` do vídeo com o seu `server_utils.py` e anote 1 recurso do FastMCP que vocês ainda não usaram.
+2. 🎥 **Do Zero ao Servidor:** [Build your first Model Context Protocol (MCP) server in Python (Cole Medin, YouTube)](https://www.youtube.com/watch?v=kYn_sLXZ3pI). Tutorial passo a passo demonstrando a anatomia de ferramentas e o teste local integrado a clientes de IA.
+3. 🎥 **Boas Práticas de FastMCP:** [Building Modular Tools with FastMCP (AI Engineer Summit, YouTube)](https://www.youtube.com/watch?v=kQmXtrmQ5Zg). Discussão sobre separação de responsabilidades, tipagem com Pydantic e segurança na execução local.
+
+---
+
+### 💻 Códigos & Exercícios Práticos Bônus
+
+#### Exercício Bônus 1: Ferramentas Assíncronas para Concorrência
+Ferramentas assíncronas para trabalho *I/O-bound* (rede, disco lento), que não bloqueiam o servidor enquanto esperam. Salve como `dia_15/server_async.py`.
 
 ```python
 import asyncio
@@ -336,4 +352,84 @@ if __name__ == "__main__":
     mcp.run(transport="stdio")
 ```
 
-Resultado esperado: chamar `consultar_varios` com 4 nomes retorna em cerca de **1 segundo** (e não 4), demonstrando concorrência. Adapte o `02_test_mcp_server.py` para cronometrar essa chamada.
+**Resultado esperado:** chamar `consultar_varios` com 4 nomes retorna em cerca de **1 segundo** (e não 4), demonstrando concorrência.
+
+#### Exercício Bônus 2: Servidor MCP de Profiling de Dados (`server_data_profiler.py`)
+Crie um servidor MCP especializado em inspecionar dados tabulares recebidos como texto CSV. Ele deve expor uma ferramenta para contagem de linhas e identificação de valores ausentes por coluna. Salve como `dia_15/server_data_profiler.py`.
+
+```python
+import csv
+import io
+import sys
+from typing import Annotated
+
+from mcp.server.fastmcp import FastMCP
+from pydantic import Field
+
+mcp = FastMCP("data-profiler")
+
+
+@mcp.tool()
+def auditar_csv(
+    conteudo_csv: Annotated[str, Field(description="Conteúdo textual bruto no formato CSV com cabeçalho")],
+) -> dict:
+    """Analisa um arquivo CSV em memória e retorna contagem de linhas, colunas e valores nulos por coluna."""
+    f = io.StringIO(conteudo_csv.strip())
+    leitor = csv.DictReader(f)
+    if not leitor.fieldnames:
+        return {"sucesso": False, "erro": "CSV vazio ou sem cabecalho"}
+
+    colunas = leitor.fieldnames
+    total_linhas = 0
+    nulos_por_coluna = {col: 0 for col in colunas}
+
+    for linha in leitor:
+        total_linhas += 1
+        for col in colunas:
+            val = (linha.get(col) or "").strip()
+            if val == "" or val.lower() in ("null", "none", "nan"):
+                nulos_por_coluna[col] += 1
+
+    return {
+        "sucesso": True,
+        "total_linhas": total_linhas,
+        "colunas": colunas,
+        "nulos_por_coluna": nulos_por_coluna,
+    }
+
+
+if __name__ == "__main__":
+    print("Servidor data-profiler iniciado em stdio", file=sys.stderr)
+    mcp.run(transport="stdio")
+```
+
+**Critério de sucesso:** ao enviar uma string CSV com células vazias, o servidor retorna o dicionário com a contagem exata de nulos por coluna via protocolo MCP.
+
+#### Exercício Bônus 3: Implementando MCP Prompts Reutilizáveis (`server_mcp_prompts.py`)
+Além de ferramentas, servidores FastMCP podem registrar modelos de prompts reutilizáveis através do decorador `@mcp.prompt()`. Implemente um servidor com um template padrão de auditoria de dados. Salve como `dia_15/server_mcp_prompts.py`.
+
+```python
+import sys
+
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("prompt-server")
+
+
+@mcp.prompt()
+def template_auditoria_dados(nome_tabela: str, criticidade: str = "alta") -> str:
+    """Gera o prompt estruturado de auditoria analítica para o modelo de linguagem."""
+    return f"""Você é um auditor sênior de dados. Analise a tabela '{nome_tabela}' (Criticidade: {criticidade}).
+Siga rigorosamente estas 3 etapas:
+1. Verifique a existência de chaves primárias duplicadas ou ausentes.
+2. Identifique anomalias temporais ou valores numéricos negativos em campos monetários.
+3. Elabore um relatório executivo com sugestões de correção de integridade."""
+
+
+if __name__ == "__main__":
+    print("Servidor de prompts MCP rodando via stdio", file=sys.stderr)
+    mcp.run(transport="stdio")
+```
+
+**Critério de sucesso:** o servidor responde requisições do método `prompts/list` e `prompts/get` com os argumentos preenchidos.
+

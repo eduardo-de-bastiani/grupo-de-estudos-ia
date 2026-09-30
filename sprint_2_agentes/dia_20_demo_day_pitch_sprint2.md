@@ -124,6 +124,12 @@ Dinâmica coletiva de **35 minutos cronometrados** conduzida no quadro branco da
 * **O Próximo Salto:** Na Sprint 1 dominamos a *leitura com RAG*; na Sprint 2 capacitamos os modelos para a *ação autônoma com ferramentas e MCP*. Na **Sprint 3**, entraremos no universo da **Multimodalidade & IA Generativa Aplicada** (visão computacional com imagens e diagramas técnicos, processamento de áudio/speech-to-text e soluções ponta a ponta integradas).
 * **Continuidade da Jornada:** Apresentação dos tópicos principais e calendário da próxima sprint.
 
+### 🌐 Recursos de Continuidade, Portfólio & Links para Explorar
+* [Awesome Model Context Protocol (GitHub)](https://github.com/punkpeye/awesome-mcp-servers) - Diretório aberto com centenas de servidores MCP, extensões de clientes e implementações comunitárias.
+* [Google AI Studio: Multimodal Quickstart & Vision](https://ai.google.dev/gemini-api/docs/multimodal-concepts) - Documentação oficial de preparação para a Sprint 3 (processamento conjunto de texto, imagens e áudio).
+* [Simon Willison's Weblog: What's next for LLM Tool Use and MCP](https://simonwillison.net/tags/mcp/) - Ensaios críticos e tutoriais práticos sobre a evolução de agentes autônomos na engenharia de software.
+* [LangGraph & Multi-Agent Workflows](https://langchain-ai.github.io/langgraph/) - Referência conceitual de como loops ReAct artesanais escalam para múltiplos agentes cooperativos em grafos cíclicos.
+
 ---
 
 ## 📝 9. Bloco 6: Formulário Final de Avaliação da Sprint 2 & Feedback (16:50 - 17:00)
@@ -145,8 +151,18 @@ Dinâmica coletiva de **35 minutos cronometrados** conduzida no quadro branco da
 
 ## 🎁 Atividades Complementares
 
-1. 🎥 **Vídeo:** [The Future of MCP (David Soria Parra, Anthropic, AI Engineer, YouTube)](https://www.youtube.com/watch?v=v3Fr2JR47KA). Fala de um dos criadores do protocolo sobre para onde o ecossistema está indo; anotem 3 pontos que se conectam ao que o seu trio construiu nesta sprint (servidor `stdio` local, ferramentas tipadas, segurança) e 1 que ainda parece distante da realidade de vocês.
-2. 💻 **Código Bônus:** benchmark do DataOps Agent, medindo latência total, número de turnos e tokens consumidos por pergunta. Um agente que "funciona" mas gasta 40 mil tokens para contar linhas de uma tabela tem um problema de engenharia. Salve como `tests/benchmark_agente.py`.
+### 🎥 Vídeos Recomendados
+
+1. 🎥 **Vídeo Principal:** [The Future of MCP (David Soria Parra, Anthropic, AI Engineer, YouTube)](https://www.youtube.com/watch?v=v3Fr2JR47KA). Palestra de um dos criadores do protocolo sobre a evolução do ecossistema; anotem 3 pontos que se conectam ao projeto de vocês e 1 tendência futura.
+2. 🎥 **Visão de Engenharia de Software:** [The Future of AI Agents & Software Engineering (Andrej Karpathy, YouTube)](https://www.youtube.com/watch?v=zjkBMFhNj_g). Karpathy analisa como os modelos evoluem de "autocompletes" estáticos para agentes autônomos com loops de execução, memória e interação com ferramentas.
+3. 🎥 **Evolução Arquitetural:** [From Prompt Engineering to Agent Architecture (Harrison Chase, Sequoia, YouTube)](https://www.youtube.com/watch?v=y3nBwFp06rA). O panorama completo de transição: de meros prompts zero-shot para arquiteturas completas com feedback e guardrails.
+
+---
+
+### 💻 Códigos & Exercícios Práticos Bônus
+
+#### Exercício Bônus 1: Benchmark de Latência e Eficiência de Tokens
+Medir a latência total, número de turnos e consumo de tokens por pergunta no *DataOps Agent*. Um agente de alta qualidade precisa ser rápido e econômico. Salve como `tests/benchmark_agente.py`.
 
 ```python
 import asyncio
@@ -208,4 +224,68 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-Resultado esperado: uma linha por pergunta, um resumo com média e pior caso e a identificação da pergunta mais cara. Use os números para propor **uma** otimização concreta (por exemplo, encurtar a instrução de sistema, limitar o tamanho das amostras devolvidas pelas ferramentas ou cachear o schema) e meça de novo para comprovar o ganho.
+**Resultado esperado:** uma linha por pergunta, um resumo com média e pior caso e a identificação da pergunta mais cara para otimizações futuras.
+
+#### Exercício Bônus 2: Publicação de Case Study de Portfólio (`docs/portfolio_case_study.md`)
+Transforme o repositório do seu trio em um projeto de portfólio profissional para GitHub e LinkedIn. Crie `docs/portfolio_case_study.md` preenchendo a seguinte estrutura executiva:
+
+```markdown
+# Case Study: DataOps Agent — Auditor Autônomo de Bancos de Dados com MCP
+
+## 📌 Contexto & Problema de Negócio
+- Qual a dor resolvida? (Auditoria manual repetitiva de esquemas e anomalias de dados).
+- Tecnologias: Python 3.11+, Google Gemini Flash, Model Context Protocol (MCP), SQLite, Streamlit.
+
+## 🏗️ Arquitetura Técnica
+(Insira o diagrama Mermaid gerado no Dia 16 demonstrando o fluxo Host -> FastMCP -> SQLite).
+
+## 🛡️ Engenharia de Segurança & Guardrails
+- Menor privilégio: conexão readonly e bloqueio determinístico de comandos `DROP`, `DELETE`, `UPDATE`.
+- Tratamento de jailbreaks e tolerância a erros com auto-recuperação no loop ReAct.
+
+## 📊 Métricas & Benchmarks
+- Tempo médio de resposta por consulta (em segundos).
+- Taxa de sucesso contra ataques adversariais (100% barrados).
+```
+
+**Critério de sucesso:** documento estruturado e pronto para compor o `README.md` principal do repositório individual de cada integrante do trio.
+
+#### Exercício Bônus 3: Aquecimento para a Sprint 3 — Agente Multimodal (`src/agent/warmup_sprint3_multimodal.py`)
+Na Sprint 3 entraremos no universo multimodal. Experimente enviar uma imagem (por exemplo, um print do gráfico do Streamlit salvo em disco) junto com uma instrução analítica para o `gemini-3.8-flash`. Salve como `src/agent/warmup_sprint3_multimodal.py`.
+
+```python
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+from google import genai
+from google.genai import types
+
+load_dotenv()
+client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+
+
+def auditar_grafico_multimodal(caminho_imagem: str, pergunta: str) -> str:
+    """Envia uma imagem de gráfico ou dashboard para o modelo analisar tendências visuais."""
+    img_path = Path(caminho_imagem)
+    if not img_path.exists():
+        return f"Arquivo de imagem não encontrado: {caminho_imagem}"
+
+    with open(img_path, "rb") as f:
+        bytes_imagem = f.read()
+
+    response = client.models.generate_content(
+        model="gemini-3.8-flash",
+        contents=[
+            types.Part.from_bytes(data=bytes_imagem, mime_type="image/png"),
+            f"Você é um analista visual de dados. {pergunta}",
+        ],
+    )
+    return response.text
+
+
+if __name__ == "__main__":
+    print("Módulo de aquecimento para Sprint 3 pronto para execução!")
+```
+
+**Critério de sucesso:** o script conecta ao SDK `google-genai` e demonstra a capacidade nativa do modelo de receber imagens e texto no mesmo turno de inferência.
+

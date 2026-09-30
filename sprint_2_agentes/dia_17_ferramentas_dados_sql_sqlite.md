@@ -64,6 +64,12 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 
 * [SQLite as an MCP context saver](https://dev.to/richardbaxter/sqlite-as-an-mcp-context-saver-stop-cramming-raw-api-data-into-your-llm-2oj4)
 
+### 🌐 Playgrounds, Sandboxes & Links Externos para Codar
+* [SQLZoo: Interactive SQL Tutorials & Quizzes](https://sqlzoo.net/) - Plataforma interativa no navegador para praticar `GROUP BY`, `HAVING`, `JOIN` e funções de agregação com feedback instantâneo.
+* [Spider: Text-to-SQL Benchmark (Yale University)](https://yale-lily.github.io/spider) - O mais influente benchmark acadêmico de Text-to-SQL; explore exemplos de como perguntas complexas são mapeadas para schemas relacionais.
+* [BIRD-SQL: Big Bench for Large-scale Database Grounding](https://bird-bench.github.io/) - Benchmark de Text-to-SQL focado em bases analíticas reais com sujeira e anomalias de dados.
+* [SQLite PRAGMA Statements Canonical Reference](https://www.sqlite.org/pragma.html) - Guia completo dos comandos de introspecção do catálogo SQLite.
+
 ---
 
 ## 📋 4. Bloco 2: Módulo de Ferramentas de Schema & Metadados (14:20 - 14:50)
@@ -396,8 +402,18 @@ Rode com `python -m src.agent.test_tools_llm`.
 
 ## 🎁 Atividades Complementares
 
-1. 🎥 **Vídeo:** [Building more effective AI agents (Anthropic, YouTube)](https://www.youtube.com/watch?v=uhJJgc-0iTQ). Conversa curta sobre como projetar as ferramentas e o contexto que um agente recebe; associem o que ouvirem às escolhas de hoje (schema em fases, erros instrutivos, limite de linhas) e anotem 2 decisões que o trio tomou parecidas com as do vídeo.
-2. 💻 **Código Bônus:** renderizar em tabela colorida no terminal o retorno de `executar_query_analitica`, destacando valores suspeitos. Instale com `pip install rich`. Salve como `src/tools/render_terminal.py`.
+### 🎥 Vídeos Recomendados
+
+1. 🎥 **Vídeo Principal:** [Building more effective AI agents (Anthropic, YouTube)](https://www.youtube.com/watch?v=uhJJgc-0iTQ). Conversa fundamental sobre como projetar as ferramentas e o contexto que um agente recebe; associem o que ouvirem às escolhas de hoje (schema em fases, erros instrutivos, limite de linhas) e anotem 2 decisões que o trio tomou parecidas com as do vídeo.
+2. 🎥 **Estado da Arte em Text-to-SQL:** [Text-to-SQL: Challenges, Benchmarks, and Future Directions (Stanford MLSys, YouTube)](https://www.youtube.com/watch?v=Fj2F1lA2G8E). Palestra acadêmica demonstrando por que o "Schema Linking" (conectar a intenção do usuário às tabelas exatas) é o gargalo de acurácia de modelos geradores de SQL.
+3. 🎥 **Qualidade e Profiling de Dados:** [Data Quality & Profiling Principles for Analytics (Seattle Data Guy, YouTube)](https://www.youtube.com/watch?v=zD_3M1mN2uA). Guia prático sobre métricas de integridade: unicidade, completude, validade de faixas numéricas e distribuições categóricas.
+
+---
+
+### 💻 Códigos & Exercícios Práticos Bônus
+
+#### Exercício Bônus 1: Renderização Colorida no Terminal com Rich
+Renderizar em tabela colorida no terminal o retorno de `executar_query_analitica`, destacando valores suspeitos. Instale com `pip install rich`. Salve como `src/tools/render_terminal.py`.
 
 ```python
 from rich.console import Console
@@ -437,4 +453,71 @@ if __name__ == "__main__":
     imprimir_resultado(executar_query_analitica("SELECT id, email FROM clientes WHERE email IS NULL"))
 ```
 
-Resultado esperado: duas tabelas coloridas com os pedidos negativos e os clientes sem e-mail destacados em vermelho, com a query executada exibida em cinza abaixo de cada uma.
+**Resultado esperado:** duas tabelas coloridas com os pedidos negativos e os clientes sem e-mail destacados em vermelho, com a query executada exibida em cinza abaixo de cada uma.
+
+#### Exercício Bônus 2: Ferramenta de Amostragem Aleatória Segura (`src/tools/sampling_tools.py`)
+Permitir que o agente veja exemplos reais dos dados sem trazer a tabela inteira é vital para entender formatações (ex: formato de datas, categorias textuais). Implemente uma ferramenta segura de amostragem. Salve como `src/tools/sampling_tools.py`.
+
+```python
+from src.database.init_db import conectar
+from src.tools.schema_tools import validar_tabela
+
+
+def obter_amostra_tabela(nome_tabela: str, limite: int = 3) -> dict:
+    """Retorna uma amostra aleatoria de linhas de uma tabela para a LLM entender o formato dos dados."""
+    limite = min(max(1, limite), 10)  # Teto de seguranca: entre 1 e 10 linhas
+
+    with conectar() as conn:
+        try:
+            tabela_sanitizada = validar_tabela(conn, nome_tabela)
+            # ORDER BY RANDOM() e nativo e seguro no SQLite quando o nome da tabela ja foi validado
+            cursor = conn.execute(f"SELECT * FROM {tabela_sanitizada} ORDER BY RANDOM() LIMIT ?", (limite,))
+            linhas = [dict(r) for r in cursor.fetchall()]
+            return {"sucesso": True, "tabela": tabela_sanitizada, "total_amostras": len(linhas), "linhas": linhas}
+        except ValueError as err:
+            return {"sucesso": False, "erro": str(err)}
+
+
+if __name__ == "__main__":
+    amostra = obter_amostra_tabela("clientes", limite=2)
+    print("Amostra obtida:", amostra)
+```
+
+**Critério de sucesso:** a ferramenta rejeita nomes de tabelas inexistentes com mensagens instrutivas e devolve um dicionário com linhas sorteadas e campos tipados.
+
+#### Exercício Bônus 3: Otimizador de Schema Compacto para Prompt (`src/tools/compact_schema_formatter.py`)
+Em bancos analíticos reais com dezenas de colunas, passar DDL completo desperdiça tokens preciosos. Crie uma função que formata o schema em notação ultracompacta (`tabela(col1:TIPO, col2:TIPO) -> [FK: col -> tab.col]`). Salve como `src/tools/compact_schema_formatter.py`.
+
+```python
+from src.database.init_db import conectar
+from src.tools.schema_tools import descrever_schema_tabela, listar_tabelas, obter_chaves_estrangeiras
+
+
+def gerar_schema_compacto() -> str:
+    """Gera uma representacao minima em tokens de todo o catalogo relacional."""
+    tabelas = listar_tabelas()
+    linhas_resumo = []
+
+    with conectar() as conn:
+        for t in tabelas:
+            info_schema = descrever_schema_tabela(t)
+            colunas_formatadas = [f"{c['nome']}:{c['tipo']}" for c in info_schema["colunas"]]
+            fks = obter_chaves_estrangeiras(t)
+            fks_formatadas = [f"FK({fk['coluna_origem']}->{fk['tabela_destino']}.{fk['coluna_destino']})" for fk in fks]
+
+            resumo = f"{t}(" + ", ".join(colunas_formatadas) + ")"
+            if fks_formatadas:
+                resumo += " | " + ", ".join(fks_formatadas)
+            linhas_resumo.append(resumo)
+
+    return "\n".join(linhas_resumo)
+
+
+if __name__ == "__main__":
+    schema_compacto = gerar_schema_compacto()
+    print("=== SCHEMA COMPACTO (Economia de Tokens) ===")
+    print(schema_compacto)
+```
+
+**Critério de sucesso:** o catálogo do banco é representado em uma string concisa de 3 a 5 linhas, reduzindo o custo de tokens no prompt do agente.
+

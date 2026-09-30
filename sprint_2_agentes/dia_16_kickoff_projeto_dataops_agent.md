@@ -67,6 +67,12 @@ Reunião em pé de 5 minutos onde cada estudante responde brevemente:
 
 * [O que é SQLite?](https://coddy.tech/docs/pt/sqlite/when-to-use-sqlite)
 
+### 🌐 Playgrounds, Sandboxes & Links Externos para Codar
+* [SQLime: Web-based SQLite Playground](https://sqlime.org/) - Sandbox interativo no navegador (via WebAssembly) para testar comandos DDL, triggers e consultas SQLite sem instalar nada.
+* [SQLite Online IDE](https://sqliteonline.com/) - Editor web com suporte a importação de CSVs e visualização de tabelas relacionais.
+* [Kaggle Datasets de Referência para DataOps](https://www.kaggle.com/datasets) - Explore datasets reais (como Olist Brazilian E-Commerce e Chinook Music Store) para selecionar o domínio do seu trio.
+* [SQLite Tutorial & Constraints Reference](https://www.sqlitetutorial.net/sqlite-check-constraint/) - Guia prático de restrições relacionais, chaves estrangeiras e integridade de dados.
+
 ---
 
 ## 🧭 4. Bloco 2: Alinhamento no Trio & Dicionário de Dados (14:20 - 14:40)
@@ -471,8 +477,18 @@ if __name__ == "__main__":
 
 ## 🎁 Atividades Complementares
 
-1. 🎥 **Vídeo:** [SQLite Databases With Python, curso completo (freeCodeCamp.org, YouTube)](https://www.youtube.com/watch?v=byHcYRpMgI4). Curso longo: assistam apenas os trechos sobre criação de tabelas, tipos e consultas com `WHERE`/`ORDER BY`, e comparem com o `init_db.py` do trio; anotem 2 coisas que o vídeo faz diferente de vocês (por exemplo, o uso de `cursor` versus `conexao.execute`).
-2. 💻 **Código Bônus:** gerar automaticamente um diagrama ER (em sintaxe Mermaid) a partir do schema real do banco, para colar no `docs/` do projeto ou no GitHub. Salve como `src/database/gerar_er.py`.
+### 🎥 Vídeos Recomendados
+
+1. 🎥 **Vídeo Principal:** [SQLite Databases With Python, curso completo (freeCodeCamp.org, YouTube)](https://www.youtube.com/watch?v=byHcYRpMgI4). Curso prático de referência: assistam aos trechos sobre criação de tabelas, tipos e integridade referencial, comparando com o `init_db.py` do seu trio.
+2. 🎥 **Cultura DataOps:** [What is DataOps? A Pragmatic Introduction (DataKitchen, YouTube)](https://www.youtube.com/watch?v=Fj3-xLw2g2c). Visão fundamental sobre por que testes automatizados de dados e monitoramento contínuo reduzem bugs em ambientes analíticos.
+3. 🎥 **Modelagem Relacional:** [Database Design & Normalization in Practice (Caleb Curry, YouTube)](https://www.youtube.com/watch?v=ztHopE5Wnpc). Explicação prática de chaves primárias, estrangeiras e como normalizar tabelas para evitar inconsistências em pipelines de dados.
+
+---
+
+### 💻 Códigos & Exercícios Práticos Bônus
+
+#### Exercício Bônus 1: Gerador de Diagrama ER Mermaid Automático
+Gerar automaticamente um diagrama ER (em sintaxe Mermaid) a partir do schema real do banco, para colar no `docs/` do projeto ou no GitHub. Salve como `src/database/gerar_er.py`.
 
 ```python
 from init_db import conectar
@@ -505,4 +521,79 @@ if __name__ == "__main__":
     print(gerar_mermaid())
 ```
 
-Resultado esperado: um bloco começando em `erDiagram` com as 3 tabelas e 2 relações (`clientes ||--o{ pedidos` e `produtos ||--o{ pedidos`). Cole a saída em um bloco ` ```mermaid ` no `README.md` e veja o diagrama renderizado no GitHub.
+**Resultado esperado:** um bloco começando em `erDiagram` com as tabelas e relações renderizáveis nativamente no GitHub.
+
+#### Exercício Bônus 2: Injetor Parametrizado de Anomalias (`src/database/inject_anomalies.py`)
+Para auditar a eficácia do agente nos próximos dias, crie um script que recebe parâmetros configuráveis e corrompe deliberadamente uma cópia dos dados com semente pseudo-aleatória fixa (`random.seed(42)`). Salve como `src/database/inject_anomalies.py`.
+
+```python
+import random
+from init_db import conectar
+
+
+def corromper_base(taxa_nulos: float = 0.08, taxa_negativos: float = 0.05) -> dict:
+    """Injeta anomalias controladas no banco para posterior diagnostico do DataOps Agent."""
+    random.seed(42)
+    modificacoes = {"nulos_injetados": 0, "negativos_injetados": 0}
+
+    with conectar() as conn:
+        # 1. Injetar e-mails nulos aleatorios em clientes
+        clientes = conn.execute("SELECT id FROM clientes WHERE email IS NOT NULL").fetchall()
+        for c in clientes:
+            if random.random() < taxa_nulos:
+                conn.execute("UPDATE clientes SET email = NULL WHERE id = ?", (c["id"],))
+                modificacoes["nulos_injetados"] += 1
+
+        # 2. Injetar valores totais negativos em pedidos
+        pedidos = conn.execute("SELECT id, valor_total FROM pedidos WHERE valor_total > 0").fetchall()
+        for p in pedidos:
+            if random.random() < taxa_negativos:
+                valor_invalido = -abs(p["valor_total"])
+                conn.execute("UPDATE pedidos SET valor_total = ? WHERE id = ?", (valor_invalido, p["id"]))
+                modificacoes["negativos_injetados"] += 1
+
+        conn.commit()
+
+    return modificacoes
+
+
+if __name__ == "__main__":
+    resultado = corromper_base()
+    print("Injeção concluída com sucesso:", resultado)
+```
+
+**Critério de sucesso:** o script reporta a contagem de registros alterados e as queries de verificação confirmam a presença de dados anômalos.
+
+#### Exercício Bônus 3: Testes de Integridade de Schema com Pytest (`tests/test_schema_constraints.py`)
+Crie uma suite de testes que valida formalmente se o banco foi inicializado com chaves estrangeiras ativas e colunas essenciais preenchidas. Salve como `tests/test_schema_constraints.py`.
+
+```python
+import sqlite3
+import pytest
+from src.database.init_db import conectar
+
+
+def test_foreign_keys_ativas():
+    with conectar() as conn:
+        fk_status = conn.execute("PRAGMA foreign_keys").fetchone()[0]
+        assert fk_status == 1, "PRAGMA foreign_keys deve estar ativo (1)"
+
+
+def test_tabelas_obrigatorias_existem():
+    with conectar() as conn:
+        tabelas = [row["name"] for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")]
+        for obrigatoria in ["clientes", "pedidos"]:
+            assert obrigatoria in tabelas, f"Tabela obrigatória '{obrigatoria}' não encontrada"
+
+
+def test_rejeicao_chave_estrangeira_invalida():
+    with conectar() as conn:
+        with pytest.raises(sqlite3.IntegrityError):
+            # Tentar inserir pedido com cliente inexistente (id 999999)
+            conn.execute(
+                "INSERT INTO pedidos (cliente_id, valor_total, status) VALUES (999999, 150.0, 'pendente')"
+            )
+```
+
+**Critério de sucesso:** execute `pytest tests/test_schema_constraints.py` no terminal e obtenha 3 testes aprovados (`3 passed`).
+
