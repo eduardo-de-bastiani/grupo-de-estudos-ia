@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz - Dia 22 | Áudio e Speech-to-Text Local com Whisper</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este quiz precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 22",
+  "titulo": "Áudio e Speech-to-Text Local com Whisper",
+  "chave": "quiz_dia_22",
+  "perguntas": [
+    {
+      "tipo": "multipla",
+      "enunciado": "O notebook tem CPU e 8 GB de RAM, sem GPU. Qual configuração é o ponto de partida previsto para transcrever uma amostra curta com `openai-whisper`?",
+      "opcoes": [
+        "Carregar sempre o maior modelo em CUDA e usar fp16=True.",
+        "Carregar `tiny` com `device=\"cpu\"` e transcrever com `fp16=False`, medindo o tempo local.",
+        "Usar uma API paga de transcrição para cumprir o requisito de execução local.",
+        "Enviar o áudio ao quiz.js, que executa Whisper no navegador."
+      ],
+      "correta": 1,
+      "explicacao": "tiny, CPU e fp16=False são a configuração inicial indicada para notebooks modestos; a duração deve ser medida no equipamento. CUDA exige GPU compatível, e o maior modelo aumenta recursos necessários. Uma API paga não atende ao exercício local. O motor HTML corrige questões, mas não executa Whisper ou modelos Python."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "A gravação contém uma autorização aos 8 segundos e uma negação aos 19 segundos. Qual resultado deve ser preservado para auditar a transcrição?",
+      "opcoes": [
+        "Somente uma classificação final de sentimento.",
+        "Somente o nome do arquivo, sem texto.",
+        "Somente o texto concatenado, descartando qualquer localização temporal.",
+        "Texto completo e segmentos com `start`, `end` e `text`, ligados ao arquivo de origem."
+      ],
+      "correta": 3,
+      "explicacao": "Os segmentos permitem localizar e ouvir novamente cada trecho, verificando negações e contexto. Sentimento não reproduz as evidências da fala. Nome de arquivo não fornece o conteúdo. Texto concatenado pode servir ao prompt, mas descartar segmentos elimina a rastreabilidade temporal necessária ao laboratório."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Whisper já transcreveu o áudio localmente. Qual próximo passo atende ao pipeline áudio para texto para LLM da sprint?",
+      "opcoes": [
+        "Enviar a transcrição identificada como evidência ao Gemini `gemini-3.8-flash` via API para responder à pergunta.",
+        "Afirmar que Whisper fez a interpretação de negócio apenas porque gerou texto.",
+        "Renomear o áudio para .txt e enviar o caminho como se fosse a transcrição.",
+        "Apagar os segmentos, para que o modelo não possa ser conferido."
+      ],
+      "correta": 0,
+      "explicacao": "Whisper produz uma transcrição; Gemini interpreta o texto em relação à pergunta. A segunda etapa depende de internet, chave e acesso à API mesmo quando a transcrição foi local. Reconhecimento de fala não resolve sozinho a pergunta de negócio. Renomear o arquivo não converte áudio em texto, e apagar segmentos prejudica a conferência da resposta."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Durante a preparação, o script falha porque não encontra o FFmpeg. Qual ação a dupla deve executar antes de comparar resultados de transcrição?",
+      "opcoes": [
+        "Retirar os timestamps para que a decodificação deixe de ser necessária.",
+        "Inserir uma transcrição inventada e registrar o laboratório como concluído.",
+        "Instalar ou disponibilizar o FFmpeg conforme a documentação do Whisper e confirmar que o executável é encontrado.",
+        "Trocar a chave do Gemini, pois o FFmpeg é uma credencial da API."
+      ],
+      "correta": 2,
+      "explicacao": "No fluxo de referência com openai-whisper, o FFmpeg participa da leitura de áudio e precisa estar disponível. Timestamps não substituem a decodificação. Inventar texto mascara a falha e invalida o experimento. FFmpeg é uma dependência local, e mudar uma credencial Gemini não resolve sua ausência."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Depois de instalar dependências e baixar os pesos, a transcrição Whisper local pode funcionar sem internet; a inferência Gemini via API continua dependendo de conexão.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. Whisper usa pesos no equipamento e executa reconhecimento local. Instalação e primeiro download dependem de acesso prévio. O cliente Gemini faz uma requisição ao provedor, portanto a disponibilidade offline do áudio ou do quiz não torna o pipeline completo offline."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Uma transcrição fluente garante que nomes próprios, números e negações foram reconhecidos corretamente.",
+      "resposta": false,
+      "explicacao": "Falso. Fluência não é medida de fidelidade ao áudio. A dupla deve ouvir segmentos críticos e comparar com uma referência anotada, principalmente números, nomes e negações. Uma resposta posterior pode repetir um erro da transcrição mesmo quando o texto parece natural."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Medir a duração de um áudio e o tempo de transcrição permite registrar a razão tempo de processamento dividido pela duração da amostra, mantendo separados os dois valores.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. A razão ajuda a descrever o desempenho observado no notebook e na amostra utilizada. Ela não mede precisão da transcrição nem permite prometer o mesmo tempo em outro equipamento. Registrar ambos os tempos evita confundir duração do conteúdo com duração do processamento."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Complete o carregamento do modelo local: `whisper._______(\"tiny\", device=\"cpu\")`.",
+      "respostas": [
+        "load_model"
+      ],
+      "explicacao": "load_model carrega o modelo Whisper escolhido. Os pesos precisam estar disponíveis; no primeiro uso, pode ocorrer download. O nome tiny é o ponto de partida do laboratório, e o tempo deve ser medido sem presumir desempenho idêntico entre notebooks."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "No resultado de transcrição, a coleção `result[\"_______\"]` contém trechos com início, fim e texto.",
+      "respostas": [
+        "segments"
+      ],
+      "explicacao": "segments preserva a localização temporal dos trechos. start e end são referências temporais, e text contém a fala reconhecida. Guardar somente result[\"text\"] pode facilitar um prompt, mas não mantém os detalhes temporais da auditoria."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Complete o parâmetro recomendado na CPU: `model.transcribe(path, _______=False)`.",
+      "respostas": [
+        "fp16"
+      ],
+      "explicacao": "fp16=False evita solicitar processamento em ponto flutuante de 16 bits nesse fluxo CPU. Isso não corrige áudio ruim nem garante precisão; é uma configuração de execução. A qualidade continua sendo avaliada por comparação com o áudio e a referência."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe os componentes do pipeline de fundamentos às suas funções.",
+      "pares": [
+        [
+          "FFmpeg no fluxo openai-whisper",
+          "Disponibilizar a leitura e conversão do arquivo de áudio"
+        ],
+        [
+          "Whisper local",
+          "Converter fala em texto e segmentos temporais"
+        ],
+        [
+          "Gemini via API",
+          "Interpretar a transcrição em relação à pergunta"
+        ],
+        [
+          "Referência conferida pela dupla",
+          "Permitir comparar a fala original com a transcrição"
+        ]
+      ],
+      "explicacao": "As camadas resolvem problemas diferentes: decodificar, reconhecer fala, interpretar e avaliar. Uma biblioteca de leitura não entende a pergunta de negócio. Gemini não substitui a referência de áudio, e uma transcrição não comprova por si só a fidelidade do reconhecimento."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada informação ao uso adequado no registro do experimento de áudio.",
+      "pares": [
+        [
+          "start e end do segmento",
+          "Localizar no player o trecho que sustenta uma afirmação"
+        ],
+        [
+          "Tempo de processamento",
+          "Descrever a latência medida no notebook"
+        ],
+        [
+          "Texto reconhecido",
+          "Fornecer evidência textual à etapa de interpretação"
+        ],
+        [
+          "Nome e identificador da amostra",
+          "Relacionar resultados ao áudio correto"
+        ]
+      ],
+      "explicacao": "Os timestamps apontam trechos; latência descreve custo de tempo; texto alimenta a interpretação; identificação impede misturar amostras. Tempo baixo não garante texto fiel. Um identificador sem segmentos não permite localizar a frase crítica, e o texto sem origem perde rastreabilidade."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

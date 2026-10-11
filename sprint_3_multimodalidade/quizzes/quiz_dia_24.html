@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz - Dia 24 | Kickoff do OmniAssistant, Arquitetura e Setup Git</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este quiz precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 24",
+  "titulo": "Kickoff do OmniAssistant, Arquitetura e Setup Git",
+  "chave": "quiz_dia_24",
+  "perguntas": [
+    {
+      "tipo": "multipla",
+      "enunciado": "No kickoff, o trio precisa escolher um escopo que possa demonstrar até o Dia 28. Qual proposta atende ao mínimo verificável do OmniAssistant?",
+      "opcoes": [
+        "Uma pergunta de negócio delimitada que cruza uma imagem, um áudio curto e uma ferramenta local, com resposta fundamentada e uma falha controlada.",
+        "Suportar qualquer documento e qualquer áudio, deixando a pergunta de negócio para depois da demo.",
+        "Criar apenas um layout de chat, sem executar ingestão ou ferramentas.",
+        "Desenvolver um servidor público de treinamento de modelos antes de testar uma amostra."
+      ],
+      "correta": 0,
+      "explicacao": "O caso delimitado fornece entradas concretas e um critério de sucesso conferível; a falha controlada mostra limites observados. Suportar qualquer entrada torna o escopo indefinido. Um layout sem fluxo de evidências não demonstra o produto mínimo. Treinar modelos ou construir infraestrutura pública acrescenta trabalho que não resolve o objetivo do kickoff."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "O trio colocou configuração, transcrição, visão, SQL e UI em uma única função de 500 linhas. Qual divisão segue a arquitetura de referência?",
+      "opcoes": [
+        "Separar arquivos por integrante, duplicando os contratos entre eles.",
+        "Mover tudo para app.py e importar Streamlit em todos os módulos.",
+        "Manter contratos e configuração em core; visão, áudio e ferramentas em módulos próprios; app.py apresenta o fluxo.",
+        "Criar um módulo novo para cada linha, sem definir as entradas ou saídas."
+      ],
+      "correta": 2,
+      "explicacao": "A separação por responsabilidade permite integrar módulos por contratos compartilhados e verificar cada etapa. Duplicar contratos por integrante cria incompatibilidades. Acoplar todas as camadas à UI dificulta testes e reutilização. Muitos arquivos sem interfaces claras não resolvem o problema de responsabilidades misturadas."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "O smoke test funcionou usando uma chave em .env. Antes de sincronizar o repositório do trio, qual preparação é necessária?",
+      "opcoes": [
+        "Copiar a chave para README.md para que todos consigam executar.",
+        "Adicionar .venv e todos os caches para evitar instalação nos outros notebooks.",
+        "Colocar a chave em um comentário Python, porque comentários não são executados.",
+        "Excluir .env, .venv e caches do Git e fornecer .env.example com nomes de variáveis e valores fictícios."
+      ],
+      "correta": 3,
+      "explicacao": "A documentação deve explicar configuração sem divulgar credenciais. .gitignore exclui os arquivos locais previstos, e .env.example descreve as variáveis sem seus valores reais. README e comentários versionados expõem segredos da mesma forma que código executável. Versionar .venv e caches não substitui uma lista de dependências reproduzível."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual smoke test oferece evidência útil no Dia 24 sem antecipar toda a implementação dos Dias 25 a 27?",
+      "opcoes": [
+        "Apenas verificar se o GitHub mostra o nome do repositório.",
+        "Validar configuração e contratos e executar uma chamada mínima ao modelo exigido, registrando sucesso ou bloqueio sem segredos.",
+        "Exigir que a interface final esteja pronta antes de qualquer módulo existir.",
+        "Imprimir “sucesso” sem executar nenhuma verificação."
+      ],
+      "correta": 1,
+      "explicacao": "O smoke test verifica premissas básicas de execução e conexão, deixando claro o que funcionou e o que foi bloqueado. A página do repositório comprova sua existência, mas não a configuração. A UI final pertence à integração posterior. Uma mensagem fixa não fornece evidência de que dependências, contratos ou acesso ao modelo funcionam."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "O pipeline deve distinguir os módulos locais de áudio e SQLite da inferência de visão feita pela API Gemini.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. Essa distinção explica dependências de internet, privacidade das amostras e modos de falha. Whisper e SQLite executam no notebook após preparação. Gemini exige envio à API, chave e acesso ao modelo. A arquitetura deve prever indisponibilidade desse serviço sem declarar que toda inferência é offline."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Os scripts dos Dias 21 a 23 já precisam ter criado a estrutura final do OmniAssistant, pois os cinco trios começaram a trabalhar no Dia 21.",
+      "resposta": false,
+      "explicacao": "Falso. Os primeiros três dias são fundamentos em duplas e geram seus próprios scripts de estudo. Os cinco trios são formados oficialmente ao fim do Dia 23, e a estrutura do produto começa no kickoff do Dia 24. Os conhecimentos anteriores alimentam as decisões, mas não tornam o projeto final um pré-requisito."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Uma chamada mínima bem-sucedida no smoke test demonstra que todos os casos multimodais e todos os guardrails do produto já foram validados.",
+      "resposta": false,
+      "explicacao": "Falso. O smoke test verifica condições básicas de execução, não a cobertura completa do produto. Ele deve informar exatamente a amostra e o caminho testados. Integração de ingestão, ferramentas, falhas e avaliação continua nos próximos encontros; presumir cobertura completa ocultaria riscos ainda não exercitados."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Na arquitetura de referência, `src/core/_______.py` concentra os modelos Pydantic compartilhados entre as camadas.",
+      "respostas": [
+        "contracts"
+      ],
+      "explicacao": "contracts.py define as estruturas que os módulos combinam e validam. Um contrato compartilhado reduz divergências entre áudio, visão e orquestração. Não deve conter chave real nem substituir a lógica específica de cada processador."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "O arquivo _______ deve conter regras para excluir .env e .venv da sincronização Git.",
+      "respostas": [
+        ".gitignore",
+        "gitignore"
+      ],
+      "explicacao": ".gitignore descreve arquivos locais que não devem entrar no versionamento. Ele deve ser preparado antes de adicionar esses arquivos. Não apaga segredos já registrados em histórico; o teste do dia deve conferir o que está sendo incluído no commit."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Complete a carga das variáveis do .env local: `from dotenv import _______`.",
+      "respostas": [
+        "load_dotenv"
+      ],
+      "explicacao": "load_dotenv carrega variáveis do arquivo local para o ambiente, e os.environ permite acessá-las na configuração. A chave permanece fora do código versionado. Carregar o arquivo não comprova que a conta tem acesso ou cota; isso é conferido pelo smoke test."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada módulo da arquitetura à sua responsabilidade principal.",
+      "pares": [
+        [
+          "src/vision/processor.py",
+          "Extrair evidências estruturadas de uma imagem validada"
+        ],
+        [
+          "src/audio/processor.py",
+          "Produzir transcrição local e preservar segmentos"
+        ],
+        [
+          "src/core/agent.py",
+          "Coordenar solicitações de ferramentas com limites"
+        ],
+        [
+          "app.py",
+          "Apresentar entradas, resposta e rastreabilidade em Streamlit"
+        ]
+      ],
+      "explicacao": "As responsabilidades permitem que o fluxo seja integrado sem duplicar lógica de processamento na interface. Visão não executa SQL por conta própria, áudio não decide ferramentas, e app.py apresenta o comportamento sem assumir todas as tarefas dos módulos. Contratos compartilhados conectam as etapas."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada etapa da Semana 2 ao incremento previsto no README da sprint.",
+      "pares": [
+        [
+          "Dia 24",
+          "Escopo, arquitetura modular e smoke test"
+        ],
+        [
+          "Dia 25",
+          "Ingestão de imagem e áudio com contratos"
+        ],
+        [
+          "Dia 26",
+          "Orquestração de ferramentas locais"
+        ],
+        [
+          "Dia 27",
+          "Interface, telemetria e ensaio do pitch"
+        ]
+      ],
+      "explicacao": "A ordem organiza dependências: a arquitetura define interfaces, a ingestão produz evidências, as ferramentas permitem agir sobre elas e a UI torna o fluxo demonstrável. O Dia 28 apresenta o produto preparado e encerra o programa, em vez de abrir um novo ciclo de implementação."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

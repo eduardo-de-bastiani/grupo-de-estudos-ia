@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atividade - Dia 28 | Final Demo Day e Retrospectiva Geral do Programa</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Esta atividade precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 28",
+  "titulo": "Final Demo Day e Retrospectiva Geral do Programa",
+  "chave": "atividade_dia_28",
+  "rotulo": "Atividade",
+  "perguntas": [
+    {
+      "tipo": "bug",
+      "enunciado": "**Contingência identificada.** A API está indisponível e o trio apresenta uma gravação anterior com seu trace. Qual linha identifica esse resultado de forma incorreta?",
+      "codigo": [
+        "demonstracao = {\"api_disponivel\": False, \"origem_resultado\": \"gravacao anterior\"}",
+        "rotulo = \"Inferência ao vivo\" if demonstracao[\"api_disponivel\"] else \"Inferência ao vivo\"",
+        "print(rotulo, demonstracao[\"origem_resultado\"])"
+      ],
+      "bug": [
+        1
+      ],
+      "explicacao": "A linha 2 deve usar `else \"Gravação anterior; API indisponível\"`. O rótulo precisa distinguir a origem do resultado apresentado. A contingência é válida quando o trio mostra o bloqueio real, identifica o material anterior e confere evidência e trace. Uma execução local de validação pode ser demonstrada mesmo quando a inferência remota está bloqueada."
+    },
+    {
+      "tipo": "bug",
+      "enunciado": "**Horas descritas e nominais.** O programa declara noventa horas nominais; os encontros descritos totalizam trinta, trinta e vinte e quatro horas. Qual linha informa incorretamente o total dos encontros?",
+      "codigo": [
+        "horas_por_sprint = [30, 30, 24]",
+        "horas_descritas = sum(horas_por_sprint)",
+        "horas_nominais = 90",
+        "registro = f\"Encontros descritos: {horas_nominais} horas; programa nominal: {horas_nominais} horas.\"",
+        "print(registro)"
+      ],
+      "bug": [
+        3
+      ],
+      "explicacao": "A linha 4 deve usar `horas_descritas` na primeira interpolação. O registro correto informa 84 horas de encontros descritos e 90 horas nominais do programa. A retrospectiva de 35 minutos registra essa diferença documental sem acrescentar encontros ou alterar os 180 minutos do Demo Day. A reflexão cobre explicitamente as três sprints."
+    },
+    {
+      "tipo": "sandbox",
+      "enunciado": "**Consolidar o contrato de leitura.** Escreva uma consulta SELECT **aceita** pelo guardrail auxiliar herdado da Sprint 2 para conferir o catálogo na revisão da demo. Use um único comando, sem comentários nem escrita. O resultado deste sandbox é validação de texto; a demonstração do produto precisa usar o trace e o resultado da ferramenta local real.",
+      "validador": "guardrail_sql",
+      "esperado": "aceito",
+      "placeholder": "SELECT codigo, nome, preco FROM itens WHERE codigo = 'A101';",
+      "linhas": 6,
+      "explicacao": "A consulta de exemplo é uma leitura aceita pelo filtro lexical. Esse sandbox auxiliar já herdado da Sprint 2 não executa Python, API ou banco. O projeto real consulta com código validado, SQL fixo parametrizado e conexão somente leitura. Na demo, argumentos, resultado e origem precisam estar visíveis; a aceitação do filtro não prova que a consulta foi executada nem autoriza acesso irrestrito a dados."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "**Quinze minutos de apresentação.** Ordene o roteiro interno de cada trio no Final Demo Day.",
+      "itens": [
+        "Apresentar problema de negócio e resultado esperado: três minutos.",
+        "Explicar arquitetura e fronteiras de dados, ferramentas e API: dois minutos.",
+        "Demonstrar imagem, áudio, pergunta, ferramenta e resposta com trace: cinco minutos.",
+        "Mostrar avaliação, uma falha controlada e limitações observadas: três minutos.",
+        "Responder às perguntas da banca e encerrar no limite: dois minutos."
+      ],
+      "explicacao": "A sequência totaliza quinze minutos, incluindo perguntas e troca de tela. Os três integrantes participam e apresentam evidências do fluxo completo. Depois das cinco demos, a votação popular segue seu critério próprio; quiz e atividade consolidam o aprendizado, e a retrospectiva de 35 minutos retoma as três sprints e registra ações de continuidade."
+    },
+    {
+      "tipo": "classificar",
+      "enunciado": "**Retrospectiva das três sprints.** Relacione cada aprendizado à sprint em que foi desenvolvido como foco principal.",
+      "categorias": [
+        "Sprint 1: RAG e AskData",
+        "Sprint 2: Agentes e DataOps Agent",
+        "Sprint 3: Multimodalidade e OmniAssistant"
+      ],
+      "itens": [
+        [
+          "Embeddings, ChromaDB e recuperação de contexto para AskData.",
+          0
+        ],
+        [
+          "Prompt grounding e citação de fontes recuperadas.",
+          0
+        ],
+        [
+          "Structured Outputs e contratos de saída.",
+          1
+        ],
+        [
+          "Function Calling, loops ReAct e servidores MCP.",
+          1
+        ],
+        [
+          "Ferramentas do DataOps Agent com guardrails determinísticos.",
+          1
+        ],
+        [
+          "Visão Gemini e OCR com conferência nos pixels.",
+          2
+        ],
+        [
+          "Whisper local, timestamps e revisão da fala original.",
+          2
+        ],
+        [
+          "OmniAssistant com evidências multimodais, avaliação e interface rastreável.",
+          2
+        ]
+      ],
+      "explicacao": "A retrospectiva conecta AskData, DataOps Agent e OmniAssistant: recuperar evidências, executar ações com contratos e combinar modalidades. Cada trio registra exemplos observados para manter, mudar e experimentar, além de uma ação com responsável e data. O encerramento retoma o programa de 90 horas nominais e reconhece as 84 horas efetivamente descritas sem modificar o calendário."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

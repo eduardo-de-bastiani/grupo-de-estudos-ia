@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atividade - Dia 23 | Avaliação de LLMs e Formação dos Novos Trios</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Esta atividade precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 23",
+  "titulo": "Avaliação de LLMs e Formação dos Novos Trios",
+  "chave": "atividade_dia_23",
+  "rotulo": "Atividade",
+  "perguntas": [
+    {
+      "tipo": "bug",
+      "enunciado": "**Denominador da groundedness.** Há duas afirmações na resposta e só c1 é sustentada pela referência. Qual linha transforma a groundedness esperada de 0,5 em 1,0?",
+      "codigo": [
+        "afirmacoes = {\"c1\", \"c2\"}",
+        "suportadas = {\"c1\"}",
+        "verdadeiras = {\"c1\", \"c2\"}",
+        "metricas = {",
+        "    \"groundedness\": len(afirmacoes & suportadas) / len(suportadas),",
+        "    \"precisao\": len(afirmacoes & verdadeiras) / len(afirmacoes),",
+        "}",
+        "print(metricas)"
+      ],
+      "bug": [
+        4
+      ],
+      "explicacao": "A linha 5 deve dividir por `len(afirmacoes)`, como em `dia_23/metricas.py`. O numerador conta afirmações da resposta sustentadas pela referência; o denominador conta todas as afirmações da resposta. O exemplo correto produz groundedness 0,5 e precisão 1,0. O scaffold completo trata resposta sem afirmações antes da divisão, usando zero como convenção do exercício."
+    },
+    {
+      "tipo": "bug",
+      "enunciado": "**Referência e verdade são distintas.** O estoque de três unidades foi verificado no catálogo, mas não aparece na imagem. Qual linha envia a fonte errada ao terceiro argumento de `julgar`?",
+      "codigo": [
+        "from juiz import julgar",
+        "referencia = \"A imagem mostra A101 a R$25. Não informa estoque.\"",
+        "verdade = \"Catálogo conferido: A101 custa R$25 e há 3 unidades.\"",
+        "resposta = \"A101 custa R$25 e há 3 unidades.\"",
+        "nota = julgar(referencia, resposta, referencia)",
+        "print(nota.model_dump_json(indent=2))"
+      ],
+      "bug": [
+        4
+      ],
+      "explicacao": "A linha 5 deve chamar `julgar(referencia, resposta, verdade)`. Repetir a referência como verdade elimina a informação externa verificada que permite julgar a precisão. A afirmação de estoque é verdadeira segundo o catálogo e não é sustentada pela imagem recebida; groundedness e precisão podem ter valores diferentes. O juiz recebe textos, aplica a rubrica e precisa ser confrontado com a anotação humana."
+    },
+    {
+      "tipo": "sandbox",
+      "enunciado": "**Cadastro do avaliador humano.** Prepare um perfil **aceito** para quem anotará as afirmações: `nome` não vazio, `idade` inteira de 0 a 120, `habilidades` com ao menos um texto e `status` igual a `ativo`, `inativo` ou `pendente`. Este é o modelo auxiliar PerfilUsuario da Sprint 2; não envie notas de groundedness ou precisão como se este sandbox validasse `Julgamento`.",
+      "validador": "perfil_usuario",
+      "esperado": "aceito",
+      "placeholder": "{\"nome\":\"Carla\",\"idade\":23,\"habilidades\":[\"anotação de afirmações\"],\"status\":\"ativo\"}",
+      "linhas": 6,
+      "explicacao": "O JSON do avaliador é validado localmente pelo modelo auxiliar já herdado da Sprint 2. Esse sandbox não calcula métricas, executa Python, consulta API ou acessa banco. No laboratório, `Julgamento` possui groundedness, precisao, justificativa e trechos_suporte; suas notas exigem uma rubrica e conferência das fontes, além de validação estrutural."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "**Avaliar antes de formar os novos trios.** Ordene o procedimento da dupla para comparar fórmulas e LLM-as-a-Judge.",
+      "itens": [
+        "Separar a resposta em afirmações e ler referência e verdade de avaliação.",
+        "Anotar quais afirmações são sustentadas e quais são verdadeiras.",
+        "Calcular groundedness e precisão sobre todas as afirmações da resposta.",
+        "Executar o juiz com a mesma referência, resposta, verdade e rubrica explícita.",
+        "Revisar divergências, registrar limitações e compartilhar aprendizados para a formação dos trios."
+      ],
+      "explicacao": "A comparação requer os mesmos dados e critérios. As fórmulas são determinísticas depois que os conjuntos foram anotados, mas definir as anotações exige julgamento. O LLM-as-a-Judge pode divergir e não deve ser tratado como fonte de verdade. A formação oficial dos cinco trios acontece no fim do Dia 23, após os fundamentos em duplas."
+    },
+    {
+      "tipo": "classificar",
+      "enunciado": "**Qual avaliação sustenta a conclusão?** Classifique cada procedimento.",
+      "categorias": [
+        "Groundedness determinística",
+        "Precisão determinística",
+        "LLM-as-a-Judge"
+      ],
+      "itens": [
+        [
+          "Dividir afirmações sustentadas pela referência pelo total de afirmações.",
+          0
+        ],
+        [
+          "Dividir afirmações corretas segundo a verdade verificada pelo total.",
+          1
+        ],
+        [
+          "Pedir ao Gemini notas e justificativas a partir de uma rubrica.",
+          2
+        ],
+        [
+          "Computar 1/2 porque só o preço aparece na imagem.",
+          0
+        ],
+        [
+          "Computar 2/2 porque preço e estoque foram verificados no catálogo.",
+          1
+        ],
+        [
+          "Confrontar a nota sugerida por um modelo com a anotação humana.",
+          2
+        ]
+      ],
+      "explicacao": "Groundedness mede suporte na referência recebida; precisão mede correção segundo a verdade explicitamente fornecida. O LLM-as-a-Judge aplica critérios em linguagem natural e pode produzir julgamentos incorretos mesmo com saída válida e temperatura zero. Esses procedimentos avaliam respostas, não classificam a capacidade de colegas."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

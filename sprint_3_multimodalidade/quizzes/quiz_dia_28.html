@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz - Dia 28 | Final Demo Day e Retrospectiva Geral do Programa</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este quiz precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 28",
+  "titulo": "Final Demo Day e Retrospectiva Geral do Programa",
+  "chave": "quiz_dia_28",
+  "perguntas": [
+    {
+      "tipo": "multipla",
+      "enunciado": "Na demo do OmniAssistant, a resposta afirma que um pedido está liberado. Qual conjunto permite à banca conferir essa conclusão?",
+      "opcoes": [
+        "Somente uma resposta fluente, sem entradas nem resultados intermediários.",
+        "Somente uma captura do repositório, sem executar o caso.",
+        "Amostras autorizadas, evidências de imagem e áudio com origem, argumentos e resultado da ferramenta e regra usada na conclusão.",
+        "Somente a quantidade de tokens, tratada como prova de correção."
+      ],
+      "correta": 2,
+      "explicacao": "A banca precisa relacionar afirmação, fonte e execução local. A origem dos trechos e a regra de negócio tornam a conclusão verificável. Fluência não mostra grounding; existência do repositório não demonstra execução; tokens são uso da API e não uma métrica de correção. O fluxo da Sprint 3 exige essa rastreabilidade multimodal."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "O trio apresenta uma avaliação da Sprint 3. Qual evidência oferece base mais adequada para afirmar que a qualidade melhorou?",
+      "opcoes": [
+        "Comparação das versões nos mesmos casos e referências, com resultados de correção e groundedness, justificativas e falhas registradas.",
+        "O novo prompt contém mais vezes a palavra “correto”.",
+        "A resposta final tem mais linhas que a versão anterior.",
+        "Uma regex encontrou “fonte” em todas as respostas e foi chamada de juiz semântico."
+      ],
+      "correta": 0,
+      "explicacao": "Casos e referências constantes permitem comparar o comportamento observado e conferir julgamentos. Frequência de uma palavra e extensão do texto não medem qualidade factual. A regex é uma proxy de padrão textual e precisa ser identificada assim. Um LLM-as-a-Judge deve receber a referência e a rubrica, e sua nota não substitui a conferência das justificativas."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Na demo da Sprint 3, a nota fiscal da imagem registra 130 reais, e a mensagem de voz menciona 180 reais para a mesma despesa. Qual resposta é mais adequada?",
+      "opcoes": [
+        "Escolher o maior valor, pois é sempre mais seguro financeiramente.",
+        "Fazer a média e apresentar 155 reais como dado confirmado.",
+        "Descartar a voz silenciosamente porque Whisper executa localmente.",
+        "Mostrar os dois valores e suas origens, explicar o conflito e solicitar confirmação ou aplicar uma regra de prioridade documentada."
+      ],
+      "correta": 3,
+      "explicacao": "A multimodalidade não elimina divergências entre fontes. O sistema precisa preservar o conflito e usar uma regra explícita quando existir. Maior valor e média são decisões sem justificativa no caso. Execução local não define a autoridade da voz; descartar uma evidência silenciosamente impede conferir a decisão."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Qual organização corresponde ao Final Demo Day previsto no calendário da Sprint 3?",
+      "opcoes": [
+        "Sete duplas apresentam por quinze minutos e a retrospectiva cobre apenas a última semana.",
+        "Cinco trios apresentam por quinze minutos, totalizando 75 minutos; depois há retrospectiva de 35 minutos sobre as três sprints.",
+        "Cinco trios apresentam por trinta minutos e o quiz substitui o intervalo.",
+        "O encontro regular mantém dois laboratórios de implementação antes dos pitches."
+      ],
+      "correta": 1,
+      "explicacao": "O Dia 28 tem cronograma exclusivo: cinco apresentações de quinze minutos e retrospectiva geral de 35 minutos, com os demais blocos previstos. Sete duplas pertencem à organização dos fundamentos, não à demo final. Trinta minutos por trio excede o bloco de apresentações. Os laboratórios regulares não são adicionados ao encerramento."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Na Sprint 3, a configuração inicial de Whisper em notebook sem GPU usa tiny na CPU e fp16=False; a visão com gemini-3.8-flash continua sendo inferência via API.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. Essa separação permite explicar execução e dependências da demo. Os pesos e pacotes do Whisper precisam ser preparados previamente; Gemini precisa de conexão, credencial e acesso ao modelo. A disponibilidade offline do quiz não transforma a inferência remota em execução local."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "A retrospectiva deve registrar tanto as 90 horas nominalmente declaradas no programa quanto as 84 horas dos encontros descritos, sem criar encontros extras para apagar a diferença.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. Os materiais descrevem 30 horas na Sprint 1, 30 na Sprint 2 e 24 na Sprint 3, totalizando 84. O README do programa declara 90 horas nominais. Registrar a diferença preserva a transparência do encerramento e não altera os oito encontros nem o cronograma de 180 minutos da Sprint 3."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Quando a API falha durante o caso controlado da demo, uma resposta inventada deve aparecer como sucesso completo para manter a apresentação fluida.",
+      "resposta": false,
+      "explicacao": "Falso. A falha controlada demonstra como o produto informa limites e evita afirmações sem evidência. A UI deve mostrar etapa e status, conservar evidências parciais válidas e declarar insuficiência quando necessário. Apresentar invenção como sucesso prejudica a avaliação e a confiança no caso de negócio."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "No chat do OmniAssistant, `st._______` mantém mensagens e resultados associados à amostra durante os reruns da sessão.",
+      "respostas": [
+        "session_state"
+      ],
+      "explicacao": "session_state dá continuidade à interação na sessão Streamlit. Ele deve ser inicializado sem sobrescrever o histórico em toda execução. O vínculo com a amostra evita mostrar uma resposta anterior como se ela pertencesse a um novo upload; o estado da sessão não é garantia de persistência permanente."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Na entrada visual do SDK, `types.Part._______` representa bytes da imagem acompanhados do MIME validado.",
+      "respostas": [
+        "from_bytes"
+      ],
+      "explicacao": "from_bytes cria uma parte de conteúdo binário para a requisição multimodal. A imagem precisa ser validada e o MIME deve corresponder ao formato real. Um caminho local escrito no prompt não disponibiliza por si só os bytes ao serviço."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Na ferramenta SQLite, os valores de entrada devem ser enviados como _______ separados da consulta SQL fixa.",
+      "respostas": [
+        "parâmetros",
+        "parametros"
+      ],
+      "explicacao": "Parâmetros separam valores da estrutura do comando. No exemplo com sqlite3, a consulta usa ? e recebe os valores em uma sequência. A aplicação também valida argumentos e restringe as ferramentas permitidas. Parametrização não autoriza comandos arbitrários nem limita o número de iterações do agente."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada camada demonstrada na Sprint 3 à sua contribuição no OmniAssistant.",
+      "pares": [
+        [
+          "Visão Gemini",
+          "Extrair evidências da imagem por uma chamada à API"
+        ],
+        [
+          "Áudio Whisper",
+          "Transcrever localmente e preservar segmentos temporais"
+        ],
+        [
+          "Agente e ferramentas",
+          "Executar ações locais permitidas em um loop com limites"
+        ],
+        [
+          "Streamlit e telemetria",
+          "Apresentar interação, estado, evidências e rastro de execução"
+        ]
+      ],
+      "explicacao": "As camadas integram fontes e execução com contratos e origem. O modelo solicita ações, mas o runtime valida e executa. A interface torna o resultado conferível sem substituir os processadores. Mostrar apenas uma camada não comprova o caminho multimodal completo previsto no produto."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada comportamento do produto da Sprint 3 ao critério de validação adequado.",
+      "pares": [
+        [
+          "Número extraído de recibo",
+          "Conferir o valor com a imagem de referência"
+        ],
+        [
+          "Frase atribuída a uma gravação",
+          "Ouvir o segmento temporal correspondente"
+        ],
+        [
+          "Consulta local usada na resposta",
+          "Conferir argumentos e resultado registrados da ferramenta"
+        ],
+        [
+          "Conclusão sem dado suficiente",
+          "Verificar se o sistema explicita a limitação e evita inventar"
+        ]
+      ],
+      "explicacao": "Cada critério usa a fonte ou o rastro pertinente. Um JSON válido não garante um número correto; uma frase fluente pode omitir uma negação; uma chamada solicitada não comprova execução. A avaliação também precisa premiar a abstenção adequada quando a evidência não sustenta uma conclusão."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Retomando a Sprint 1 e o AskData: a pergunta pede uma regra que não apareceu nos trechos recuperados pelo RAG. Qual resposta mantém prompt grounding?",
+      "opcoes": [
+        "Inventar a regra e citar o nome de um arquivo qualquer.",
+        "Assumir que a regra é igual à de outra organização conhecida.",
+        "Tratar a maior similaridade de embeddings como prova de que a regra foi encontrada.",
+        "Declarar que os trechos recuperados não sustentam a regra e pedir ou buscar uma fonte relevante antes de afirmá-la."
+      ],
+      "correta": 3,
+      "explicacao": "RAG fornece contexto recuperado para fundamentar a resposta. Quando o trecho não contém a regra, o sistema deve reconhecer a insuficiência. Citação inventada e analogia com outra organização não servem como fonte. Similaridade ajuda a selecionar candidatos, mas não prova que a informação necessária esteja presente ou correta."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Na retrospectiva da Sprint 1, o trio lembra que embeddings foram armazenados no ChromaDB. Qual afirmação sobre esse índice é correta?",
+      "opcoes": [
+        "Qualquer trecho com alta similaridade passa a ser verdade, mesmo sem conferir o conteúdo.",
+        "Embeddings ajudam a recuperar trechos candidatos; texto e metadados de origem devem ser mantidos para conferir e citar o contexto.",
+        "Um vetor dispensa o documento original e a identificação de sua fonte em qualquer avaliação.",
+        "A busca vetorial executa automaticamente ferramentas Python e consultas SQLite."
+      ],
+      "correta": 1,
+      "explicacao": "Embeddings apoiam busca por similaridade, e o texto recuperado com origem fornece contexto verificável. Similaridade não certifica verdade nem relevância suficiente. Apagar texto e metadados prejudica citação e auditoria. Executar ferramentas pertence à orquestração implementada na aplicação, não é efeito automático de uma busca no ChromaDB."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Retomando Structured Outputs da Sprint 2: uma resposta segue o schema, mas afirma um status de pedido inexistente na referência. Qual conclusão é correta?",
+      "opcoes": [
+        "O formato passou no contrato, mas a correção factual falhou e exige avaliação separada.",
+        "O schema transforma o status inventado em dado verdadeiro.",
+        "Toda resposta JSON dispensa groundedness e testes de referência.",
+        "Remover o schema resolve automaticamente a invenção."
+      ],
+      "correta": 0,
+      "explicacao": "Structured Outputs controla a estrutura esperada; a avaliação confere fatos e evidências. Um status inventado continua errado mesmo em JSON válido. Groundedness e referência permanecem necessárias. Retirar o contrato elimina uma proteção estrutural sem corrigir o comportamento factual."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Na Sprint 2, o DataOps Agent usou ferramentas de um servidor MCP. Qual descrição representa corretamente a ligação entre agente e servidor?",
+      "opcoes": [
+        "MCP permite ao modelo executar livremente qualquer função do sistema operacional.",
+        "Um nome de ferramenta retornado pelo modelo já comprova que a operação terminou.",
+        "O cliente usa o protocolo para descobrir e chamar ferramentas expostas; a aplicação e o servidor aplicam os contratos e devolvem resultados.",
+        "O protocolo torna desnecessários limites do loop e validação dos argumentos."
+      ],
+      "correta": 2,
+      "explicacao": "MCP padroniza a integração de ferramentas entre cliente e servidor. Ele não concede execução irrestrita nem transforma uma intenção em resultado. Contratos, validação e limites continuam necessários no DataOps Agent. O retorno real da chamada deve ser registrado antes de tratá-lo como evidência de uma operação concluída."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

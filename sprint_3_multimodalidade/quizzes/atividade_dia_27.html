@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atividade - Dia 27 | Interface Streamlit, Telemetria e Ensaio do Pitch</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Esta atividade precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 27",
+  "titulo": "Interface Streamlit, Telemetria e Ensaio do Pitch",
+  "chave": "atividade_dia_27",
+  "rotulo": "Atividade",
+  "perguntas": [
+    {
+      "tipo": "bug",
+      "enunciado": "**Histórico apagado no rerun.** O Streamlit reexecuta o script ao interagir com a interface. Qual linha apaga todas as mensagens anteriores em cada execução?",
+      "codigo": [
+        "import streamlit as st",
+        "st.session_state[\"mensagens\"] = []",
+        "pergunta = st.chat_input(\"Qual informação deseja conferir?\")",
+        "if pergunta:",
+        "    st.session_state[\"mensagens\"].append({\"papel\": \"user\", \"texto\": pergunta})",
+        "st.write(st.session_state[\"mensagens\"])"
+      ],
+      "bug": [
+        1
+      ],
+      "explicacao": "A linha 2 deve usar `st.session_state.setdefault(\"mensagens\", [])`. Ela inicializa somente quando a chave ainda não existe, preservando o histórico nos reruns da mesma sessão. O app também guarda evidências e resultados para exibir duração e trace antigos sem executar o agente novamente. Reiniciar o servidor ou fechar a sessão pode apagar esse estado."
+    },
+    {
+      "tipo": "bug",
+      "enunciado": "**Uso desconhecido não é zero.** A API não informou tokens desta resposta. Qual linha mostra uma medida que nunca foi observada?",
+      "codigo": [
+        "import streamlit as st",
+        "resultado = {\"tempo_ms\": 125.0, \"tokens\": None, \"trace\": []}",
+        "uso = str(resultado[\"tokens\"]) if resultado[\"tokens\"] is not None else \"0\"",
+        "st.caption(f\"Agente: {resultado['tempo_ms']} ms | Tokens: {uso}\")"
+      ],
+      "bug": [
+        2
+      ],
+      "explicacao": "A linha 3 deve usar `else \"não informado\"`. None expressa ausência da medição; zero é um número observado e tem outra interpretação. O agente agrega total_token_count quando informado pela API, e a interface exibe o resultado guardado junto à mensagem. A duração mostrada aqui é do agente, enquanto ingestão e transcrição são medidas separadamente no benchmark."
+    },
+    {
+      "tipo": "sandbox",
+      "enunciado": "**Revisão de uma leitura para a demonstração.** Escreva uma consulta **aceita** pelo guardrail auxiliar da Sprint 2, por exemplo uma leitura de `codigo`, `nome` e `preco` da tabela `itens`. Use apenas um SELECT, sem comentários e sem escrita. Este teste local revisa a fronteira de leitura, sem executar a ferramenta real ou gerar telemetria.",
+      "validador": "guardrail_sql",
+      "esperado": "aceito",
+      "placeholder": "SELECT codigo, nome, preco FROM itens LIMIT 5;",
+      "linhas": 6,
+      "explicacao": "A consulta de exemplo passa pelo filtro lexical local. Esse sandbox auxiliar já herdado da Sprint 2 não executa Python, API ou banco e não verifica se a tabela existe. A telemetria real nasce do percurso do app: ingerir entrada, executar agente e guardar trace, tempo_ms e tokens informados em session_state. A demo deve mostrar esses registros de execução e conferir os resultados das ferramentas."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "**Preparar o ensaio de dez minutos.** Ordene um percurso de verificação do app antes do pitch.",
+      "itens": [
+        "Enviar imagem e áudio de demonstração e conferir limites dos uploads.",
+        "Exibir player, transcrição, timestamps e origens das evidências ingeridas.",
+        "Fazer a pergunta de negócio e conferir resposta, argumentos e resultado no trace.",
+        "Repetir uma interação para conferir histórico e métricas, e mostrar uma falha controlada.",
+        "Ensaiar o pitch de dez minutos com participação dos três integrantes e limites explícitos."
+      ],
+      "explicacao": "A interface precisa demonstrar o percurso completo, incluindo os dados que sustentam a resposta. O segundo uso verifica persistência no rerun e evita reexecutar ferramentas antigas para exibir trace. O cache é por modalidade, hash e nome do upload; arquivos temporários são removidos após ingestão. No ensaio, o trio apresenta uma falha comprovada e explica suas consequências."
+    },
+    {
+      "tipo": "classificar",
+      "enunciado": "**Estado, arquivos e medições.** Classifique os elementos da interface e telemetria.",
+      "categorias": [
+        "Estado da sessão",
+        "Arquivo temporário de ingestão",
+        "Métrica observada"
+      ],
+      "itens": [
+        [
+          "Mensagens e resultados preservados nos reruns.",
+          0
+        ],
+        [
+          "Cópia do upload dentro de TemporaryDirectory.",
+          1
+        ],
+        [
+          "tempo_ms registrado na execução de uma ferramenta.",
+          2
+        ],
+        [
+          "Cache das evidências associado ao hash e à modalidade.",
+          0
+        ],
+        [
+          "Arquivo removido ao sair do contexto de ingestão, inclusive em erro.",
+          1
+        ],
+        [
+          "total_token_count informado pela API e agregado pelo agente.",
+          2
+        ]
+      ],
+      "explicacao": "session_state conserva os dados para reruns da sessão. Os bytes do upload são gravados temporariamente para os processadores e removidos ao fim do contexto. Métricas descrevem observações reais; n, média e desvio dependem das amostras disponíveis. Um único tempo com desvio zero não prova estabilidade, e tokens desconhecidos devem aparecer como não informados."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atividade - Dia 21 | Fundamentos de Visão Multimodal com Gemini</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Esta atividade precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 21",
+  "titulo": "Fundamentos de Visão Multimodal com Gemini",
+  "chave": "atividade_dia_21",
+  "rotulo": "Atividade",
+  "perguntas": [
+    {
+      "tipo": "bug",
+      "enunciado": "**Bytes com MIME incoerente.** Neste recorte de `dia_21/visao.py`, `carregar_imagem` já validou um PNG ou JPEG. Qual linha descreve a imagem com o tipo de mídia errado?",
+      "codigo": [
+        "from pathlib import Path",
+        "from google.genai import types",
+        "from visao import carregar_imagem",
+        "dados, mime, imagem = carregar_imagem(Path(\"amostras/diagrama.png\"))",
+        "parte = types.Part.from_bytes(data=dados, mime_type=\"audio/wav\")",
+        "print(mime, imagem.size)"
+      ],
+      "bug": [
+        4
+      ],
+      "explicacao": "A linha 5 deve usar `types.Part.from_bytes(data=dados, mime_type=mime)`. O MIME retornado pela validação identifica `image/png` ou `image/jpeg`; declarar `audio/wav` não transforma os bytes em áudio. A alternativa PIL usa o objeto `imagem` diretamente. A validação ocorre no Python antes da API Gemini, e as respostas ainda precisam ser confrontadas com os pixels."
+    },
+    {
+      "tipo": "bug",
+      "enunciado": "**Código ausente no OCR.** A imagem não possui um código legível e o contrato `Documento` representa isso com `None`. Qual linha inventa um valor ao exibir o resultado?",
+      "codigo": [
+        "from ocr import Documento",
+        "documento = Documento(trechos=[], codigo=None, relacoes_visiveis=[], limitacoes=[\"Código ausente\"])",
+        "codigo_exibido = documento.codigo or \"A101\"",
+        "print(codigo_exibido)"
+      ],
+      "bug": [
+        2
+      ],
+      "explicacao": "A linha 3 substitui ausência de evidência por `A101`, criando uma afirmação sem suporte. Corrija para `codigo_exibido = documento.codigo if documento.codigo is not None else \"não identificado\"`. Ao serializar o Documento, preserve `codigo: null`. Um JSON válido não prova OCR correto; conferir texto e caixas normalizadas na imagem continua sendo responsabilidade da dupla."
+    },
+    {
+      "tipo": "sandbox",
+      "enunciado": "**Cadastro do anotador humano de OCR.** Digite um JSON de metadados da pessoa que confere os pixels: `nome` não vazio, `idade` inteira de 0 a 120, `habilidades` com ao menos um texto e `status` igual a `ativo`, `inativo` ou `pendente`. O perfil deve ser **aceito**. Este exercício auxiliar usa `PerfilUsuario` herdado da Sprint 2; não representa o contrato `Documento` nem extrai dados da imagem.",
+      "validador": "perfil_usuario",
+      "esperado": "aceito",
+      "placeholder": "{\"nome\":\"Ana\",\"idade\":22,\"habilidades\":[\"conferência de OCR\"],\"status\":\"ativo\"}",
+      "linhas": 6,
+      "explicacao": "O exemplo é aceito pelo validador local de PerfilUsuario: idade é número inteiro, habilidades é uma lista de textos e status pertence às opções permitidas. Esse sandbox auxiliar herdado da Sprint 2 não executa Python, API Gemini, OCR ou banco. O contrato real do laboratório é `Documento`, com trechos, código opcional, relações visíveis e limitações, validado por Pydantic no script."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "**Uma imagem, duas formas de envio.** Ordene a comparação de bytes e PIL realizada pela dupla, antes de registrar uma conclusão sobre o diagrama.",
+      "itens": [
+        "Conferir existência, tamanho e integridade da imagem PNG/JPEG.",
+        "Obter os bytes, o MIME correto e o objeto PIL da mesma imagem.",
+        "Preparar um prompt que peça rótulos visíveis, direção das setas e incertezas.",
+        "Enviar bytes e PIL ao Gemini e guardar as respostas identificadas por modalidade.",
+        "Confrontar as duas respostas com os pixels e registrar observações e inferências."
+      ],
+      "explicacao": "A entrada é validada antes do envio. Comparar a mesma imagem com o mesmo pedido permite observar diferenças entre as representações. Concordância entre respostas e temperatura zero não comprovam verdade. A conclusão deve citar rótulos e setas efetivamente visíveis, e registrar a ilegibilidade sem preencher lacunas."
+    },
+    {
+      "tipo": "classificar",
+      "enunciado": "**Grounding visual e contrato.** Classifique cada afirmação sobre uma imagem sintética cuja legenda legível é `A101` e que não informa estoque.",
+      "categorias": [
+        "Observação visual sustentada",
+        "Inferência sem suporte visual",
+        "Validação estrutural"
+      ],
+      "itens": [
+        [
+          "O rótulo A101 pode ser lido nos pixels.",
+          0
+        ],
+        [
+          "Há três unidades em estoque, embora a imagem não mostre estoque.",
+          1
+        ],
+        [
+          "Cada caixa contém quatro coordenadas inteiras entre 0 e 1000.",
+          2
+        ],
+        [
+          "Uma seta visível aponta do sensor para o controlador.",
+          0
+        ],
+        [
+          "O sensor está funcionando porque aparece em uma foto.",
+          1
+        ],
+        [
+          "O JSON possui os campos esperados pelo modelo Documento.",
+          2
+        ]
+      ],
+      "explicacao": "Grounding exige correspondência com a evidência visual disponível. Estoque e funcionamento não podem ser concluídos apenas pela presença de um componente na imagem. Pydantic verifica formato e limites de campos; a checagem das coordenadas, do texto e da direção das setas contra a imagem é uma etapa adicional."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

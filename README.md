@@ -35,7 +35,7 @@ flowchart TD
         S2W1 --> S2W2 --> S2Demo
     end
 
-    subgraph S3["Sprint 3 (13/10 a 23/10 - *12/10 Feriado)"]
+    subgraph S3["Sprint 3 (14/10 a 23/10 - sem encontros em 12/10 e 13/10)"]
         S3W1["Semana 1: Multimodalidade (Visão + Áudio Whisper) & Avaliação de LLMs"]
         S3W2["Semana 2: Projeto 'OmniAssistant'"]
         S3Demo["Final Demo Day & Encerramento Oficial"]
@@ -78,4 +78,4 @@ Todos os materiais, ferramentas e bibliotecas foram rigorosamente selecionados p
 ## 📂 5. Navegação nas Sprints
 - [Sprint 1: Fundamentos de GenAI, Google AI Studio, Prompting & RAG Local](sprint_1_fundamentos_rag/README.md)
 - [Sprint 2: Agentes Autônomos, Function Calling & Model Context Protocol (MCP)](sprint_2_agentes/README.md)
-- *Sprint 3: Em breve (Multimodalidade & GenAI Aplicada)*
+- [Sprint 3: Multimodalidade (Visão + Áudio Whisper) e Projeto OmniAssistant](sprint_3_multimodalidade/README.md)

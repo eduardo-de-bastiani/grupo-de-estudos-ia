@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atividade - Dia 24 | Kickoff do OmniAssistant, Arquitetura e Setup Git</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Esta atividade precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 24",
+  "titulo": "Kickoff do OmniAssistant, Arquitetura e Setup Git",
+  "chave": "atividade_dia_24",
+  "rotulo": "Atividade",
+  "perguntas": [
+    {
+      "tipo": "bug",
+      "enunciado": "**Configuração importável sem chave.** O trio quer que importar configuração e descrever o modelo funcione sem API key. Qual linha introduz uma criação de cliente indevida durante a importação?",
+      "codigo": [
+        "from src.core.config import MODEL, TIMEOUT_MS, criar_cliente",
+        "cliente = criar_cliente()",
+        "def descrever_configuracao() -> str:",
+        "    return f\"OmniAssistant: modelo={MODEL}, timeout={TIMEOUT_MS}ms\"",
+        "if __name__ == \"__main__\":",
+        "    print(descrever_configuracao())"
+      ],
+      "bug": [
+        1
+      ],
+      "explicacao": "Remova a linha 2 deste módulo de descrição. A configuração deve criar cliente apenas quando uma operação de API chamar `criar_cliente()`, que então carrega .env e valida a chave. Descrever o modelo e importar contratos não requer internet ou segredo. A função real usa `gemini-3.8-flash` e `HttpOptions(timeout=30_000)` em milissegundos."
+    },
+    {
+      "tipo": "bug",
+      "enunciado": "**Modalidade da entrada.** O usuário enviou somente uma pergunta textual. Qual linha escolhe uma modalidade cujo contrato exige um arquivo existente?",
+      "codigo": [
+        "from src.core.contracts import Entrada",
+        "entrada = Entrada(tipo=\"audio\", texto=\"Qual o preço do item A101?\")",
+        "print(entrada.model_dump_json(indent=2))"
+      ],
+      "bug": [
+        1
+      ],
+      "explicacao": "A linha 2 deve ser `entrada = Entrada(tipo=\"texto\", texto=\"Qual o preço do item A101?\")`. Uma Entrada de áudio ou imagem exige caminho para arquivo existente; preencher texto não satisfaz essa obrigação. O contrato textual recusa perguntas vazias. Preservar esses nomes permite integrar os processadores e a ingestão cumulativa nos próximos dias."
+    },
+    {
+      "tipo": "sandbox",
+      "enunciado": "**Transferência do contrato MCP da Sprint 2.** Escreva um envelope JSON-RPC **aceito** com `jsonrpc: \"2.0\"`, `id` numérico ou textual, `method: \"tools/call\"`, `params.name: \"somar\"` e `params.arguments` contendo `a` e `b` numéricos. Este teste auxiliar revisita a fronteira cliente/ferramenta; não valida `Entrada` nem é uma ferramenta do OmniAssistant.",
+      "validador": "jsonrpc",
+      "esperado": "aceito",
+      "placeholder": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/call\",\"params\":{\"name\":\"somar\",\"arguments\":{\"a\":2,\"b\":3}}}",
+      "linhas": 6,
+      "explicacao": "O validador auxiliar herdado da Sprint 2 confere o envelope e os tipos numéricos de a e b; ele não realiza a soma. Esse sandbox não executa Python, API ou banco. O projeto real deste dia usa contratos Pydantic Entrada, Segmento e Evidencia; a orquestração Gemini por Function Calling será integrada no Dia 26, com ferramentas próprias e argumentos conferidos.",
+      "config": {
+        "metodo": "tools/call",
+        "nome": "somar",
+        "args": [
+          "a",
+          "b"
+        ]
+      }
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "**Kickoff em trio.** Ordene os passos para iniciar o repositório cumulativo e chegar ao smoke test do Dia 24.",
+      "itens": [
+        "Definir pergunta de negócio, dados de demonstração e critério verificável de sucesso.",
+        "Criar o repositório com src/core, src/vision, src/audio e src/tools, incluindo __init__.py.",
+        "Centralizar configuração e proteger .env, .venv e caches no .gitignore.",
+        "Implementar e testar Entrada, Segmento e Evidencia com casos válidos e inválidos.",
+        "Executar o smoke test previsto e registrar resultado ou bloqueio real de API."
+      ],
+      "explicacao": "O escopo define o que o trio precisa provar. A estrutura do produto começa no Dia 24 e permite importar módulos sem efeitos de API. Contratos locais devem ser testados antes da integração; a chamada real do smoke test exige a chave e a cota disponíveis. Um bloqueio deve ser registrado, mantendo o modelo exigido e os testes locais."
+    },
+    {
+      "tipo": "classificar",
+      "enunciado": "**Responsabilidades da arquitetura.** Classifique cada decisão do kickoff.",
+      "categorias": [
+        "Configuração",
+        "Contrato compartilhado",
+        "Escopo e colaboração"
+      ],
+      "itens": [
+        [
+          "Definir MODEL e timeout sem imprimir a API key.",
+          0
+        ],
+        [
+          "Recusar Segmento cujo fim é anterior ao início.",
+          1
+        ],
+        [
+          "Escolher uma pergunta de negócio com resultado conferível.",
+          2
+        ],
+        [
+          "Carregar .env apenas na criação do cliente.",
+          0
+        ],
+        [
+          "Representar conteúdo extraído com origem, texto e segmentos.",
+          1
+        ],
+        [
+          "Distribuir desenvolvimento, revisão e registro entre os três integrantes.",
+          2
+        ]
+      ],
+      "explicacao": "Configuração centraliza acesso ao provedor; contratos delimitam os dados entre módulos; escopo e colaboração orientam a entrega do trio. Cada camada tem um critério observável. Não é necessário criar cliente para validar uma entrada textual ou intervalo de áudio."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

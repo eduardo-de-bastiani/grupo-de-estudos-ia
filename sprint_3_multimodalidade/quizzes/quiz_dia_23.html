@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz - Dia 23 | Avaliação de LLMs e Formação dos Novos Trios</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este quiz precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 23",
+  "titulo": "Avaliação de LLMs e Formação dos Novos Trios",
+  "chave": "quiz_dia_23",
+  "perguntas": [
+    {
+      "tipo": "multipla",
+      "enunciado": "A dupla pede a um LLM que avalie a resposta sobre um recibo, mas fornece somente a resposta do aluno. O que precisa acrescentar para uma avaliação fundamentada?",
+      "opcoes": [
+        "Uma instrução para sempre conceder nota máxima quando o texto for longo.",
+        "Somente o nome do modelo, sem o caso de teste.",
+        "A quantidade de caracteres da resposta como substituto da correção.",
+        "Pergunta, evidências ou referência explícita, critérios da rubrica e formato esperado do julgamento."
+      ],
+      "correta": 3,
+      "explicacao": "O juiz precisa do caso, da evidência e dos critérios para justificar o julgamento. Extensão do texto e quantidade de caracteres não demonstram apoio factual. O nome do modelo pode ser registrado para reprodutibilidade, mas não fornece a referência. A nota deve vir acompanhada de justificativa ligada ao material avaliado."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "Um script marca como grounded qualquer resposta que contenha a palavra “fonte”, sem ler a fonte. Como esse resultado deve ser apresentado?",
+      "opcoes": [
+        "Como LLM-as-a-Judge, porque o script contém a palavra judge.",
+        "Como prova factual de que todas as afirmações são sustentadas.",
+        "Como proxy determinística de presença de termo, com limitação explícita; não como avaliação semântica de groundedness.",
+        "Como precisão de OCR, pois uma expressão regular lê imagens."
+      ],
+      "correta": 2,
+      "explicacao": "A regra verifica um padrão textual, não a relação entre afirmações e evidências. É uma proxy determinística útil apenas para o que mede. Não envolve um LLM julgando, não comprova apoio factual e não extrai texto de imagens. Deve ser identificada corretamente para evitar comparação enganosa com um juiz que usa referências."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "O áudio diz “o prazo é sexta-feira”, e a resposta repete essa frase. Uma política oficial de referência determina quinta-feira. Qual avaliação separa groundedness de correção?",
+      "opcoes": [
+        "A resposta é necessariamente correta, porque repete o áudio.",
+        "A afirmação está apoiada no áudio fornecido, mas conflita com a política de referência; a avaliação deve registrar as fontes e o conflito.",
+        "Groundedness e correção sempre têm o mesmo resultado.",
+        "A resposta se torna correta se usar JSON válido."
+      ],
+      "correta": 1,
+      "explicacao": "Apoio em uma fonte e correção contra outra referência são critérios distintos. O julgamento deve registrar que a fala sustenta a frase, mas a política a contradiz; não pode apagar o conflito. JSON controla estrutura. Repetir uma evidência incorreta ou desatualizada não certifica a verdade da afirmação sobre a política."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "O juiz mudou uma nota de 3 para 4 sem alteração da resposta ou da rubrica. Qual ação melhora a análise desse resultado?",
+      "opcoes": [
+        "Repetir os mesmos casos, guardar julgamentos e justificativas e comparar com uma revisão humana da referência.",
+        "Escolher apenas a maior nota e excluir os demais registros.",
+        "Alterar a referência até o juiz concordar com a resposta.",
+        "Concluir que um schema elimina a variabilidade do julgamento."
+      ],
+      "correta": 0,
+      "explicacao": "Repetições controladas e revisão humana tornam a variação visível e ajudam a calibrar a rubrica. Selecionar a maior nota introduz viés. Modificar a referência para obter concordância invalida o caso. Um contrato padroniza campos, mas não transforma um julgamento probabilístico em prova determinística de qualidade."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Se o juiz devolve campos de nota e justificativa válidos segundo Pydantic, todas as suas conclusões sobre a resposta estão automaticamente comprovadas.",
+      "resposta": false,
+      "explicacao": "Falso. O contrato confirma forma e tipos, enquanto as conclusões precisam ser confrontadas com a referência. Uma justificativa pode ser inválida mesmo em JSON bem formado. O registro da avaliação deve permitir verificar quais afirmações do aluno e quais trechos de evidência sustentam a nota."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Neste teste, a dupla definiu precisão de campos como campos extraídos corretamente divididos pelo total de campos extraídos. Se acerta 3 de 4, a precisão é 0,75, mas isso não mede sozinho os campos omitidos.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. Sob a regra explicitada, 3/4 = 0,75. A referência permite decidir quais campos extraídos estão corretos. Campos omitidos exigem um critério de cobertura separado; avaliar apenas os valores produzidos não informa se todos os dados necessários foram encontrados. A definição e o denominador devem acompanhar a métrica, evitando chamar qualquer taxa de acerto de precisão sem explicar o cálculo."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "No Dia 23, os exercícios de avaliação ainda ocorrem em duplas; a formação oficial dos cinco trios acontece ao fim do encontro, preparando o projeto da Semana 2.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. Essa separação mantém o Dia 23 como fundamento de avaliação e organiza os quinze estudantes em cinco trios para os Dias 24 a 28. O exercício não precisa criar a estrutura do OmniAssistant antes do kickoff. Cada integrante deve levar registros de dificuldades e critérios que poderão ser usados no projeto."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Complete: a _______ de avaliação define critérios observáveis e descreve como atribuir as notas do juiz.",
+      "respostas": [
+        "rubrica"
+      ],
+      "explicacao": "A rubrica torna explícito o que está sendo avaliado: por exemplo apoio factual, correção contra referência e tratamento de evidência insuficiente. Ela deve acompanhar o caso enviado ao juiz. Uma nota sem critérios ou justificativa impede conferir o resultado e comparar versões."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Para conferir se uma afirmação está sustentada pelas evidências fornecidas, a métrica discutida é _______.",
+      "respostas": [
+        "groundedness"
+      ],
+      "explicacao": "Groundedness verifica apoio das afirmações nas evidências disponíveis. Não deve ser confundida com fluência, comprimento ou simples ocorrência da palavra fonte. O julgamento precisa indicar os trechos que sustentam ou não sustentam a resposta e reconhecer conflitos entre fontes."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Um teste de correção compara a resposta gerada a uma _______ explícita, como valores conferidos de um recibo de teste.",
+      "respostas": [
+        "referência",
+        "referencia",
+        "resposta de referência"
+      ],
+      "explicacao": "A referência torna o critério de correção verificável. Ela deve ser preparada e conferida, não copiada de uma resposta não validada do próprio modelo. Quando a evidência é insuficiente, o caso deve especificar a abstenção esperada para evitar premiar uma invenção."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada verificação ao que ela realmente mede.",
+      "pares": [
+        [
+          "Validar campos e tipos com Pydantic",
+          "Conformidade estrutural do resultado"
+        ],
+        [
+          "Comparar o total extraído com o valor conferido no recibo",
+          "Correção do campo contra referência"
+        ],
+        [
+          "Conferir cada afirmação contra os trechos de evidência",
+          "Groundedness da resposta"
+        ],
+        [
+          "Procurar uma palavra com expressão regular",
+          "Presença de padrão textual como proxy limitada"
+        ]
+      ],
+      "explicacao": "Estrutura, correção, apoio e presença de padrão têm objetos distintos. Um schema não certifica os números; uma regex não lê a fonte; uma referência de campo não avalia necessariamente todas as afirmações da resposta. Nomear cada teste pelo que mede evita inflar resultados."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada caso de avaliação ao comportamento esperado do sistema.",
+      "pares": [
+        [
+          "Recibo nítido com valor conferido",
+          "Extrair o valor e indicar a evidência que o sustenta"
+        ],
+        [
+          "Região do valor completamente ilegível",
+          "Declarar insuficiência de evidência sem inventar valor"
+        ],
+        [
+          "Áudio e documento com prazos diferentes",
+          "Registrar conflito e identificar as duas origens"
+        ],
+        [
+          "Resposta com JSON malformado",
+          "Registrar falha de contrato antes de tratar campos como válidos"
+        ]
+      ],
+      "explicacao": "A avaliação inclui sucesso, ausência, conflito e falha estrutural. Abstenção fundamentada é desejável quando falta evidência, enquanto inventar um dado deve ser reprovado. Fontes conflitantes não podem ser fundidas silenciosamente, e um resultado malformado deve ser distinguido de uma resposta válida porém factualmente errada."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atividade - Dia 26 | Orquestração de Ferramentas e Raciocínio Multimodal</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Esta atividade precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 26",
+  "titulo": "Orquestração de Ferramentas e Raciocínio Multimodal",
+  "chave": "atividade_dia_26",
+  "rotulo": "Atividade",
+  "perguntas": [
+    {
+      "tipo": "bug",
+      "enunciado": "**Parâmetro SQLite de um elemento.** Assuma catálogo inicializado e código válido. Qual linha passa uma string em vez de uma tupla com um único parâmetro?",
+      "codigo": [
+        "import sqlite3",
+        "from contextlib import closing",
+        "from src.tools.local import DB",
+        "codigo = \"A101\"",
+        "with closing(sqlite3.connect(DB.resolve().as_uri() + \"?mode=ro\", uri=True)) as banco:",
+        "    linha = banco.execute(\"SELECT codigo, nome, preco FROM itens WHERE codigo = ?\", (codigo)).fetchone()",
+        "print(linha)"
+      ],
+      "bug": [
+        5
+      ],
+      "explicacao": "A linha 6 deve passar `(codigo,)`: `banco.execute(\"SELECT codigo, nome, preco FROM itens WHERE codigo = ?\", (codigo,)).fetchone()`. Parênteses sem vírgula não criam uma tupla; a string A101 é uma sequência de quatro caracteres e não corresponde ao único placeholder. O projeto mantém SQL fixo e parametrizado, valida o código e abre conexão somente leitura. O modelo fornece argumentos, não escreve a consulta."
+    },
+    {
+      "tipo": "bug",
+      "enunciado": "**Preservar o turno completo.** `conteudo` é o `candidate.content` retornado pelo SDK. Qual linha perde chamadas e partes do turno ao atualizar o histórico manual?",
+      "codigo": [
+        "from google.genai import types",
+        "def guardar_turno(historico: list[types.Content], conteudo: types.Content) -> None:",
+        "    texto = \" \".join(parte.text or \"\" for parte in conteudo.parts or [])",
+        "    historico.append(types.Content(role=\"model\", parts=[types.Part.from_text(text=texto)]))"
+      ],
+      "bug": [
+        3
+      ],
+      "explicacao": "A linha 4 deve ser `historico.append(conteudo)`. Reconstruir o turno apenas com texto descarta partes de Function Calling e possíveis assinaturas de raciocínio. O loop preserva candidate.content integral, processa todas as chamadas, valida nomes e argumentos e devolve FunctionResponse com o ID correspondente. A variável texto deixa de ser necessária depois da correção."
+    },
+    {
+      "tipo": "sandbox",
+      "enunciado": "**Recusa de escrita.** No filtro SQL auxiliar herdado da Sprint 2, teste `SELECT codigo, preco FROM itens;` no botão de teste e observe a aceitação. Depois substitua por `DROP TABLE itens;` e verifique a atividade com essa escrita **recusada**. O navegador só verifica texto; ele não abre o catálogo do projeto.",
+      "validador": "guardrail_sql",
+      "esperado": "recusado",
+      "placeholder": "DROP TABLE itens;",
+      "linhas": 6,
+      "explicacao": "DROP é recusado porque o guardrail auxiliar permite leitura SELECT/WITH e proíbe comandos de escrita. Esse sandbox herdado da Sprint 2 não executa Python, API, SQL ou banco. No OmniAssistant, a defesa real combina ferramentas em allowlist, argumentos Pydantic, SQL fixo parametrizado e SQLite somente leitura. Um filtro lexical isolado não comprova essas defesas nem substitui permissões de dados."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "**Um turno de Function Calling.** Ordene o percurso seguro do agente sobre evidências de imagem e áudio.",
+      "itens": [
+        "Validar pergunta e evidências e iniciar o histórico com suas origens.",
+        "Consultar Gemini com ferramentas declaradas e AFC desativado no loop manual.",
+        "Preservar candidate.content e validar nomes e argumentos de todas as chamadas.",
+        "Executar ferramentas locais e guardar resultados, duração e FunctionResponse com cada ID.",
+        "Adicionar as respostas ao histórico e concluir ou repetir dentro do limite de quatro requisições."
+      ],
+      "explicacao": "O modelo solicita ações; o Python confere e executa somente ferramentas permitidas. Todas as chamadas de um turno recebem resposta e são registradas no trace. O histórico conserva o conteúdo integral do candidato e a identidade de cada chamada. O limite de quatro requisições e as mensagens de falha controlada impedem um loop sem encerramento."
+    },
+    {
+      "tipo": "classificar",
+      "enunciado": "**Decisão, proteção e dados.** Classifique a responsabilidade predominante de cada ação.",
+      "categorias": [
+        "Modelo Gemini",
+        "Python e contratos de ferramentas",
+        "SQLite e consulta local"
+      ],
+      "itens": [
+        [
+          "Solicitar consultar_item a partir do código observado nas evidências.",
+          0
+        ],
+        [
+          "Recusar nome de ferramenta fora do REGISTRO.",
+          1
+        ],
+        [
+          "Buscar preço por código usando SQL fixo e parametrizado.",
+          2
+        ],
+        [
+          "Pedir calcular_total com quantidade e preço.",
+          0
+        ],
+        [
+          "Recusar infinito e quantidade acima do limite permitido.",
+          1
+        ],
+        [
+          "Abrir o catálogo em modo somente leitura.",
+          2
+        ]
+      ],
+      "explicacao": "A decisão probabilística do modelo não concede autorização irrestrita. O despachante valida allowlist, schema e limites numéricos; SQLite fornece dados por uma consulta de leitura controlada. Inicializar o banco é ação explícita do trio e não aparece entre as ferramentas expostas ao modelo. O trace permite conferir argumentos e resultados antes de aceitar a conclusão."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

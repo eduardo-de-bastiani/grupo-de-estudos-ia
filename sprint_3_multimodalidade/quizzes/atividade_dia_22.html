@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atividade - Dia 22 | Áudio e Speech-to-Text Local com Whisper</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Esta atividade precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 22",
+  "titulo": "Áudio e Speech-to-Text Local com Whisper",
+  "chave": "atividade_dia_22",
+  "rotulo": "Atividade",
+  "perguntas": [
+    {
+      "tipo": "bug",
+      "enunciado": "**Duração com unidade errada.** `whisper.load_audio` retorna áudio a 16.000 amostras por segundo. Considere uma fala de dez segundos. Qual linha calcula uma duração incorreta para o limite de trinta segundos?",
+      "codigo": [
+        "import whisper",
+        "audio = whisper.load_audio(\"amostras/fala.wav\")",
+        "duracao = len(audio) / 1000",
+        "print(f\"Duração: {duracao:.1f} segundos\")"
+      ],
+      "bug": [
+        2
+      ],
+      "explicacao": "A linha 3 deve ser `duracao = len(audio) / whisper.audio.SAMPLE_RATE`. A quantidade de amostras dividida por 16.000 fornece segundos: 160.000 amostras correspondem a dez segundos. Dividir por 1.000 produziria 160 segundos e recusaria uma fala válida. O limite de trinta segundos é aplicado ao áudio decodificado, antes da inferência local."
+    },
+    {
+      "tipo": "bug",
+      "enunciado": "**Timestamp que perde o fim.** Este segmento do Whisper vai de 1,2 a 3,4 segundos. Qual linha perde informação ao construir o contrato `Segmento` de `dia_22/transcrever.py`?",
+      "codigo": [
+        "segmento_whisper = {\"start\": 1.2, \"end\": 3.4, \"text\": \"O item custa vinte e cinco reais.\"}",
+        "segmento = {",
+        "    \"inicio\": float(segmento_whisper[\"start\"]),",
+        "    \"fim\": float(segmento_whisper[\"start\"]),",
+        "    \"texto\": str(segmento_whisper[\"text\"]).strip(),",
+        "}",
+        "print(segmento)"
+      ],
+      "bug": [
+        3
+      ],
+      "explicacao": "A linha 4 deve usar `\"fim\": float(segmento_whisper[\"end\"])`. Copiar start para fim cria um intervalo de duração zero, mesmo que satisfaça a condição estrutural `inicio <= fim`. Preservar o timestamp original permite localizar e escutar a fala que sustenta uma afirmação. Também é necessário recusar fim anterior ao início ou que ultrapasse a duração do áudio com a tolerância definida no laboratório."
+    },
+    {
+      "tipo": "sandbox",
+      "enunciado": "**Metadados do operador de transcrição.** Cadastre a pessoa que escutará códigos e números suspeitos. Envie um JSON **aceito** com `nome`, `idade` inteira entre 0 e 120, `habilidades` como lista não vazia de textos e `status` dentre `ativo`, `inativo`, `pendente`. Este perfil auxiliar da Sprint 2 não é o contrato `Transcricao` ou `Segmento`.",
+      "validador": "perfil_usuario",
+      "esperado": "aceito",
+      "placeholder": "{\"nome\":\"Bruno\",\"idade\":21,\"habilidades\":[\"escuta e revisão de timestamps\"],\"status\":\"ativo\"}",
+      "linhas": 6,
+      "explicacao": "O validador local verifica apenas os quatro campos do PerfilUsuario. Por exemplo, `idade: \"21\"` seria recusada porque é texto, enquanto `idade: 21` é inteira. Esse sandbox auxiliar herdado da Sprint 2 não executa Whisper, Python, API ou banco. A transcrição real é produzida localmente no notebook, e o script retorna texto, segmentos, duração e tempo_ms."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "**Da fala ao resumo fundamentado.** Ordene o pipeline dos dois scripts de fundamentos do Dia 22.",
+      "itens": [
+        "Validar o arquivo e decodificar um áudio curto, audível e dentro do limite.",
+        "Transcrever com Whisper tiny na CPU, usando fp16=False.",
+        "Preservar texto e segmentos com início e fim, conferindo os timestamps.",
+        "Escutar códigos e números da transcrição e marcar ambiguidades.",
+        "Enviar texto e segmentos ao Gemini e conferir o resumo nos intervalos citados."
+      ],
+      "explicacao": "Whisper executa no notebook; o áudio permanece local no fluxo proposto e apenas a transcrição é enviada ao Gemini. Uma leitura errada de código pode contaminar o resumo, por isso a revisão da fala antecede a aceitação das conclusões. Se a API falhar, a transcrição local continua sendo uma entrega válida e o bloqueio deve ser registrado."
+    },
+    {
+      "tipo": "classificar",
+      "enunciado": "**Onde ocorre cada etapa?** Classifique responsabilidades do pipeline de áudio para texto para LLM.",
+      "categorias": [
+        "Execução local no notebook",
+        "Inferência via API Gemini",
+        "Conferência humana"
+      ],
+      "itens": [
+        [
+          "Whisper tiny gera segmentos de fala na CPU.",
+          0
+        ],
+        [
+          "FFmpeg decodifica o arquivo para a transcrição.",
+          0
+        ],
+        [
+          "O modelo gemini-3.8-flash recebe a transcrição para resumir.",
+          1
+        ],
+        [
+          "A dupla escuta o trecho em que A101 parece A107.",
+          2
+        ],
+        [
+          "O script recusa áudio silencioso antes da inferência.",
+          0
+        ],
+        [
+          "A dupla confere cada afirmação do resumo no intervalo citado.",
+          2
+        ]
+      ],
+      "explicacao": "A decodificação, os limites do arquivo e o Whisper são locais. A chamada Gemini exige internet, credencial e cota. O primeiro download dos pesos também exige internet; depois de preparado, Whisper pode funcionar offline. Nem transcrição nem resumo dispensam a escuta humana dos trechos críticos."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atividade - Dia 25 | Pipeline Unificado de Ingestão Multimodal</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Esta atividade precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 25",
+  "titulo": "Pipeline Unificado de Ingestão Multimodal",
+  "chave": "atividade_dia_25",
+  "rotulo": "Atividade",
+  "perguntas": [
+    {
+      "tipo": "bug",
+      "enunciado": "**Evidência de áudio sem intervalos.** O processador já produziu segmentos válidos. Qual linha deixa de repassá-los ao contrato compartilhado?",
+      "codigo": [
+        "from src.core.contracts import Evidencia, Segmento",
+        "segmentos = [Segmento(inicio=0.0, fim=2.5, texto=\"O item A101 custa vinte e cinco reais.\")]",
+        "evidencia = Evidencia(origem=\"audio:fala.wav\", texto=\"O item A101 custa vinte e cinco reais.\")",
+        "print(evidencia.model_dump_json(indent=2))"
+      ],
+      "bug": [
+        2
+      ],
+      "explicacao": "A linha 3 deve acrescentar `segmentos=segmentos` na construção de Evidencia. O valor padrão é uma lista vazia, portanto o código pode gerar JSON válido enquanto perde os timestamps. Imagens normalmente não possuem segmentos; áudios transcritos precisam preservar os intervalos disponíveis para conferir uma afirmação ouvindo a fonte."
+    },
+    {
+      "tipo": "bug",
+      "enunciado": "**Dispatch da ingestão.** Assuma que as entradas de arquivo apontam para arquivos válidos. Qual linha envia uma imagem ao processador de áudio no recorte de `src/core/ingestion.py`?",
+      "codigo": [
+        "from src.core.contracts import Entrada, Evidencia",
+        "from src.vision.processor import analisar_imagem",
+        "from src.audio.processor import transcrever_audio",
+        "def ingerir(entrada: Entrada) -> Evidencia:",
+        "    if entrada.tipo == \"imagem\":",
+        "        return transcrever_audio(entrada.caminho)",
+        "    if entrada.tipo == \"audio\":",
+        "        return transcrever_audio(entrada.caminho)",
+        "    return Evidencia(origem=\"texto:usuario\", texto=entrada.texto)"
+      ],
+      "bug": [
+        5
+      ],
+      "explicacao": "A linha 6 deve chamar `analisar_imagem(entrada.caminho)`. A modalidade validada por Entrada determina um dispatch explícito: imagem para visão, áudio para Whisper e texto diretamente para Evidencia. Validar o contrato não decodifica o arquivo; cada processador ainda confere formato e conteúdo. Texto e áudio devem funcionar sem exigir credenciais Gemini."
+    },
+    {
+      "tipo": "sandbox",
+      "enunciado": "**Perfil do anotador que compara as fontes.** Digite um JSON **aceito** com nome não vazio, idade inteira de 0 a 120, habilidades como lista não vazia de textos e status `ativo`, `inativo` ou `pendente`. Use metadados da pessoa que confere imagem e áudio. Este PerfilUsuario auxiliar da Sprint 2 não é o contrato de entrada nem a Evidencia do pipeline.",
+      "validador": "perfil_usuario",
+      "esperado": "aceito",
+      "placeholder": "{\"nome\":\"Diego\",\"idade\":22,\"habilidades\":[\"conferência de fontes multimodais\"],\"status\":\"ativo\"}",
+      "linhas": 6,
+      "explicacao": "O modelo auxiliar já herdado da Sprint 2 verifica somente o perfil humano, no navegador. Esse sandbox não executa Python, processadores, API ou banco e não valida os contratos do pipeline. No projeto, Pydantic valida Entrada, Segmento e Evidencia; os processadores verificam bytes, formato, silêncio e duração, e a pessoa revisora confere contradições entre as fontes."
+    },
+    {
+      "tipo": "ordenar",
+      "enunciado": "**Ingestão com rastreabilidade.** Ordene a transformação de um upload em evidência utilizável pelo OmniAssistant.",
+      "itens": [
+        "Construir Entrada e validar modalidade, conteúdo textual ou caminho existente.",
+        "Escolher explicitamente o processador correspondente à modalidade.",
+        "Validar o conteúdo do arquivo e executar visão Gemini ou Whisper local.",
+        "Retornar Evidencia com origem identificável, texto e segmentos disponíveis.",
+        "Confrontar imagem e áudio, registrar ausências e manter contradições explícitas."
+      ],
+      "explicacao": "O pipeline separa validação de contrato, validação de arquivo e processamento. As modalidades convergem em Evidencia, preservando a origem e os timestamps quando disponíveis. Se a imagem e a fala discordarem sobre um preço, a integração registra a divergência em vez de corrigir uma fonte silenciosamente ou escolher um valor sem justificativa."
+    },
+    {
+      "tipo": "classificar",
+      "enunciado": "**Qual camada verifica cada condição?** Classifique verificações do Dia 25.",
+      "categorias": [
+        "Processador de imagem",
+        "Processador de áudio",
+        "Integração e revisão cruzada"
+      ],
+      "itens": [
+        [
+          "PIL recusa bytes de imagem corrompida antes da API.",
+          0
+        ],
+        [
+          "Recusar silêncio antes de chamar o Whisper.",
+          1
+        ],
+        [
+          "Comparar o preço visto na imagem com o preço falado.",
+          2
+        ],
+        [
+          "Conferir PNG/JPEG e limite de megapixels.",
+          0
+        ],
+        [
+          "Preservar início e fim e limitar a duração a trinta segundos.",
+          1
+        ],
+        [
+          "Registrar origem e uma contradição para a futura resposta do agente.",
+          2
+        ]
+      ],
+      "explicacao": "Cada processador verifica riscos próprios da modalidade. A revisão cruzada avalia concordância e suporte entre fontes já extraídas. Um JSON válido não torna verdadeiro o texto extraído e duas fontes concordantes também podem compartilhar um erro; a conferência usa os arquivos originais."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

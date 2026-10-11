@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz - Dia 21 | Fundamentos de Visão Multimodal com Gemini</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este quiz precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 21",
+  "titulo": "Fundamentos de Visão Multimodal com Gemini",
+  "chave": "quiz_dia_21",
+  "perguntas": [
+    {
+      "tipo": "multipla",
+      "enunciado": "A dupla leu um PNG autorizado em `image_bytes`. Qual entrada mantém os bytes e informa corretamente seu tipo ao SDK `google-genai`?",
+      "opcoes": [
+        "Enviar apenas o caminho local do PNG como texto no prompt.",
+        "Decodificar o conteúdo binário com UTF-8 e enviar a string resultante.",
+        "Usar `types.Part.from_bytes(data=image_bytes, mime_type=\"image/png\")` junto da pergunta.",
+        "Informar `mime_type=\"text/plain\"`, pois o modelo recebe um prompt textual."
+      ],
+      "correta": 2,
+      "explicacao": "A parte multimodal contém os bytes e o MIME correspondente ao PNG. Um caminho escrito no prompt não disponibiliza o arquivo local ao servidor. Decodificar uma imagem como UTF-8 perde o contrato binário ou provoca erro. Declarar text/plain descreve outro tipo de conteúdo; a pergunta textual e a imagem devem ser partes distintas da entrada."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "No diagrama técnico de teste, a seta está visível, mas o nome de um componente está ilegível. Qual resposta demonstra grounding visual?",
+      "opcoes": [
+        "Descrever a conexão visível, marcar o nome como indeterminado e solicitar uma imagem mais legível.",
+        "Completar o nome com o componente mais comum em diagramas semelhantes.",
+        "Declarar que a imagem está completamente vazia, descartando também a seta visível.",
+        "Afirmar com certeza um nome e reduzir a temperatura para justificar a escolha."
+      ],
+      "correta": 0,
+      "explicacao": "Grounding limita a descrição ao que a imagem sustenta e explicita a região ilegível. A frequência de um componente em outros diagramas não comprova seu nome nesta imagem. Descartar tudo perde evidências utilizáveis. Temperatura controla a geração, mas não torna legível um detalhe ausente nem valida uma afirmação."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "O OCR devolveu JSON compatível com o contrato Pydantic, mas leu o total de um recibo como 180 em vez de 130. O que a dupla deve concluir sobre esse teste?",
+      "opcoes": [
+        "O schema garantiu que o valor extraído estava correto; o recibo deve estar errado.",
+        "Se o JSON é válido, a conferência com a imagem é desnecessária.",
+        "A única correção necessária é converter o JSON em texto livre.",
+        "A estrutura passou, mas o conteúdo falhou; é preciso conferir o valor contra a imagem de referência."
+      ],
+      "correta": 3,
+      "explicacao": "O schema verifica formato e tipos, enquanto a referência visual permite conferir o conteúdo. Validade estrutural não certifica a leitura do número. Por isso, nem presumir erro no recibo nem dispensar a conferência é aceitável. Texto livre remove o contrato sem resolver o erro de extração. O teste do Dia 21 permanece um exercício de fundamentos em duplas."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "A dupla configurou `model=\"gemini-3.8-flash\"`. Qual descrição representa a execução de visão exigida na sprint?",
+      "opcoes": [
+        "Os pesos do Gemini são instalados pela biblioteca e inferem na CPU do notebook.",
+        "O cliente Python roda no notebook e envia a imagem autorizada à API, que exige internet, chave e acesso ao modelo.",
+        "Abrir o quiz offline disponibiliza também inferência Gemini offline.",
+        "A faixa gratuita elimina a necessidade de verificar a cota da conta."
+      ],
+      "correta": 1,
+      "explicacao": "google-genai é o cliente da API; a inferência Gemini ocorre no provedor. A biblioteca não instala pesos Gemini para CPU. O quiz usa arquivos locais, mas isso não muda a dependência de internet da inferência. A disponibilidade gratuita depende das condições e cotas da conta; elas devem ser verificadas antes do exercício, sem trocar silenciosamente o modelo obrigatório."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Uma imagem carregada com PIL pode ser usada como entrada multimodal no SDK; escrever somente seu nome de arquivo no prompt não envia seu conteúdo.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. O objeto de imagem ou uma parte com bytes fornece conteúdo visual ao cliente. Uma string com o nome do arquivo permanece texto e não autoriza o servidor a ler o disco do notebook. A dupla deve validar abertura, formato e conteúdo antes de fazer a requisição."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Quando o recibo não mostra o CNPJ, o OCR pode inventar um CNPJ plausível para preencher todos os campos do contrato.",
+      "resposta": false,
+      "explicacao": "Falso. Um contrato de extração deve representar ausência ou indeterminação, por exemplo com campo opcional e indicação de evidência insuficiente. Um valor com formato válido pode continuar inventado. Preencher por plausibilidade prejudica grounding e impede distinguir observação de suposição."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Para comparar a extração da imagem original com uma versão ruidosa, manter a mesma pergunta e a mesma referência ajuda a atribuir a diferença ao teste visual.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. Manter instruções e referência reduz variáveis que confundem a comparação. A dupla deve registrar acertos, campos ilegíveis e falhas de validação. Mudar simultaneamente prompt, imagem e referência torna difícil saber qual mudança produziu o resultado; uma execução isolada também não prova desempenho geral."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Complete o método que cria uma parte a partir de dados binários: `types.Part._______(data=image_bytes, mime_type=\"image/png\")`.",
+      "respostas": [
+        "from_bytes"
+      ],
+      "explicacao": "from_bytes cria a parte de conteúdo binário com o MIME informado. A leitura dos bytes deve acontecer antes da chamada; o método não transforma um caminho escrito como texto em acesso remoto ao arquivo. O MIME precisa corresponder ao formato da amostra."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Na configuração de saída estruturada, a propriedade `response_______` recebe o contrato de campos esperado, como um modelo Pydantic.",
+      "respostas": [
+        "schema",
+        "_schema"
+      ],
+      "explicacao": "response_schema declara a estrutura esperada da saída. O resultado ainda exige validação e conferência das evidências: o contrato não assegura que o modelo leu corretamente todos os caracteres da imagem."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "A chave do Gemini deve ser lida do ambiente usando o nome `_______`, sem copiar seu valor para o código versionado.",
+      "respostas": [
+        "GEMINI_API_KEY"
+      ],
+      "explicacao": "GEMINI_API_KEY é a variável adotada no material. python-dotenv pode carregar um .env local e os.environ fornece o valor à aplicação. O segredo não deve ser incluído no Git, em capturas públicas ou no texto das questões."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada operação da dupla à sua responsabilidade no laboratório de visão.",
+      "pares": [
+        [
+          "PIL.Image.open",
+          "Abrir e inspecionar uma imagem local antes da inferência"
+        ],
+        [
+          "types.Part.from_bytes",
+          "Representar bytes da imagem com seu MIME na requisição"
+        ],
+        [
+          "Contrato Pydantic",
+          "Definir e validar a estrutura da extração"
+        ],
+        [
+          "Conferência com a imagem",
+          "Verificar se os campos extraídos são sustentados pela fonte visual"
+        ]
+      ],
+      "explicacao": "PIL trata a imagem local; from_bytes prepara conteúdo para envio; Pydantic controla forma; a conferência verifica apoio visual. Abrir ou empacotar a imagem não avalia a verdade dos campos. Validar um contrato não substitui a comparação com a fonte."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Um diagrama possui seta visível e rótulo parcialmente apagado. Associe cada exemplo à categoria de evidência.",
+      "pares": [
+        [
+          "Há uma seta de A para B",
+          "Observação sustentada pela região visível"
+        ],
+        [
+          "B talvez seja um banco de dados",
+          "Hipótese que precisa ser identificada como inferência"
+        ],
+        [
+          "O nome completo de B não pode ser lido",
+          "Limitação explícita da fonte"
+        ],
+        [
+          "Solicitar nova foto focada no rótulo",
+          "Ação para obter evidência adicional"
+        ]
+      ],
+      "explicacao": "A seta legível permite uma observação; a identidade de B permanece hipótese quando o rótulo não a comprova. A limitação deve ser declarada e uma nova foto pode resolvê-la. Tratar hipótese como OCR confirmado é um erro mesmo que o nome pareça plausível."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

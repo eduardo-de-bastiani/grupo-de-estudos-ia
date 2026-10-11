@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz - Dia 27 | Interface Streamlit, Telemetria e Ensaio do Pitch</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este quiz precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 27",
+  "titulo": "Interface Streamlit, Telemetria e Ensaio do Pitch",
+  "chave": "quiz_dia_27",
+  "perguntas": [
+    {
+      "tipo": "multipla",
+      "enunciado": "Ao enviar uma nova mensagem no chat, o Streamlit executa o script novamente. Onde o trio deve guardar o histórico que precisa continuar na mesma sessão?",
+      "opcoes": [
+        "Somente em uma variável local criada vazia no início de toda execução.",
+        "Em um comentário no app.py.",
+        "Na chave de API, concatenando as mensagens ao segredo.",
+        "Em `st.session_state`, inicializando a lista apenas quando a chave ainda não existe."
+      ],
+      "correta": 3,
+      "explicacao": "session_state mantém valores entre reruns da sessão. Uma lista local recriada perde o histórico; comentários não armazenam estado em execução. Misturar mensagens e credencial corrompe a configuração e expõe conteúdo. O estado da sessão também não substitui persistência permanente em banco quando essa necessidade existir."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "O app faz nova inferência Gemini a cada rerun, mesmo sem o usuário pedir processamento e sem mudança no upload. Qual alteração torna o comportamento mais controlado?",
+      "opcoes": [
+        "Executar a chamada em todos os reruns e esconder a telemetria.",
+        "Acionar processamento por uma ação explícita e associar o resultado guardado à entrada, invalidando-o quando a amostra mudar.",
+        "Guardar uma resposta única e reutilizá-la para qualquer arquivo futuro.",
+        "Excluir o botão e transcrever novamente sempre que o player tocar."
+      ],
+      "correta": 1,
+      "explicacao": "Uma ação explícita e o vínculo entre resultado e amostra evitam trabalho repetido e respostas desatualizadas. Esconder métricas não elimina chamadas. Reutilizar indiscriminadamente um resultado mistura evidências. Tocar o áudio é uma ação de conferência, não uma solicitação para executar novamente todo o pipeline."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "A resposta da API não trouxe dados de uso disponíveis. Como a telemetria deve apresentar o número de tokens daquela chamada?",
+      "opcoes": [
+        "Como indisponível, preservando duração e status conhecidos sem inventar uma contagem.",
+        "Como exatamente zero, porque ausência de informação prova ausência de uso.",
+        "Como uma contagem exata calculada pelo número de letras da pergunta.",
+        "Como uma contagem copiada de uma chamada anterior de outra amostra."
+      ],
+      "correta": 0,
+      "explicacao": "Informação ausente é diferente de uso zero. Duração e status podem continuar sendo medidos localmente. Número de letras não corresponde a uma contagem exata de tokens; uma estimativa, se usada, precisa ser identificada. Dados de outra chamada não descrevem o evento atual e contaminam a avaliação do pipeline."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "No ensaio do Dia 27, o trio tem dez minutos e precisa preparar a apresentação de quinze minutos do Dia 28. Qual conteúdo priorizar?",
+      "opcoes": [
+        "Somente os slides de estética, sem executar o produto.",
+        "Todas as linhas de código, lidas em voz alta sem mostrar o caso.",
+        "Problema, fluxo multimodal, demo com caso válido e falha controlada, avaliação e limitações, dividindo a fala entre os três integrantes.",
+        "Uma promessa de suportar todos os formatos, mesmo sem teste."
+      ],
+      "correta": 2,
+      "explicacao": "O ensaio verifica uma narrativa demonstrável e a participação dos integrantes, respeitando o tempo menor de treinamento. Estética ou leitura de código não comprova o valor do caso. Promessas sem evidência ampliam o escopo e ocultam limites. A demo deve relacionar entradas, ferramenta executada e resultado de avaliação ao problema escolhido."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "`st.session_state` mantém valores entre reruns da sessão, mas não deve ser apresentado como banco de dados que garante preservação após qualquer encerramento do navegador.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. O estado facilita continuidade da interação na sessão Streamlit. Persistência permanente tem outro contrato e precisa de armazenamento apropriado. A interface deve inicializar chaves sem sobrescrever mensagens a cada rerun e associar resultados às entradas corretas."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Exibir um player com `st.audio` comprova que a transcrição Whisper está correta e dispensa conferir trechos com números ou negações.",
+      "resposta": false,
+      "explicacao": "Falso. O player permite ouvir e verificar a amostra, mas não realiza por si só essa avaliação. Números, nomes e negações podem ser reconhecidos incorretamente. A UI deve mostrar transcrição e segmentos para que o usuário possa localizar a fala que sustenta uma afirmação."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Registrar a chave real do Gemini na telemetria é uma forma adequada de tornar as chamadas rastreáveis para a banca.",
+      "resposta": false,
+      "explicacao": "Falso. A rastreabilidade depende de identificadores, etapas, argumentos permitidos, resultados, duração e status. Credenciais não ajudam a conferir o raciocínio e não devem aparecer em logs, telas ou repositório. O trio pode indicar que a configuração está presente sem expor o valor do segredo."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Complete o estado da sessão: `st._______[\"mensagens\"]` guarda o histórico entre reruns.",
+      "respostas": [
+        "session_state"
+      ],
+      "explicacao": "session_state guarda valores da sessão, como mensagens e resultados associados a uploads. A inicialização deve ocorrer quando a chave ainda não existe. Reinicializá-la em toda execução anula o benefício e pode fazer a UI perder o contexto após uma interação."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Complete a função do Streamlit que permite ouvir o upload: `st._______(audio_bytes)`.",
+      "respostas": [
+        "audio"
+      ],
+      "explicacao": "st.audio apresenta um player para a amostra. Ele complementa a transcrição e os timestamps na conferência da fala. Ouvir o áudio não chama automaticamente uma ferramenta de negócio nem comprova fidelidade do Whisper; é uma forma de acessar a fonte."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Quando disponíveis na resposta do SDK Gemini, os dados de uso da chamada são consultados em `response._______`.",
+      "respostas": [
+        "usage_metadata"
+      ],
+      "explicacao": "usage_metadata fornece metadados de uso informados pela API quando presentes. A telemetria deve conservar a distinção entre valores informados, valores medidos localmente e informação indisponível. Não deve transformar ausência desses metadados em contagem exata de zero."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada componente da interface à tarefa do usuário.",
+      "pares": [
+        [
+          "Upload de imagem",
+          "Fornecer a amostra visual para validação e extração"
+        ],
+        [
+          "Player de áudio com transcrição",
+          "Ouvir a fonte e conferir a fala reconhecida"
+        ],
+        [
+          "Chat com estado da sessão",
+          "Continuar a interação sem perder mensagens em um rerun"
+        ],
+        [
+          "Painel de ferramentas e evidências",
+          "Conferir quais resultados sustentaram a resposta"
+        ]
+      ],
+      "explicacao": "A UI combina envio, acesso às fontes, conversa e auditoria. Upload não prova validação concluída; o player não avalia precisão sozinho. Histórico sem vínculo com a amostra pode confundir resultados, e uma resposta sem painel de evidências oculta o caminho usado para chegar à conclusão."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada registro de telemetria à interpretação adequada.",
+      "pares": [
+        [
+          "Duração da etapa medida localmente",
+          "Tempo observado de execução daquela etapa"
+        ],
+        [
+          "Tokens informados pela API",
+          "Uso reportado pelo provedor naquela chamada"
+        ],
+        [
+          "Nome, argumentos e resultado da ferramenta",
+          "Rastro da ação local executada"
+        ],
+        [
+          "Status de falha com etapa identificada",
+          "Indicação de onde o fluxo ficou bloqueado"
+        ]
+      ],
+      "explicacao": "Tempo, uso, ação e estado respondem a perguntas diferentes. Latência baixa não implica precisão. Tokens não comprovam grounding. O rastro da ferramenta mostra o que a aplicação executou, e o status impede tratar uma etapa bloqueada como sucesso. Os registros devem evitar segredos e exposição desnecessária de dados."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>

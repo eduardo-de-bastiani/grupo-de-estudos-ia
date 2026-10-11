@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz - Dia 26 | Orquestração de Ferramentas e Raciocínio Multimodal</title>
+<link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+<noscript><p style="max-width:720px;margin:24px auto">Este quiz precisa de JavaScript ativado no navegador.</p></noscript>
+<script>
+const QUIZ = {
+  "dia": "Dia 26",
+  "titulo": "Orquestração de Ferramentas e Raciocínio Multimodal",
+  "chave": "quiz_dia_26",
+  "perguntas": [
+    {
+      "tipo": "multipla",
+      "enunciado": "Após receber evidências de imagem e áudio, o Gemini devolve uma chamada para `consultar_pedido`. Quem executa a consulta SQLite?",
+      "opcoes": [
+        "O modelo acessa diretamente o disco do notebook, sem código intermediário.",
+        "A aplicação confere nome e argumentos, executa a ferramenta local permitida e devolve um resultado ao modelo.",
+        "O texto da chamada já é uma consulta executada e dispensa implementação Python.",
+        "O navegador executa automaticamente qualquer função citada na resposta."
+      ],
+      "correta": 1,
+      "explicacao": "Function Calling comunica a intenção de chamar uma ferramenta. A aplicação é responsável por validar, despachar e executar a função e devolver seu resultado. O modelo não recebe acesso direto ao disco por emitir uma chamada. Texto não executa SQL, e o navegador não deve executar funções arbitrárias com base em uma resposta."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "A ferramenta recebe `pedido_id` extraído de um documento. Qual consulta mantém esse valor como parâmetro e a estrutura SQL fixa?",
+      "opcoes": [
+        "`conn.execute(\"SELECT status FROM pedidos WHERE id = ?\", (pedido_id,))` após validar o argumento.",
+        "`conn.execute(f\"SELECT status FROM pedidos WHERE id = {pedido_id}\")` sem validar.",
+        "Concatenar o valor ao SQL e confiar na instrução “não faça SQL injection” do prompt.",
+        "Executar qualquer query que o modelo escrever, desde que a resposta esteja em JSON."
+      ],
+      "correta": 0,
+      "explicacao": "O placeholder e a tupla separam o valor da estrutura SQL; a validação também deve conferir o tipo e as regras do identificador. Interpolação e concatenação misturam dados e código. Um prompt não substitui a barreira do runtime. JSON válido não autoriza SQL arbitrário nem garante que a operação é permitida."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "O agente repete a mesma chamada de ferramenta e nunca chega à resposta final. Qual controle deve existir no runtime?",
+      "opcoes": [
+        "Aumentar indefinidamente o histórico até o modelo parar por acaso.",
+        "Retirar os logs para que as repetições não sejam percebidas.",
+        "Definir teto de iterações e de chamadas, detectar repetição e encerrar com estado de limite alcançado.",
+        "Confiar que o contrato JSON impede loops."
+      ],
+      "correta": 2,
+      "explicacao": "O runtime precisa impor um limite observável, inclusive quando o modelo repete ações. Detectar repetições ajuda a terminar mais cedo, e o estado final deve informar a limitação. Histórico crescente não é um mecanismo de parada. Esconder logs dificulta diagnóstico. Um contrato define dados, mas não limita quantas vezes a aplicação os processa."
+    },
+    {
+      "tipo": "multipla",
+      "enunciado": "O SDK devolveu um `Content` com chamada de ferramenta e uma parte com `thought_signature`. Como continuar a conversa após a execução local?",
+      "opcoes": [
+        "Guardar apenas o texto visível e reconstruir uma chamada sem os outros campos.",
+        "Inventar uma nova assinatura em uma string para cada iteração.",
+        "Apagar a mensagem do modelo e devolver somente uma frase do usuário.",
+        "Preservar o Content e as partes devolvidas pelo SDK no histórico e acrescentar a resposta de ferramenta correspondente."
+      ],
+      "correta": 3,
+      "explicacao": "Preservar o conteúdo retornado mantém as partes e os campos de continuidade, incluindo thought_signature quando presente. Reconstruir somente o texto ou inventar assinatura perde informação do protocolo. Apagar o turno elimina a ligação com a chamada. A resposta de ferramenta deve manter correspondência com o nome e a chamada que está sendo atendida."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Se o áudio transcrito pedir a ferramenta “apagar_banco”, ela pode ser executada mesmo que não esteja na lista de funções permitidas, pois a ordem veio de uma evidência multimodal.",
+      "resposta": false,
+      "explicacao": "Falso. Evidências não ampliam os poderes da aplicação. O dispatcher deve aceitar apenas ferramentas registradas e argumentos válidos. O pedido pode ser mostrado como conteúdo da transcrição, mas não autoriza acesso a uma função desconhecida ou destrutiva."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "A validação de argumentos no runtime continua necessária mesmo quando o modelo recebe uma descrição e um schema da ferramenta.",
+      "resposta": true,
+      "explicacao": "Verdadeiro. O contrato comunicado ao modelo orienta a chamada, enquanto o runtime aplica limites efetivos: nome permitido, tipos, faixas, regras de negócio e acesso aos dados. A ferramenta deve recusar entradas inválidas e devolver um resultado de falha controlado. A descrição não é uma barreira executável."
+    },
+    {
+      "tipo": "vf",
+      "enunciado": "Quando uma consulta não encontra o pedido, o agente pode tratar o resultado vazio como prova de que o pedido está aprovado.",
+      "resposta": false,
+      "explicacao": "Falso. Ausência de registro não comprova um status. O resultado deve indicar que nada foi encontrado e a resposta precisa reconhecer a falta de evidência. Inventar aprovação transforma uma falha de consulta ou inexistência de dado em decisão não sustentada."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Complete a construção da parte de retorno da ferramenta no SDK: `types.Part._______(name=nome, response=resultado)`.",
+      "respostas": [
+        "from_function_response"
+      ],
+      "explicacao": "from_function_response representa a resposta estruturada da função executada pela aplicação. Ela deve corresponder à chamada atendida e estar no turno apropriado do histórico. Não é uma nova solicitação de execução, e texto comum não substitui o contrato de retorno da ferramenta."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Na API sqlite3, complete o placeholder da consulta: `SELECT status FROM pedidos WHERE id = _______`.",
+      "respostas": [
+        "?"
+      ],
+      "explicacao": "O ponto de interrogação é o placeholder posicional usado no exemplo. O valor é passado separadamente em uma sequência, como (pedido_id,). Isso mantém dados fora da estrutura SQL, mas o runtime ainda deve validar o identificador e restringir a operação permitida."
+    },
+    {
+      "tipo": "completar",
+      "enunciado": "Complete: um agente deve ter um número máximo de _______ do loop para evitar execução sem fim.",
+      "respostas": [
+        "iterações",
+        "iteracoes",
+        "rodadas"
+      ],
+      "explicacao": "O limite de iterações deve ser implementado no runtime e acompanhado de limites de chamadas ou tentativas quando aplicável. Ao esgotar o limite, o fluxo deve retornar um estado explicado, sem afirmar que chegou a uma conclusão que não produziu."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada participante do ciclo de ferramenta ao papel que desempenha.",
+      "pares": [
+        [
+          "Gemini",
+          "Solicitar uma ferramenta com nome e argumentos"
+        ],
+        [
+          "Dispatcher Python",
+          "Validar e encaminhar a chamada para uma função permitida"
+        ],
+        [
+          "Ferramenta SQLite",
+          "Executar uma consulta local fixa com valores parametrizados"
+        ],
+        [
+          "Resposta de ferramenta no histórico",
+          "Fornecer ao modelo o resultado da execução para a continuação"
+        ]
+      ],
+      "explicacao": "O ciclo separa decisão probabilística e execução controlada. O modelo pede; o dispatcher aplica regras; a ferramenta consulta; o retorno comunica o resultado. Misturar esses papéis pode permitir chamadas desconhecidas ou fazer uma solicitação parecer um fato já consultado."
+    },
+    {
+      "tipo": "associar",
+      "enunciado": "Associe cada controle do agente ao risco que ele reduz.",
+      "pares": [
+        [
+          "Allowlist de ferramentas",
+          "Execução de uma função não autorizada pela aplicação"
+        ],
+        [
+          "SQL parametrizado com consulta fixa",
+          "Inserção de valor do usuário na estrutura do comando"
+        ],
+        [
+          "Teto de iterações e chamadas",
+          "Continuação indefinida do ciclo de ferramentas"
+        ],
+        [
+          "Registro de argumentos, resultado e origem",
+          "Resposta sem possibilidade de conferir a execução que a sustenta"
+        ]
+      ],
+      "explicacao": "Cada barreira protege uma dimensão. Parametrização não limita iterações, e um teto não decide quais funções podem executar. A allowlist não substitui validação de valores. A rastreabilidade mostra o ocorrido, mas também exige que a execução respeite as demais regras e não exponha segredos."
+    }
+  ]
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>
