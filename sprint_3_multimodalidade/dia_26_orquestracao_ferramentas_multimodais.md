@@ -2,24 +2,27 @@
 # Orquestracao de Ferramentas e Raciocinio Multimodal: O Cerebro em Acao
 
 Sprint 3: Multimodalidade (Visao + Audio Whisper) e Projeto OmniAssistant  
-Horario: 14:00 as 17:00 (180 minutos) | Formato: Presencial Autonomo (Navi Hub / Tecnopuc)  
+Horario: 14:00 as 17:00 (180 minutos) | Formato: Presencial (Navi Hub / Tecnopuc)  
+Presenca Especial: Gustavo (Mestrando no Centro de Inteligencia Artificial da PUCRS)  
 Fase: Semana 2: Desenvolvimento Cumulativo do OmniAssistant em Trios  
 
-Hoje alcancamos o ponto alto de integracao da nossa jornada: conectar a percepcao multimodal ao raciocinio agêntico com ferramentas reais. Na Sprint 2, aprendemos a fazer o modelo decidir chamadas de funcao. Hoje, o OmniAssistant recebe o que ele VIU na imagem e o que ele OUVIU no audio e, se precisar de informacoes concretas, decide autonomamente consultar um banco de dados relacional local (SQLite) ou executar calculos matematicos com seguranca estrita. E o ciclo completo: **Percepcao -> Raciocinio -> Acao -> Resposta**!
+Hoje alcancamos um dia de programacao especial e integracao maxima na nossa jornada! Das 14:00 as 15:00, recebemos o Gustavo, pesquisador de mestrado no Centro de IA da PUCRS, para uma palestra exclusiva sobre as fronteiras da inteligencia artificial generativa, raciocinio complexo e os desafios reais da pesquisa aplicada.
 
-Dinamica de Squad: Mantenham o rodizio no trio (Piloto, Copiloto e Arquiteto). Hoje finalizamos o motor agêntico (`src/core/agent.py`) que deixara o produto pronto para receber a interface visual amanha.
+Logo em seguida, das 15:00 as 17:00, as squads entram em campo para conectar a percepcao multimodal ao raciocinio agentico com ferramentas reais. O OmniAssistant recebe o que ele VIU na imagem e o que ele OUVIU no audio e, se precisar de informacoes concretas, decide autonomamente consultar um banco de dados relacional local (SQLite) ou executar calculos matematicos com seguranca estrita. E o ciclo completo: **Percepcao -> Raciocinio -> Acao -> Resposta**!
+
+Dinamica de Squad: Mantenham o rodizio no trio (Piloto, Copiloto e Arquiteto). Hoje finalizamos o motor agentico (`src/core/agent.py`) que deixara o produto pronto para receber a interface visual amanha.
 
 ---
 
 ## 1. Objetivos do Encontro
 
-1. Construir ferramentas determinísticas em Python conectadas a um banco local SQLite seguro (`src/tools/local.py`).
-2. Configurar declaracoes de ferramentas via `google.genai.types.Tool` e `FunctionDeclaration` com schemas estritos em Pydantic.
-3. Implementar o despachante seguro de ferramentas com protecao contra SQL Injection e operacoes de escrita nao autorizadas.
-4. Construir o loop agêntico artesanal em `src/core/agent.py` capaz de alimentar o Gemini com evidencias multimodais e responder as chamadas de funcao em multiplos turnos.
-5. Capturar telemetria completa de execucao (rastro agêntico com nomes de tools chamadas, argumentos, latencia e contagem de tokens).
-6. Executar testes de estresse comprovando que instrucoes maliciosas injetadas nas imagens ou audios nao conseguem corromper o banco.
-7. Consolidar os conceitos no Quiz Interativo e na Atividade Interativa antes do formulario diario.
+1. Assistir a palestra especial do Gustavo (Centro de IA da PUCRS), compreendendo o estado da arte de pesquisa em modelos de linguagem, multimodalidade e tool use.
+2. Construir ferramentas deterministicas em Python conectadas a um banco local SQLite seguro (`src/tools/local.py`).
+3. Configurar declaracoes de ferramentas via `google.genai.types.Tool` e `FunctionDeclaration` com schemas estritos em Pydantic.
+4. Implementar o despachante seguro de ferramentas com protecao contra SQL Injection e operacoes de escrita nao autorizadas.
+5. Construir o loop agentico artesanal em `src/core/agent.py` capaz de alimentar o Gemini com evidencias multimodais e responder as chamadas de funcao em multiplos turnos.
+6. Executar o fluxo completo integrador (`tests/test_fluxo_completo.py`) e validar a resiliencia contra SQL Injection com testes automatizados.
+7. Sincronizar o repositorio no GitHub (Git Sync v0.3), responder o Quiz e Atividade Interativa HTML e preencher o formulario diario de autoavaliacao.
 
 ---
 
@@ -27,59 +30,53 @@ Dinamica de Squad: Mantenham o rodizio no trio (Piloto, Copiloto e Arquiteto). H
 
 | Horario | Duracao | Bloco | Atividade |
 | :--- | :---: | :--- | :--- |
-| 14:00 - 14:05 | 5 min | Abertura | Daily Standup da Squad: alinhamento das ferramentas necessarias |
-| 14:05 - 14:20 | 15 min | Bloco 1 | Leitura Padronizada e Playgrounds Web de Ferramentas |
-| 14:20 - 14:50 | 30 min | Bloco 2 | Laboratorio 1: Ferramentas Locais e Banco SQLite (`src/tools/local.py`) |
-| 14:50 - 15:30 | 40 min | Bloco 3 | Laboratorio 2: O Orquestrador Multimodal (`src/core/agent.py`) |
-| 15:30 - 15:45 | 15 min | Intervalo | Coffee Break e Networking |
-| 15:45 - 16:15 | 30 min | Bloco 4 | Desafio Pratico: Percepcao para Acao de Ponta a Ponta |
-| 16:15 - 16:25 | 10 min | Bloco 5 | Testes de Resiliencia: Guardrail SQL e Bloqueio de Injections |
-| 16:25 - 16:35 | 10 min | Bloco 6 | Sincronizacao no GitHub da Squad (Git Sync v0.3) |
-| 16:35 - 16:45 | 10 min | Bloco 7 | Quiz e Atividade Interativa HTML no Navegador |
-| 16:45 - 17:00 | 15 min | Bloco 8 | Formulario Diario de Auto-Avaliacao e Feedback |
+| 14:00 - 15:00 | 60 min | Bloco Especial | Palestra com Gustavo (Centro de IA da PUCRS) & Sessao de Q&A |
+| 15:00 - 15:05 | 5 min | Abertura Pratica | Daily Standup da Squad: conexoes com a palestra e alinhamento do trio |
+| 15:05 - 15:30 | 25 min | Bloco 1 | Laboratorio 1: Ferramentas Locais e Banco SQLite (`src/tools/local.py`) |
+| 15:30 - 16:05 | 35 min | Bloco 2 | Laboratorio 2: O Orquestrador Multimodal e Loop de Function Calling (`src/core/agent.py`) |
+| 16:05 - 16:15 | 10 min | Intervalo | Coffee Break e Networking |
+| 16:15 - 16:35 | 20 min | Bloco 3 | Desafio Pratico de Ponta a Ponta & Guardrail SQL (`tests/test_fluxo_completo.py`) |
+| 16:35 - 16:45 | 10 min | Bloco 4 | Sincronizacao no GitHub (Git Sync v0.3) e Quiz/Atividade HTML no Navegador |
+| 16:45 - 17:00 | 15 min | Bloco 5 | Formulario Diario de Auto-Avaliacao e Feedback |
 
 ---
 
-## 3. Daily Standup de Abertura (14:00 - 14:05)
+## 3. Palestra Especial: Pesquisa e Fronteiras em IA (14:00 - 15:00)
 
-Reuniao de 5 minutos em pe da squad:
-1. O que mais gostei no pipeline unificado de imagem e audio de ontem.
-2. Minha maior dificuldade ou bug enfrentado na ingestao multimodal.
-3. Alinhem quais ferramentas analiticas SQLite serao prioritarias hoje.
-Iniciem a leitura pontualmente as 14:05.
+Tempo dedicado: 60 minutos (45 min de exposicao + 15 min de debate aberto e perguntas).  
+Convidado: Gustavo (Mestrando no Centro de Inteligencia Artificial da PUCRS).
+
+Temas abordados na apresentacao:
+- Como funciona a pesquisa de pos-graduacao em IA no Centro de IA da PUCRS.
+- Do laboratório ao mercado: como modelos de fronteira evoluiram de predição de texto para agentes com raciocinio e acao no mundo corporativo.
+- Desafios tecnicos reais de avaliacao, latencia, alucinacao e seguranca em arquiteturas multimodais.
+- Dicas de carreira e oportunidades de pesquisa/pos-graduacao para estudantes de Ciencias da Computacao e Engenharia de Software da PUCRS.
+
+Sessao de Perguntas e Respostas (14:45 as 15:00):
+Aproveitem os 15 minutos finais para dialogar diretamente com o Gustavo sobre duvidas tecnicas do projeto OmniAssistant e trajetoria academica/profissional.
 
 ---
 
-## 4. Bloco 1: Leitura Padronizada de Referencia e Sandboxes de Ferramentas (14:05 - 14:20)
+## 4. Daily Standup de Abertura da Pratica (15:00 - 15:05)
 
-Tempo dedicado: 15 minutos (leitura individual e experimentacao na squad).
+Reuniao de 5 minutos em pe da squad de 3 integrantes:
+1. O que mais gostei no encontro de ontem e quais aprendizados da palestra do Gustavo conectam com nosso OmniAssistant.
+2. Minha maior dificuldade ou bug enfrentado na ingestao de dados.
+3. Alinhamento rapido dos papeis (Piloto no teclado, Copiloto e Arquiteto) para a implementacao das ferramentas SQLite e do orquestrador de hoje.
 
-Por que agentes multimodais precisam de ferramentas determinísticas:
+---
+
+## 5. Bloco 1: Laboratorio 1 - Ferramentas Locais e Banco SQLite (15:05 - 15:30)
+
+Tempo dedicado: 25 minutos | Formato: Trios.
+
+Por que agentes multimodais precisam de ferramentas deterministicas:
 Modelos de linguagem sao pessimos em fazer contas complexas de cabeca e nao possuem acesso aos dados privados da empresa. Se um usuario envia a foto de um codigo de peca `A101` e pergunta pelo audio *"Quanto custam 15 unidades deste item?"*, a LLM nao deve tentar chutar o preco ou multiplicar de cabeca. O fluxo profissional de engenharia e:
 1. A LLM extrai o codigo `A101` da foto e a quantidade `15` do audio.
-2. O modelo emite uma solicitacao estruturada: *"chame `consultar_preco(codigo='A101')`"*.
+2. O modelo emite uma solicitacao estruturada: *"chame `consultar_item(codigo='A101')`"*.
 3. Nosso codigo Python roda a consulta parametrizada no SQLite local e devolve: `{"preco": 25.0}`.
 4. O modelo entao solicita `calcular_total(quantidade=15, preco=25.0)` e nosso Python devolve `375.0`.
 5. O modelo redige a resposta final fundamentada com explicabilidade total!
-
-O que voce vai encontrar nos links recomendados:
-- Na Documentacao de Function Calling: veja como declarar ferramentas usando schemas JSON e como desabilitar o auto-calling para manter controle artesanal da execucao.
-- No Artigo do Simon Willison: licoes de seguranca sobre como criar ferramentas read-only e blindar bancos contra escrita indevida.
-
-Links Educacionais Recomendados:
-- [Google AI: Function Calling com Gemini](https://ai.google.dev/gemini-api/docs/function-calling): guia oficial completo sobre chamada nativa de ferramentas.
-- [Simon Willison: AI Agents and Tool Calling Demystified](https://simonwillison.net/): explicacao brilhante sobre loops agênticos e limites de seguranca.
-- [Python 3.11 SQLite Oficial](https://docs.python.org/3.11/library/sqlite3.html): como usar consultas parametrizadas com placeholders para impedir SQL injection.
-
-Jogos Web e Playgrounds Interativos para Testar Agora (2 a 3 min):
-- [SQLime - SQLite Web Playground](https://sqlime.org/): teste queries SQL analiticas diretamente no navegador com SQLite compilado em WebAssembly.
-- [Google AI Studio Tool Calling](https://aistudio.google.com/): declare uma ferramenta rapida no AI Studio e veja como o Gemini decide quando emitir a chamada de funcao.
-
----
-
-## 5. Bloco 2: Laboratorio 1 - Ferramentas Locais e Banco SQLite (`src/tools/local.py`) (14:20 - 14:50)
-
-Tempo dedicado: 30 minutos | Formato: Trios.
 
 Sua Missao na Squad:
 Criar `src/tools/local.py`. O modulo inicializa o banco SQLite local (`data/catalogo.sqlite`), popula registros sinteticos de demonstracao e expoe 3 funcoes matematicas e analiticas estritas, executadas em modo somente leitura (`PRAGMA query_only = ON`).
@@ -138,31 +135,34 @@ def consultar_item(codigo: str) -> dict:
         linha = cursor.fetchone()
         
     if not linha:
-        return {"encontrado": False, "mensagem": f"Item {codigo_limpo} nao consta na base de dados."}
+        return {"encontrado": False, "mensagem": f"Item {codigo_limpo} nao consta no catalogo."}
         
     return {
         "encontrado": True,
         "codigo": linha[0],
         "nome": linha[1],
-        "preco_unitario_brl": linha[2],
+        "preco": linha[2],
         "setor": linha[3]
     }
 
 def calcular_total(quantidade: float, preco_unitario: float) -> dict:
-    """Multiplica quantidade por preco e formata em BRL com precisao garantida."""
-    if quantidade <= 0 or preco_unitario <= 0:
-        return {"erro": "Valores devem ser estritamente positivos."}
-    if not math.isfinite(quantidade) or not math.isfinite(preco_unitario):
-        return {"erro": "Valores infinitos ou invalidos detectados."}
+    """Calcula o valor financeiro total de um lote com precisao monetaria."""
+    if quantidade <= 0 or preco_unitario < 0:
+        return {"erro": "Quantidade deve ser positiva e preco nao pode ser negativo."}
         
     total = round(quantidade * preco_unitario, 2)
-    return {"total_brl": total, "quantidade": quantidade, "preco_unitario": preco_unitario}
+    return {
+        "quantidade": quantidade,
+        "preco_unitario": preco_unitario,
+        "total": total,
+        "moeda": "BRL"
+    }
 
 if __name__ == "__main__":
     inicializar_banco()
-    print("Banco inicializado com sucesso!")
-    print("Consulta A101:", consultar_item("A101"))
-    print("Calculo total:", calcular_total(3, 25.0))
+    print("Banco inicializado:", DB_PATH)
+    print("Teste consulta A101:", consultar_item("A101"))
+    print("Teste calculo 4 x 25.0:", calcular_total(4, 25.0))
 ```
 
 Como testar:
@@ -170,32 +170,33 @@ Como testar:
 python -m src.tools.local
 ```
 
-Criterio de Sucesso da Squad: O banco e criado em `data/catalogo.sqlite`, a consulta retorna os dados do sensor `A101` e o calculo retorna `75.0 BRL`.
+Criterio de Sucesso da Squad: O terminal imprime o banco inicializado em `data/catalogo.sqlite`, a consulta com sucesso do item A101 e o calculo do total de R$ 100,00.
 
 ---
 
-## 6. Bloco 3: Laboratorio 2 - O Orquestrador Multimodal (`src/core/agent.py`) (14:50 - 15:30)
+## 6. Bloco 2: Laboratorio 2 - O Orquestrador Multimodal (`src/core/agent.py`) (15:30 - 16:05)
 
-Tempo dedicado: 40 minutos | Formato: Trios (inverter quem digita!).
+Tempo dedicado: 35 minutos | Formato: Trios (inverter quem digita!).
 
 Sua Missao na Squad:
-Criar `src/core/agent.py`. Aqui mora a orquestracao central do OmniAssistant! Ele recebe a pergunta do usuario e a lista de `EvidenciaMultimodal` (visao e audio gerados ontem). O modelo recebe as declaracoes das ferramentas, inspeciona as evidencias e dispara chamadas de funcao em loop ate formular a resposta final.
+Criar `src/core/agent.py`. O modulo declara o schema formal das ferramentas usando Pydantic, injeta as ferramentas no Gemini 3.8 Flash e implementa o loop agêntico com multiplos turnos. A cada turno, se o modelo solicitar uma chamada de funcao (`FunctionCall`), nosso despachante intercepta, executa localmente e devolve a observacao (`FunctionResponse`) para o modelo concluir a resposta com total transparencia.
 
 Scaffold de `src/core/agent.py`:
 
 ```python
 import json
-from collections.abc import Callable
 from time import perf_counter
-from google.genai import types
+from typing import Callable
 from pydantic import BaseModel, ConfigDict, Field
+from google.genai import types
 from src.core.config import MODEL, criar_cliente_gemini
 from src.core.contracts import EvidenciaMultimodal
 from src.tools.local import consultar_item, calcular_total, validar_codigo
 
+# Contratos estritos dos argumentos das ferramentas
 class CodigoArgs(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
-    codigo: str = Field(description="Codigo do produto (ex: A101)")
+    codigo: str = Field(description="Codigo do produto (ex: A101, B202)")
 
 class TotalArgs(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
@@ -230,7 +231,7 @@ def despachar_tool(chamada: types.FunctionCall) -> dict:
         return {"erro": f"Argumentos invalidos para {nome}: {type(e).__name__}"}
 
 def executar_agente(pergunta: str, evidencias: list[EvidenciaMultimodal]) -> dict:
-    """Executa o loop agêntico multimodal em multiplos turnos com limite de passos."""
+    """Executa o loop agentico multimodal em multiplos turnos com limite de passos."""
     inicio = perf_counter()
     trace_ferramentas = []
     
@@ -322,23 +323,23 @@ Como testar:
 python -m src.core.agent
 ```
 
-Criterio de Sucesso da Squad: O terminal imprime a resposta final dizendo que 4 unidades do Sensor A101 custam R$ 100,00, com o rastro demonstrando que `consultar_item` e `calcular_total` foram chamadas sequencialmente!
+Criterio de Sucesso da Squad: O terminal imprime a resposta final informando que 4 unidades do Sensor A101 custam R$ 100,00, com o rastro demonstrando que `consultar_item` e `calcular_total` foram chamadas sequencialmente!
 
 ---
 
-## 7. Coffee Break e Networking (15:30 - 15:45)
+## 7. Coffee Break e Networking (16:05 - 16:15)
 
-Pausa de 15 minutos! Cafe e celebracao: o core do OmniAssistant esta vivo e funcionando de ponta a ponta!
+Pausa de 10 minutos! Cafe rapido para esticar as pernas e recarregar as energias apos implementar o cerebro agentico do assistente.
 
 ---
 
-## 8. Bloco 4: Desafio Pratico - Percepcao para Acao de Ponta a Ponta (15:45 - 16:15)
+## 8. Bloco 3: Desafio Integrador e Guardrail SQL (16:15 - 16:35)
 
-Tempo dedicado: 30 minutos | Formato: Trios.
+Tempo dedicado: 20 minutos | Formato: Trios.
 
 Cenario de Negocio:
 Vamos rodar o pipeline completo integrando os tres dias da Semana 2 em um unico script executavel:
-`EntradaUsuario (Imagem + Audio)` -> `ingestion.py` -> `Evidencias` -> `agent.py` -> `Resposta e Trace`.
+`EntradaUsuario (Imagem + Audio)` -> `ingestion.py` -> `Evidencias` -> `agent.py` -> `Resposta e Trace`. Alem disso, devemos testar que qualquer tentativa de SQL Injection (`"A101'; DROP TABLE itens; --"`) seja bloqueada com seguranca.
 
 Criar `tests/test_fluxo_completo.py`:
 
@@ -348,11 +349,12 @@ from pathlib import Path
 from src.core.contracts import EntradaUsuario
 from src.core.ingestion import despachar_ingestao
 from src.core.agent import executar_agente
+from src.tools.local import consultar_item
 
 def testar_pipeline_completo():
     print("Executando teste integrado de percepcao -> acao...")
     
-    # Simula as duas entradas reais da squad
+    # 1. Simula as entradas do usuario
     entrada_txt = EntradaUsuario(tipo="texto", texto_comando="Identifique os itens e calcule o total")
     evidencias = [despachar_ingestao(entrada_txt)]
     
@@ -370,33 +372,8 @@ def testar_pipeline_completo():
     print("\nFerramentas disparadas:", len(resultado["rastro_ferramentas"]))
     print("Tempo de execucao:", resultado["tempo_total_ms"], "ms")
 
-if __name__ == "__main__":
-    testar_pipeline_completo()
-```
-
-Como testar:
-```bash
-python -m tests.test_fluxo_completo
-```
-
-Criterio de Sucesso: O teste roda o fluxo completo e imprime a conclusao analitica no terminal.
-
----
-
-## 9. Bloco 5: Testes de Resiliencia - O Guardrail SQL e Bloqueio de Injections (16:15 - 16:25)
-
-Tempo dedicado: 10 minutos | Formato: Trios.
-
-E se o print ou o audio contiver uma tentativa de SQL Injection como:
-`"A101'; DROP TABLE itens; --"`?
-Vamos provar que nosso banco esta blindado com consultas parametrizadas e PRAGMA query_only.
-
-Crie `tests/test_seguranca_tools.py`:
-
-```python
-from src.tools.local import consultar_item
-
-def testar_sql_injection():
+def testar_guardrail_sql():
+    print("\nTestando resistencia contra SQL Injection...")
     codigo_malicioso = "A101'; DROP TABLE itens; --"
     resultado = consultar_item(codigo_malicioso)
     
@@ -404,82 +381,73 @@ def testar_sql_injection():
     print("PASS: Tentativa de SQL Injection barrada com sucesso pelo guardrail de validacao.")
 
 if __name__ == "__main__":
-    testar_sql_injection()
+    testar_pipeline_completo()
+    testar_guardrail_sql()
 ```
 
 Como testar:
 ```bash
-python -m tests.test_seguranca_tools
+python -m tests.test_fluxo_completo
 ```
 
-Criterio de Sucesso: O terminal exibe `PASS`, comprovando protecao de dados no SQLite local.
+Criterio de Sucesso: O teste roda o fluxo completo, imprime a conclusao analitica e emite o `PASS` de protecao do SQLite.
 
 ---
 
-## 10. Bloco 6: Sincronizacao no GitHub da Squad (16:25 - 16:35)
+## 9. Bloco 4: Sincronizacao no GitHub e Quizzes HTML (16:35 - 16:45)
 
-Tempo dedicado: 10 minutos.
+Tempo dedicado: 10 minutos (5 min Git Sync + 5 min Quizzes).
 
-Salvar os modulos de ferramentas e agente no Git:
-- `src/tools/local.py`
-- `src/core/agent.py`
-- `tests/test_fluxo_completo.py`
-- `tests/test_seguranca_tools.py`
-
-Comandos:
+1. Sincronizar o trabalho no Git:
 ```bash
 git status
 git add src/ tests/
-git commit -m "feat(omni-v0.3): orquestracao agêntica multimodal, ferramentas sqlite e guardrails de seguranca"
+git commit -m "feat(omni-v0.3): orquestracao agentica multimodal, ferramentas sqlite e guardrails de seguranca"
 git push origin main
 ```
 Todos os integrantes fazem `git pull` e conferem o fluxo funcionando localmente.
 
----
-
-## 11. Bloco 7: Quiz Interativo e Atividade Interativa no Navegador (16:35 - 16:45)
-
-Tempo dedicado: 10 minutos (6 min para o Quiz + 4 min para a Atividade).
-
-1. Abra diretamente no navegador: [Quiz do Dia 26](quizzes/quiz_dia_26.html)
-   - Responda questoes sobre Function Calling, envelopes de resposta de ferramentas e guardrails de seguranca.
-2. Abra a atividade gamificada: [Atividade Interativa do Dia 26](quizzes/atividade_dia_26.html)
-   - Resolva desafios de identificar bugs em loops de agentes e ordenar despachos de chamadas.
+2. Abrir diretamente no navegador local:
+- [Quiz do Dia 26](quizzes/quiz_dia_26.html): questoes sobre Function Calling, envelopes de resposta de ferramentas e guardrails.
+- [Atividade Interativa do Dia 26](quizzes/atividade_dia_26.html): desafios de identificar bugs em loops de agentes e ordenar despachos de chamadas.
 
 ---
 
-## 12. Bloco 8: Formulario Diario de Auto-Avaliacao e Feedback (16:45 - 17:00)
+## 10. Bloco 5: Formulario Diario de Auto-Avaliacao e Feedback (16:45 - 17:00)
 
 Tempo dedicado: 15 minutos (preenchimento individual).
 
 Acesse o link do formulario diario disponibilizado pelo facilitador:
-[Preencher Formulario do Google Forms - Dia 26](https://docs.google.com/forms/d/e/1FAIpQLSdwTctKNV6uLhe9pquUsXs9LdK8-Z9kFlfSfTbU8Buwh7Nagg/viewform)
+[Preencher Formulario do Google Forms - Dia 26](https://docs.google.com/forms/d/{FORM_ID_DIA_26}/viewform)
 
 Pautas de hoje:
+- Feedback e reflexoes sobre a palestra com o Gustavo (Centro de IA da PUCRS).
 - Como foi implementar o loop de agente com ferramentas no trio.
 - Satisfacao ao ver o assistente cruzar a visao e a fala para disparar a consulta SQL.
 - Planejamento da interface grafica no Streamlit para amanha.
 
 ---
 
-## 13. Checklist de Conclusao do Dia 26
+## 11. Checklist de Conclusao do Dia 26
 
-- [ ] Daily Standup de abertura realizada com a squad.
-- [ ] Leitura e experimentos no SQLime concluidos.
+- [ ] Participacao na palestra com Gustavo (Centro de IA da PUCRS) e sessao de Q&A.
+- [ ] Daily Standup realizada com a squad apos a palestra.
 - [ ] Modulo `src/tools/local.py` inicializando banco SQLite seguro.
 - [ ] Modulo `src/core/agent.py` orquestrando o loop multimodal de ferramentas.
-- [ ] Teste integrador `test_fluxo_completo.py` executando ponta a ponta.
-- [ ] Teste de seguranca `test_seguranca_tools.py` aprovado com `PASS`.
+- [ ] Teste integrador e guardrail SQL `test_fluxo_completo.py` executando com sucesso.
 - [ ] Repositorio do trio sincronizado no GitHub por todos os integrantes.
 - [ ] Quiz e Atividade Interativa do Dia 26 concluidos no navegador.
 - [ ] Formulario individual de autoavaliacao preenchido.
 
 ---
 
-## 14. Atividades Complementares (Para Aprofundamento)
+## 12. Atividades Complementares (Para Aprofundamento)
 
-1. Video Recomendado: [Tool Use & Function Calling Architecture (AI Engineer Summit, YouTube)](https://www.youtube.com/watch?v=y3nBwFp06rA). Veja como as maiores empresas de tecnologia estruturam guardrails e observabilidade para agentes com centenas de ferramentas.
-2. Desafio Bonus: Adicione uma ferramenta simples `exportar_relatorio_markdown` que gera um resumo em arquivo `.md` do chamado com data/hora e salva na pasta `data/relatorios/`!
+1. Playground Web de SQL: [SQLime (Web SQLite)](https://sqlime.org/) - experimente queries analiticas direto no navegador.
+2. Leitura Recomendada: [Simon Willison: AI Agents and Tool Calling Demystified](https://simonwillison.net/) - ensaio sobre seguranca em tool use e loops ReAct.
+3. Documentacao Oficial: [Google AI: Function Calling com Gemini](https://ai.google.dev/gemini-api/docs/function-calling) - guia de referencia de definicoes de ferramentas.
+4. Video Recomendado: [Tool Use & Function Calling Architecture (AI Engineer Summit, YouTube)](https://www.youtube.com/watch?v=y3nBwFp06rA).
+5. Desafio Bonus: Adicione uma ferramenta simples `exportar_relatorio_markdown` que gera um resumo em arquivo `.md` do chamado com data/hora e salva na pasta `data/relatorios/`!
 
 ---
 [Voltar ao README da Sprint 3](README.md)
