@@ -17,6 +17,8 @@ Todas as respostas caem em uma unica planilha do Google Sheets (uma aba por form
 
 ## Como os Colegas Devem Gerar os Formularios no Google Forms
 
+> **Atalho:** o script [`criar_formularios_sprint3.gs`](criar_formularios_sprint3.gs) cria os 3 formularios e a planilha de respostas automaticamente. Em [script.google.com](https://script.google.com), crie um **Novo projeto**, cole o conteudo do arquivo, execute a funcao `criarFormulariosSprint3` e copie os IDs exibidos no **Registro de execucao**. Ao alterar perguntas, atualize o script **e** este README.
+
 1. Acesse o [Google Forms](https://forms.google.com) ou utilize o Google Apps Script para criar os 3 formularios descritos abaixo.
 2. Crie uma planilha no Google Sheets para receber as respostas vinculadas.
 3. Obtenha os links publicos de resposta de cada formulario (formato `https://docs.google.com/forms/d/SEU_ID_AQUI/viewform`).
