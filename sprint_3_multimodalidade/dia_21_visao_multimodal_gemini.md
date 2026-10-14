@@ -420,7 +420,7 @@ Tempo dedicado: 10 minutos (6 min para o Quiz + 4 min para a Atividade).
 Tempo dedicado: 15 minutos (preenchimento individual).
 
 Acesse o link do formulario disponibilizado pelo facilitador:
-[Preencher Formulario do Google Forms - Abertura da Sprint 3](https://docs.google.com/forms/d/{FORM_ID_DIA_21}/viewform)
+[Preencher Formulario do Google Forms - Abertura da Sprint 3](https://docs.google.com/forms/d/e/1FAIpQLSdiQyM-EcgO1MBsaaNpxcOS0BNjvIdiT1BZGmVnYeHCh3k50g/viewform)
 
 Pautas do formulario de hoje:
 - Expectativas individuais para a Sprint 3 e para o projeto OmniAssistant.

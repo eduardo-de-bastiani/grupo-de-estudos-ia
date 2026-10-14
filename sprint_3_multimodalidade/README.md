@@ -146,14 +146,14 @@ Para garantir aprendizagem ativa e retencao duradoura, cada dia conta com um Qui
 
 | Dia | Quiz Interativo Offline | Atividade Interativa Offline | Formulario Externo Reservado |
 | :---: | :--- | :--- | :--- |
-| 21 | [Quiz do Dia 21](quizzes/quiz_dia_21.html) | [Atividade do Dia 21](quizzes/atividade_dia_21.html) | [Abertura da sprint e feedback](https://docs.google.com/forms/d/{FORM_ID_DIA_21}/viewform) |
-| 22 | [Quiz do Dia 22](quizzes/quiz_dia_22.html) | [Atividade do Dia 22](quizzes/atividade_dia_22.html) | [Autoavaliacao diaria](https://docs.google.com/forms/d/1Oa6v8o_uwEkPI8FdZuQ2nYba7u0yrPsGXIkE5MiBCPk/viewform) |
-| 23 | [Quiz do Dia 23](quizzes/quiz_dia_23.html) | [Atividade do Dia 23](quizzes/atividade_dia_23.html) | [Autoavaliacao e fechamento da Semana 1](https://docs.google.com/forms/d/1Oa6v8o_uwEkPI8FdZuQ2nYba7u0yrPsGXIkE5MiBCPk/viewform) |
-| 24 | [Quiz do Dia 24](quizzes/quiz_dia_24.html) | [Atividade do Dia 24](quizzes/atividade_dia_24.html) | [Autoavaliacao diaria](https://docs.google.com/forms/d/1Oa6v8o_uwEkPI8FdZuQ2nYba7u0yrPsGXIkE5MiBCPk/viewform) |
-| 25 | [Quiz do Dia 25](quizzes/quiz_dia_25.html) | [Atividade do Dia 25](quizzes/atividade_dia_25.html) | [Autoavaliacao diaria](https://docs.google.com/forms/d/1Oa6v8o_uwEkPI8FdZuQ2nYba7u0yrPsGXIkE5MiBCPk/viewform) |
-| 26 | [Quiz do Dia 26](quizzes/quiz_dia_26.html) | [Atividade do Dia 26](quizzes/atividade_dia_26.html) | [Autoavaliacao diaria](https://docs.google.com/forms/d/1Oa6v8o_uwEkPI8FdZuQ2nYba7u0yrPsGXIkE5MiBCPk/viewform) |
-| 27 | [Quiz do Dia 27](quizzes/quiz_dia_27.html) | [Atividade do Dia 27](quizzes/atividade_dia_27.html) | [Autoavaliacao diaria e preparo do pitch](https://docs.google.com/forms/d/1Oa6v8o_uwEkPI8FdZuQ2nYba7u0yrPsGXIkE5MiBCPk/viewform) |
-| 28 | [Quiz Final do Dia 28](quizzes/quiz_dia_28.html) | [Atividade Final do Dia 28](quizzes/atividade_dia_28.html) | [Avaliacao final do programa completo](https://docs.google.com/forms/d/1bpnAe8jsH7VH5j7cS1qcF8g-yxKTuBVk3m3vDDjew9s/viewform) |
+| 21 | [Quiz do Dia 21](quizzes/quiz_dia_21.html) | [Atividade do Dia 21](quizzes/atividade_dia_21.html) | [Abertura da sprint e feedback](https://docs.google.com/forms/d/e/1FAIpQLSdiQyM-EcgO1MBsaaNpxcOS0BNjvIdiT1BZGmVnYeHCh3k50g/viewform) |
+| 22 | [Quiz do Dia 22](quizzes/quiz_dia_22.html) | [Atividade do Dia 22](quizzes/atividade_dia_22.html) | [Autoavaliacao diaria](https://docs.google.com/forms/d/e/1FAIpQLSdwTctKNV6uLhe9pquUsXs9LdK8-Z9kFlfSfTbU8Buwh7Nagg/viewform) |
+| 23 | [Quiz do Dia 23](quizzes/quiz_dia_23.html) | [Atividade do Dia 23](quizzes/atividade_dia_23.html) | [Autoavaliacao e fechamento da Semana 1](https://docs.google.com/forms/d/e/1FAIpQLSdwTctKNV6uLhe9pquUsXs9LdK8-Z9kFlfSfTbU8Buwh7Nagg/viewform) |
+| 24 | [Quiz do Dia 24](quizzes/quiz_dia_24.html) | [Atividade do Dia 24](quizzes/atividade_dia_24.html) | [Autoavaliacao diaria](https://docs.google.com/forms/d/e/1FAIpQLSdwTctKNV6uLhe9pquUsXs9LdK8-Z9kFlfSfTbU8Buwh7Nagg/viewform) |
+| 25 | [Quiz do Dia 25](quizzes/quiz_dia_25.html) | [Atividade do Dia 25](quizzes/atividade_dia_25.html) | [Autoavaliacao diaria](https://docs.google.com/forms/d/e/1FAIpQLSdwTctKNV6uLhe9pquUsXs9LdK8-Z9kFlfSfTbU8Buwh7Nagg/viewform) |
+| 26 | [Quiz do Dia 26](quizzes/quiz_dia_26.html) | [Atividade do Dia 26](quizzes/atividade_dia_26.html) | [Autoavaliacao diaria](https://docs.google.com/forms/d/e/1FAIpQLSdwTctKNV6uLhe9pquUsXs9LdK8-Z9kFlfSfTbU8Buwh7Nagg/viewform) |
+| 27 | [Quiz do Dia 27](quizzes/quiz_dia_27.html) | [Atividade do Dia 27](quizzes/atividade_dia_27.html) | [Autoavaliacao diaria e preparo do pitch](https://docs.google.com/forms/d/e/1FAIpQLSdwTctKNV6uLhe9pquUsXs9LdK8-Z9kFlfSfTbU8Buwh7Nagg/viewform) |
+| 28 | [Quiz Final do Dia 28](quizzes/quiz_dia_28.html) | [Atividade Final do Dia 28](quizzes/atividade_dia_28.html) | [Avaliacao final do programa completo](https://docs.google.com/forms/d/e/1FAIpQLSd5I5kPuuOmufuUmhSgY1khnjESNLWRdYCihhrTkFe7efuBMw/viewform) |
 
 > A especificacao completa das perguntas, escalas e instrucoes para geracao dos formularios no Google Forms estao disponiveis em [formularios/README.md](formularios/README.md).
 

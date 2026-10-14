@@ -317,7 +317,7 @@ Tempo dedicado: 10 minutos (6 min para o Quiz + 4 min para a Atividade).
 Tempo dedicado: 15 minutos (preenchimento individual).
 
 Acesse o link disponibilizado pelo facilitador:
-[Preencher Formulario do Google Forms - Dia 27](https://docs.google.com/forms/d/1Oa6v8o_uwEkPI8FdZuQ2nYba7u0yrPsGXIkE5MiBCPk/viewform)
+[Preencher Formulario do Google Forms - Dia 27](https://docs.google.com/forms/d/e/1FAIpQLSdwTctKNV6uLhe9pquUsXs9LdK8-Z9kFlfSfTbU8Buwh7Nagg/viewform)
 
 Pautas de hoje:
 - Nivel de confianca da squad para a apresentacao de amanha no Demo Day.
